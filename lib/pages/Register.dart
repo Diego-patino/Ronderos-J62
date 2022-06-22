@@ -25,6 +25,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _confirmpasswordcontroller = TextEditingController();
   final TextEditingController _nombrecontroller = TextEditingController();
   final TextEditingController _apellidocontroller = TextEditingController();
+  String MensajError1 = '';
 
   @override
   void dispose() {
@@ -38,22 +39,49 @@ class _RegisterPageState extends State<RegisterPage> {
 
   
   Future signUp(String email, String password) async{
-    if (passwordConfirmed()) {
-      //crea el usuario
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _emailcontroller.text.trim(),
-        password: _passwordcontroller.text.trim(),
+    
+    
+      if (passwordConfirmed()) {
+        try {
+          
+          //crea el usuario
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: _emailcontroller.text.trim(),
+            password: _passwordcontroller.text.trim(),
 
-        );
-         //agrega el usuario
+            );
+            //agrega el usuario
 
-          postDetailsToFirestore();
+              postDetailsToFirestore();
 
-        /* addUserDetails(
-          nombre:_nombrecontroller.text.trim(),
-          apellido: _apellidocontroller.text.trim(),
-          correo: _emailcontroller.text.trim()); */
+              MensajError1 ='';
+
+            /* addUserDetails(
+              nombre:_nombrecontroller.text.trim(),
+              apellido: _apellidocontroller.text.trim(),
+              correo: _emailcontroller.text.trim()); */
+          } on FirebaseAuthException catch (error) {
+            MensajError1 = error.message!;
+            
+            print(error);
+
+              if (MensajError1 == 'Given String is empty or null') {
+              final text = 'Porfavor ingrese los datos faltantes en los recuadros';
+              final snackBar = SnackBar(content: Text(text));
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              } if (MensajError1 == 'The email address is already in use by another account.') {
+              final text = 'El correo ingresado ya esta en uso';
+              final snackBar = SnackBar(content: Text(text));
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
+          
+          }
+    } else {
+        final text = 'Parametro de datos incorrectos';
+        final snackBar = SnackBar(content: Text(text));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
+        
   }
 
   Future postDetailsToFirestore() async {
@@ -147,7 +175,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       contentPadding: EdgeInsets.fromLTRB(20, 18, 20, 15),
                       border: OutlineInputBorder(),
                       hintText: '',
-                      labelText: 'Usuario',
+                      labelText: 'Nombre',
                       labelStyle: TextStyle(color: Colors.black45, fontSize: 18)
               
                     ),
@@ -185,8 +213,9 @@ class _RegisterPageState extends State<RegisterPage> {
               
                   Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 35.0),
-                      child: TextField(
+                      child: TextFormField(
                         controller: _emailcontroller,
+                        validator: validateEmail1,
                         keyboardType: TextInputType.emailAddress,
                         decoration: const InputDecoration(
                           prefixIcon: Icon(Icons.email_rounded, color: Colors.black54,),
@@ -301,7 +330,8 @@ class _RegisterPageState extends State<RegisterPage> {
                               fontSize: 19),
                                 ),
                               )
-                            ])
+                            ]),
+
               
             ],
           ),
@@ -310,3 +340,15 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
    }
+
+  String? validateEmail1(String? Correoform){
+  if (Correoform == null || Correoform.isEmpty) 
+    return 'Porfavor ingrese un correo';
+
+  String pattern = r'\w+@\w+\.\w+';
+  RegExp regex = RegExp(pattern);
+  if (!regex.hasMatch(Correoform)) return 'Porfavor ingrese un formato de correo valido';
+
+  return null;
+  
+}

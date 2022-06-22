@@ -16,18 +16,19 @@ class passwordtextfield extends StatefulWidget {
 }
 
 class _passwordtextfieldState extends State<passwordtextfield> {
+
+  
+
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      builder:(BuildContext context, AsyncSnapshot snapshot){
-        return Container(
+    return  Container(
           padding: EdgeInsets.symmetric(horizontal: 35.0),
 
-          child: TextField(
+          child: TextFormField(
             controller: contraController,
             keyboardType: TextInputType.emailAddress,
             obscureText: true,
-
+            validator: validatecontra,
             decoration: InputDecoration(
 
               icon: Icon(Icons.lock),
@@ -39,10 +40,23 @@ class _passwordtextfieldState extends State<passwordtextfield> {
             onChanged: (value){
 
             },
-          ),
-        );
-
-        } 
+          )
       );
   }
+}
+
+String? validatecontra(String? contraform){
+  if(contraform == null || contraform.isEmpty)
+  return 'Porfavor ingrese una contraseña';
+
+  String pattern = 
+    r'^(?=.*?[a-z])(?=.*?[0-9]).{6,}$';  //Tiene que tener => (Mayuscula)(Minuscula)(Numero).{6 digitos}
+    // Para simbolos es => ... (?=.*?[!@#\$&*~]) ...
+    // Para Mayusculas es => ... (?=.*?[A-Z]) ...
+    RegExp regex = RegExp(pattern);
+    if (!regex.hasMatch(contraform))
+    return '''
+    La contraseña tiene que tener por lo menos:
+    6 digitos incluyendo un número''';
+  return null;
 }
