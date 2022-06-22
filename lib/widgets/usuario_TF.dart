@@ -4,6 +4,7 @@ import 'package:testfirebase/clases/auth_service.dart';
 import 'package:testfirebase/widgets/usuario_TF.dart';
 import 'package:testfirebase/widgets/contra_TF.dart';
 import 'package:testfirebase/widgets/button_login.dart';
+import 'package:testfirebase/widgets/validators.dart';
 
 
 
@@ -39,16 +40,4 @@ class userTextFieldState extends State<userTextField> {
           ),
         ); 
     }
-}
-
-String? validateEmail(String? Correoform){
-  if (Correoform == null || Correoform.isEmpty) 
-    return 'Porfavor ingrese un correo';
-
-  String pattern = r'\w+@\w+\.\w+';
-  RegExp regex = RegExp(pattern);
-  if (!regex.hasMatch(Correoform)) return 'Porfavor ingrese un formato de correo valido';
-
-  return null;
-  
 }

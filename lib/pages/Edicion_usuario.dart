@@ -27,17 +27,17 @@ class _Edicion_usuarioState extends State<Edicion_usuario> {
     File? image;
     UploadTask? uploadTask;
 
-    Future pickImage() async{
+  Future pickImage() async{
       try {
-  final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-  if (image == null) return ;
+        final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+        if (image == null) return ;
   
-  final imagetemporary = File(image.path);
-      setState(() => this.image = imagetemporary);
-    } on PlatformException catch (e) {
-      print('Fallo tu wbada');
-    }
+    final imagetemporary = File(image.path);
+          setState(() => this.image = imagetemporary);
+        } on PlatformException catch (e) {
+          print('Fallo');
         }
+  }
     
   Future uploadFile(BuildContext context) async{
     final path = 'UsuariosAppFotos/${Usuario_logeado.correo}/${Usuario_logeado.uid}.png';
@@ -59,7 +59,7 @@ class _Edicion_usuarioState extends State<Edicion_usuario> {
         if (userModel.FotoMomentanea != null) {
           
               userModel.FotoMomentanea = URLFoto;
-              print('tu webada salio bien:  ${userModel.FotoMomentanea}');
+              print('salio bien:  ${userModel.FotoMomentanea}');
         } else {
           print('nada loco pipipippippipi');
         }
@@ -117,7 +117,7 @@ class _Edicion_usuarioState extends State<Edicion_usuario> {
 
   }
 
-  ChangeUserFoto() {
+ /* ChangeUserFoto() {
     print("Modificación");
     usuarios123 userModel2 = usuarios123();
        print(userModel2.FotoMomentanea);
@@ -129,7 +129,7 @@ class _Edicion_usuarioState extends State<Edicion_usuario> {
         })
         .then((value) => print("User Updated"))
         .catchError((error) => print("Failed to update user: $error"));
-  }
+  } */
 
     UserModel Usuario_logeado = UserModel();
     // User? user1 = FirebaseAuth.instance.currentUser!;

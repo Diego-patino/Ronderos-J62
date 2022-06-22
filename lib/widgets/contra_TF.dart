@@ -4,6 +4,7 @@ import 'package:testfirebase/clases/auth_service.dart';
 import 'package:testfirebase/widgets/usuario_TF.dart';
 import 'package:testfirebase/widgets/contra_TF.dart';
 import 'package:testfirebase/widgets/button_login.dart';
+import 'package:testfirebase/widgets/validators.dart';
 
   
 final TextEditingController contraController = TextEditingController();
@@ -43,20 +44,4 @@ class _passwordtextfieldState extends State<passwordtextfield> {
           )
       );
   }
-}
-
-String? validatecontra(String? contraform){
-  if(contraform == null || contraform.isEmpty)
-  return 'Porfavor ingrese una contraseña';
-
-  String pattern = 
-    r'^(?=.*?[a-z])(?=.*?[0-9]).{6,}$';  //Tiene que tener => (Mayuscula)(Minuscula)(Numero).{6 digitos}
-    // Para simbolos es => ... (?=.*?[!@#\$&*~]) ...
-    // Para Mayusculas es => ... (?=.*?[A-Z]) ...
-    RegExp regex = RegExp(pattern);
-    if (!regex.hasMatch(contraform))
-    return '''
-    La contraseña tiene que tener por lo menos:
-    6 digitos incluyendo un número''';
-  return null;
 }
