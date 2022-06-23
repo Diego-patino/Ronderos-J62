@@ -37,28 +37,26 @@ class _Edicion_usuarioState extends State<Edicion_usuario> {
         } on PlatformException catch (e) {
           print('Fallo');
         }
+      print('la ruta es: ${image}');
   }
     
   Future uploadFile(BuildContext context) async{
-    final path = 'UsuariosAppFotos/${Usuario_logeado.correo}/${Usuario_logeado.uid}.png';
-    final file = File(image!.path);
+   usuarios123 userModel = usuarios123();
 
-          //UserModel userModel = UserModel();
-          usuarios123 userModel = usuarios123();
-
-          final ref = FirebaseStorage.instance.ref().child(path);
+         if (image != null) {
+           final path = 'UsuariosAppFotos/${Usuario_logeado.correo}/${Usuario_logeado.uid}.png';
+           final file = File(image!.path);
+           final ref = FirebaseStorage.instance.ref().child(path);
           setState(() {
             uploadTask =  ref.putFile(file);
           });
 
-    final snapshot = await uploadTask!.whenComplete(() {});
-    final URLFoto = await snapshot.ref.getDownloadURL();
+          final snapshot = await uploadTask!.whenComplete(() {});
+          final URLFoto = await snapshot.ref.getDownloadURL();
 
               userModel.FotoMomentanea = URLFoto;
 
         if (userModel.FotoMomentanea != null) {
-          
-              userModel.FotoMomentanea = URLFoto;
               print('salio bien:  ${userModel.FotoMomentanea}');
         } else {
           print('nada loco pipipippippipi');
@@ -66,16 +64,28 @@ class _Edicion_usuarioState extends State<Edicion_usuario> {
             setState(() {
               uploadTask = null;
             });
-
+         } if (image == null){
+          userModel.FotoMomentanea = Usuario_logeado.foto;
+         }
+         
       
         print("Modificación");
         DocumentReference documentReference =
             FirebaseFirestore.instance.collection("UsuariosApp").doc(Usuario_logeado.uid);
         documentReference
             .update({
+              if(userModel.FotoMomentanea != null)
               "foto" : userModel.FotoMomentanea.toString(),
+              if(userModel.FotoMomentanea == null)
+              "foto" : Usuario_logeado.foto,
+              if(_nombrecontroller.text.isNotEmpty)
               "nombre" : _nombrecontroller.text,
+              if(_nombrecontroller.text.isEmpty)
+              "nombre" : Usuario_logeado.nombre,
+              if(_apellidocontroller.text.isNotEmpty)
               "apellido": _apellidocontroller.text,
+              if(_apellidocontroller.text.isEmpty)
+              "apellido": Usuario_logeado.apellido,
             })
             
             .then((value) => print("User Updated"))
@@ -90,12 +100,15 @@ class _Edicion_usuarioState extends State<Edicion_usuario> {
         FirebaseAuth.instance
         .signInWithEmailAndPassword(email: user.email!, password: Usuario_logeado.contrasena!)
         .then((userCredential) {
+            if(_passwordcontroller.text.isNotEmpty )
             userCredential.user!.updatePassword(newPassword);
+            if(_passwordcontroller.text.isEmpty )
+            userCredential.user!.updatePassword(Usuario_logeado.contrasena!);
             print(Usuario_logeado.contrasena);
             print('dale papi todo good');
         });
       } catch (e) {
-        print('puta loco:(');
+        print(' loco:(');
         
       }
     }
@@ -104,7 +117,10 @@ class _Edicion_usuarioState extends State<Edicion_usuario> {
             FirebaseFirestore.instance.collection("UsuariosApp").doc(Usuario_logeado.uid);
         documentReference
             .update({
+            if(_passwordcontroller.text.isNotEmpty || _confirmpasswordcontroller.text.isNotEmpty)
               "contrasena" : _passwordcontroller.text,
+            if(_passwordcontroller.text.isEmpty || _confirmpasswordcontroller.text.isEmpty)
+              "contrasena" : Usuario_logeado.contrasena,
             })
             
             .then((value) => print("User Updated"))
@@ -144,7 +160,6 @@ class _Edicion_usuarioState extends State<Edicion_usuario> {
     final TextEditingController _confirmpasswordcontroller = TextEditingController();
     final TextEditingController _nombrecontroller = TextEditingController();
     final TextEditingController _apellidocontroller = TextEditingController();
-
     @override
     void dispose() {
       _passwordcontroller.dispose();
@@ -177,6 +192,7 @@ class _Edicion_usuarioState extends State<Edicion_usuario> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        title: Text('Editar Perfil', style: GoogleFonts.balooPaaji2(textStyle:TextStyle(color: Colors.black, fontSize: 25))),
         leading: IconButton(
           onPressed: (){
             Navigator.push(context, MaterialPageRoute(
@@ -198,35 +214,60 @@ class _Edicion_usuarioState extends State<Edicion_usuario> {
                   const SizedBox(height: 10.0,),
                   Stack(
                     children:<Widget>[
+                      Stack(
+                        children:[
                       image!= null?
-                      ClipOval(
-                        child: Image.file(image!,
-                        width: 220,
-                        height: 220,
-                        fit: BoxFit.cover,),
-                      )
-                      //Image.file(image!, width: 100, height: 100,) 
-                      :CircleAvatar(
-                              radius: 110.0,
-                              backgroundImage: NetworkImage(
-                                Usuario_logeado.foto.toString(),
-                                
+                          ClipOval(
+                            child: Image.file(image!,
+                            width: 220,
+                            height: 220,
+                            fit: BoxFit.cover,),
+                          ): CircleAvatar(
+                                  radius: 110.0,
+                                  backgroundImage: NetworkImage(
+                                    Usuario_logeado.foto.toString(),
+                                    
+                                  ),
+                                ),
+                          
+                          Container(
+                            width: 220,
+                            height: 220,
+                            decoration: BoxDecoration(
+                              color: Colors.black26,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [],
                               ),
                             ),
-                      Positioned(
-                        right: 10,
-                        top: 5,
-                        child: ClipRRect(
-                          child: InkWell(
-                            splashColor: Colors.white10,
-                            child: InkWell(
-                                onTap:() {
-                                  pickImage();
-                                },
-                                child: Icon(Icons.camera_alt, size: 60, color: Colors.lightGreen,),
-                    ),
+                          Container(
+                            width: 220,
+                            height: 220,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  InkWell(
+                                    splashColor: Colors.white,
+                                    child: InkWell(
+                                      onTap:() {
+                                          pickImage();
+                                          },
+                                      child: Icon(Icons.photo_camera, size: 70, color: Colors.greenAccent,),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            
                           ),
-                        ) ),
+                        
+                        ]
+                      )
+                      //Image.file(image!, width: 100, height: 100,) 
+                                             
                     ],
                   ),
                   
@@ -243,6 +284,7 @@ class _Edicion_usuarioState extends State<Edicion_usuario> {
                               focusedBorder: OutlineInputBorder_focused,
                               contentPadding: EdgeInsets.fromLTRB(20, 18, 20, 15),
                               labelText: 'Nombre',
+                              semanticCounterText: 'sasdas',
                               hintText: "${Usuario_logeado.nombre}",
                               labelStyle: labelstyle1,
                               hintStyle: TextStyle(color: Colors.black87, fontSize: 18),
