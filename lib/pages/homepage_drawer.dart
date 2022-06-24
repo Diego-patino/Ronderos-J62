@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:testfirebase/models/Users.dart';
+import 'package:testfirebase/pages/Configuracion.dart';
 import 'package:testfirebase/pages/HomePage.dart';
 import 'package:testfirebase/pages/Administrar_familia.dart';
 import 'package:testfirebase/pages/Unirse_familia.dart';
@@ -176,7 +177,7 @@ class _MainDrawerState extends State<MainDrawer> {
                     ],
                   ): const SizedBox(height: 55.0,),
 
-                  const SizedBox(height: 35.0,),
+                  const SizedBox(height: 150.0,),
 
 
                   Column(
@@ -184,39 +185,13 @@ class _MainDrawerState extends State<MainDrawer> {
                       children: [
                         
                         RaisedButton(
-                          padding: const EdgeInsets.symmetric(horizontal: 73),
-                          shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                          onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(
-                                   builder: (context) =>
-                                    Unirse_familia()));},
-                            child: const Text("UNIRSE",
-                          style: TextStyle(
-                              fontSize: 15,
-                              letterSpacing: 2.2,
-                              color: Colors.black)), ),
-                        RaisedButton(
-                          padding: const EdgeInsets.symmetric(horizontal: 43),
-                          shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                          onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(
-                                   builder: (context) =>
-                                    Administrar_familia()));},
-                            child: const Text("ADMINISTRAR",
-                          style: TextStyle(
-                              fontSize: 15,
-                              letterSpacing: 2.2,
-                              color: Colors.black)), ),
-                        RaisedButton(
                           padding: const EdgeInsets.symmetric(horizontal: 33),
                           shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20)),
                           onPressed: (){
                           Navigator.push(context, MaterialPageRoute(
                                    builder: (context) =>
-                                    Edicion_usuario()));},
+                                    Configuracion()));},
                             child: const Text("CONFIGURACION",
                           style: TextStyle(
                               fontSize: 15,

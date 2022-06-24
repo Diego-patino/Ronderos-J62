@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 String? validateEmail(String? Correoform){
   if (Correoform == null || Correoform.isEmpty) 
     return 'Porfavor ingrese un correo';
@@ -55,6 +56,13 @@ String? validateapellido(String? apellidoform){
     RegExp regex = RegExp(pattern);
     if (!regex.hasMatch(apellidoform))
     return 'Ingresar solo letras en el apellido';
+
+  return null;
+}
+
+String? validatecontraactual(String? contraform){
+  if(contraform == null || contraform.isEmpty)
+  return 'Porfavor coloque su contraseña';
 
   return null;
 }

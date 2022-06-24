@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:testfirebase/models/Users.dart';
 import 'package:testfirebase/models/usuarios123.dart';
+import 'package:testfirebase/pages/Configuracion.dart';
 import 'package:testfirebase/pages/HomePage.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
@@ -94,42 +95,12 @@ class _Edicion_usuarioState extends State<Edicion_usuario> {
           print('Nueva Foto: ${userModel.FotoMomentanea}');
 
           
-    final newPassword = _passwordcontroller.text;
-   if (passwordConfirmed()) {
-        try {
-        FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: user.email!, password: Usuario_logeado.contrasena!)
-        .then((userCredential) {
-            if(_passwordcontroller.text.isNotEmpty )
-            userCredential.user!.updatePassword(newPassword);
-            if(_passwordcontroller.text.isEmpty )
-            userCredential.user!.updatePassword(Usuario_logeado.contrasena!);
-            print(Usuario_logeado.contrasena);
-            print('dale papi todo good');
-        });
-      } catch (e) {
-        print(' loco:(');
-        
-      }
-    }
-    print("Modificación");
-         documentReference =
-            FirebaseFirestore.instance.collection("UsuariosApp").doc(Usuario_logeado.uid);
-        documentReference
-            .update({
-            if(_passwordcontroller.text.isNotEmpty || _confirmpasswordcontroller.text.isNotEmpty)
-              "contrasena" : _passwordcontroller.text,
-            if(_passwordcontroller.text.isEmpty || _confirmpasswordcontroller.text.isEmpty)
-              "contrasena" : Usuario_logeado.contrasena,
-            })
-            
-            .then((value) => print("User Updated"))
-            .catchError((error) => print("Failed to update user: $error"));
-            print('Nueva contra: ${Usuario_logeado.contrasena}');
-
     await FirebaseAuth.instance.signOut();
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => SignInPage()));
+
+        final snackBar = SnackBar(content: Text("Los cambios se guardaron, porfavor vuelva a logearse"));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
   }
 
@@ -147,8 +118,8 @@ class _Edicion_usuarioState extends State<Edicion_usuario> {
         .catchError((error) => print("Failed to update user: $error"));
   } */
 
-    UserModel Usuario_logeado = UserModel();
     // User? user1 = FirebaseAuth.instance.currentUser!;
+    UserModel Usuario_logeado = UserModel();
     final user= FirebaseAuth.instance.currentUser!;
     final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
     final style1 = TextStyle(fontSize: 40, fontWeight: FontWeight.bold);
@@ -197,7 +168,7 @@ class _Edicion_usuarioState extends State<Edicion_usuario> {
           onPressed: (){
             Navigator.push(context, MaterialPageRoute(
                                  builder: (context) =>
-                                  HomePage123()));
+                                  Configuracion()));
           },
           icon: Icon(Icons.arrow_back_sharp, color: Colors.lightGreen, size: 30,)),
       ),
@@ -211,7 +182,7 @@ class _Edicion_usuarioState extends State<Edicion_usuario> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   
-                  const SizedBox(height: 10.0,),
+                  const SizedBox(height: 30.0,),
                   Stack(
                     children:<Widget>[
                       Stack(
@@ -284,7 +255,6 @@ class _Edicion_usuarioState extends State<Edicion_usuario> {
                               focusedBorder: OutlineInputBorder_focused,
                               contentPadding: EdgeInsets.fromLTRB(20, 18, 20, 15),
                               labelText: 'Nombre',
-                              semanticCounterText: 'sasdas',
                               hintText: "${Usuario_logeado.nombre}",
                               labelStyle: labelstyle1,
                               hintStyle: TextStyle(color: Colors.black87, fontSize: 18),
@@ -318,85 +288,49 @@ class _Edicion_usuarioState extends State<Edicion_usuario> {
                             },
                           ),
                         ),
-                    const SizedBox(height: 15.0,),
 
-                    Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 35.0),
-                          child: TextField(
-                            controller: _passwordcontroller,
-                            obscureText: true,
-                            keyboardType: TextInputType.emailAddress,
-                            decoration: InputDecoration(
-                              prefixIcon: Icon(Icons.key_rounded, color: Colors.black54,),
-                              enabledBorder: outlineInputBorder_enabled,
-                              focusedBorder: OutlineInputBorder_focused,
-                              contentPadding: EdgeInsets.fromLTRB(20, 18, 20, 15),
-                              labelText: 'Nueva Contraseña',
-                              labelStyle: labelstyle1,
-                  
-                            ),
-                            onChanged: (value){
-                  
-                            },
-                          ),
-                        ),
-                    const SizedBox(height: 15.0,),
-
-                    Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 35.0),
-                          child: TextField(
-                            controller: _confirmpasswordcontroller,
-                            obscureText: true,
-                            keyboardType: TextInputType.emailAddress,
-                            decoration: InputDecoration(
-                              prefixIcon: Icon(Icons.key_rounded, color: Colors.black54,),
-                              enabledBorder: outlineInputBorder_enabled,
-                              focusedBorder: OutlineInputBorder_focused,
-                              contentPadding: EdgeInsets.fromLTRB(20, 18, 20, 15),
-                              labelText: 'Repetir Contraseña',
-                              labelStyle: labelstyle1,
-                  
-                            ),
-                            onChanged: (value){
-                  
-                            },
-                          ),
-                        ),
-
-                    const SizedBox(height: 45.0,),
+                    const SizedBox(height: 25.0,),
                     Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  RaisedButton(
-                    padding: const EdgeInsets.symmetric(horizontal: 40),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(
-                                 builder: (context) =>
-                                  HomePage123()));
-                    },
-                    child: const Text("CANCELAR",
-                        style: TextStyle(
-                            fontSize: 15,
-                            letterSpacing: 2.2,
-                            color: Colors.black)),
-                  ),
-                  RaisedButton(
-                    onPressed: () {
-                      uploadFile(context);
-                    },
-                    color: Colors.green,
-                    padding: const EdgeInsets.symmetric(horizontal: 40),
-                    elevation: 2,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    child: const Text(
-                      "GUARDAR",
-                      style: TextStyle(
-                          fontSize: 15,
-                          letterSpacing: 2.2,
-                          color: Colors.white),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    child: Wrap(
+                      spacing: 15,
+                      children: [
+                        RaisedButton(
+                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(
+                                       builder: (context) =>
+                                        HomePage123()));
+                          },
+                          child: const Text("CANCELAR",
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  letterSpacing: 2.2,
+                                  color: Colors.black)),
+                        ),
+                        RaisedButton(
+                          onPressed: () {
+                            uploadFile(context);
+                          },
+                          color: Colors.green,
+                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                          elevation: 2,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                          child: const Text(
+                            "GUARDAR",
+                            style: TextStyle(
+                                fontSize: 15,
+                                letterSpacing: 2.2,
+                                color: Colors.white),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
