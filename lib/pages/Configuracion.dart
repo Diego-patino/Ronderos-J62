@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:testfirebase/models/Config_opciones.dart';
 import 'package:testfirebase/pages/Administrar_familia.dart';
+import 'package:testfirebase/pages/Borrar_cuenta.dart';
 import 'package:testfirebase/pages/Cambiar_contra.dart';
 import 'package:testfirebase/pages/Edicion_usuario.dart';
 
@@ -93,7 +94,7 @@ class _ConfiguracionState extends State<Configuracion> {
                               onTap: (){
                                 Navigator.push(context, MaterialPageRoute(
                                  builder: (context) =>
-                                  config2.materialPageRoute == "salirfamily"? HomePage123() : HomePage123()));
+                                  config2.materialPageRoute == "salirfamily"? HomePage123() : BorrarCuenta()));
                               },
                             );
                           },

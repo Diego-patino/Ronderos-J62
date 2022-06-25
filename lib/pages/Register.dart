@@ -210,7 +210,6 @@ class _RegisterPageState extends State<RegisterPage> {
                           controller: _apellidocontroller,
                           keyboardType: TextInputType.name,
                           decoration: const InputDecoration(
-                            
                             errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.redAccent, width: 3)),
                             focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.greenAccent, width: 3)) ,
                             prefixIcon: Icon(Icons.account_circle_rounded, color: Colors.black54,),
