@@ -41,7 +41,7 @@ class _BorrarCuentaState extends State<BorrarCuenta> {
                       title: Text("Esta accion borrara tu cuenta de por vida",),
                       subtitle: Text("Al iniciar el proceso de eliminacion de tu cuenta,tu perfil y tus datos se eliminaran completamente de nuestra base de datos y tambien se te eliminara automaticamente de la familia a la que perteneces  "),
                     ),
-                    SizedBox(height: 30,),
+                    SizedBox(height: 80,),
 
                     Text("SI ESTAS SEGURO DA CLICK EN PROCEDER", 
                     textAlign: TextAlign.center,

@@ -66,7 +66,9 @@ class _Administrar_familiaState extends State<Administrar_familia> {
   
   Future createData() async {
     print("created");
-
+    if (_nombrecontroller.text.isNotEmpty) {
+      if (_apellidocontroller.text.isNotEmpty) {
+         try {
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
         Familiamodel familiamodel = Familiamodel();
@@ -80,11 +82,25 @@ class _Administrar_familiaState extends State<Administrar_familia> {
             .collection('${Usuario_logeado.familia}')
             .doc(_arbolcontroller.text)
             .set(familiamodel.toMap());
+      } catch (e) {
+        print(e);
+        final snackBar = SnackBar(content: Text("Llena toda la informacion del familiar que quieres agregar"));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        }
+      } 
+        final snackBar = SnackBar(content: Text("Ingresa su apellido"));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } 
+        final snackBar = SnackBar(content: Text("Ingresa su nombre"));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+     
+        
   }
 
   DeleteData() {
     print("Eliminar");
-
+    try {
+      
     DocumentReference documentReference =
         FirebaseFirestore.instance.collection("${Usuario_logeado.familia}").doc('${_arbolcontroller.text}');
 
@@ -92,6 +108,12 @@ class _Administrar_familiaState extends State<Administrar_familia> {
         .delete()
         .then((value) => print("Familiar eliminado"))
         .catchError((error) => print("Failed to delete student: $error"));
+    } catch (e) {
+        final snackBar = SnackBar(content: Text("Ingresa el familiar que quieras borrar en el arbol"));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      
+      
+    }
   }
 
 

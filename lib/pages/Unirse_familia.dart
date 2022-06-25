@@ -11,6 +11,7 @@ import 'package:testfirebase/models/Familia.dart';
 import 'package:testfirebase/pages/HomePage.dart';
 import 'package:testfirebase/pages/homepage_drawer.dart';
 import 'package:testfirebase/pages/Edicion_usuario.dart';
+import 'package:testfirebase/widgets/validators.dart';
 import 'dart:ffi';
 
 import '../models/Users.dart';
@@ -45,11 +46,15 @@ class _Unirse_familiaState extends State<Unirse_familia> {
     final outlineInputBorder_enabled =OutlineInputBorder(borderSide: BorderSide(color: Colors.black12, width: 2.5),);
     final OutlineInputBorder_focused = OutlineInputBorder(borderSide: BorderSide(color: Colors.greenAccent, width: 3));
     final labelstyle1 = TextStyle(color: Colors.black45, fontSize: 18);
+    final _formKey = GlobalKey<FormState>();
 
   Future createData(BuildContext context) async {
-    print("created");
+    print("created");    
 
-        FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    if (_formKey.currentState!.validate()) {
+      
+      try {
+      FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
           User? user = FirebaseAuth.instance.currentUser;
 
           Familiamodel familiamodel = Familiamodel();
@@ -62,9 +67,18 @@ class _Unirse_familiaState extends State<Unirse_familia> {
 
           await firebaseFirestore
             .collection(_familiacontroller.text)
-            .doc(_arbolcontroller.text)
+            .doc('${Usuario_logeado.nombre}_${Usuario_logeado.apellido}')
             .set(familiamodel.toMap());
 
+            updateData(context);
+
+           } catch (e) {
+
+            final snackBar = SnackBar(content: Text("Porfavor ingresa el nombre de la familia y que miembro eres"));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      
+        } 
+    }     
   }
 
   Future updateData(BuildContext context) async {
@@ -73,6 +87,8 @@ class _Unirse_familiaState extends State<Unirse_familia> {
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
         UserModel userModel = UserModel();
 
+     try {
+       
         // writing all the values
         userModel.correo = user.email;
         userModel.uid = user.uid;
@@ -86,10 +102,12 @@ class _Unirse_familiaState extends State<Unirse_familia> {
             .doc(user.uid)
             .set(userModel.toMap());
 
-    
-    Navigator.of(context).pushReplacement(
+        Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => HomePage123()));
 
+     } catch (e) {
+       print(e);
+     }
   }
 
 
@@ -134,105 +152,113 @@ class _Unirse_familiaState extends State<Unirse_familia> {
           child: SafeArea(
             child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
-              child: Center(
-                child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                      child:  Text('Registrate a una familia!',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.comfortaa(textStyle: TextStyle(fontSize: 30), fontWeight: FontWeight.bold) ),
-                    ),
-  
-                   
-                    const SizedBox(height: 10.0,),
-
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                      child: Text('Si aun no cuentas con una familia, ingresa el nombre de la familia y que integrante eres',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.pacifico(textStyle: TextStyle(fontSize: 30)) ),
-                    ),
-
-                    
-                    const SizedBox(height: 80.0,),
-                    
+              child: Form(
+                key: _formKey,
+                child: Center(
+                  child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
                       Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 35.0),
-                            child: TextField(
-                              controller: _familiacontroller,
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(Icons.groups_rounded, color: Colors.black54,),
-                                enabledBorder: outlineInputBorder_enabled,
-                                focusedBorder: OutlineInputBorder_focused,
-                                contentPadding: EdgeInsets.fromLTRB(20, 18, 20, 15),
-                                labelText: 'Nombre de Familia',
-                                labelStyle: labelstyle1,
-                    
-                              ),
-                              onChanged: (value){
-                    
-                              },
-                            ),
-                          ),
-                      const SizedBox(height: 15.0,),
-
-                      Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 35.0),
-                            child: TextField(
-                              controller: _arbolcontroller,
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(Icons.person_add, color: Colors.black54,),
-                                enabledBorder: outlineInputBorder_enabled,
-                                focusedBorder: OutlineInputBorder_focused,
-                                contentPadding: EdgeInsets.fromLTRB(20, 18, 20, 15),
-                                labelText: 'Miembro de Familia',
-                                labelStyle: labelstyle1,
-                    
-                              ),
-                              onChanged: (value){
-                    
-                              },
-                            ),
-                          ),
-
-                      const SizedBox(height: 25.0,),
-                      Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    RaisedButton(
-                      onPressed: () {
-                        createData(context);
-                        updateData(context);
-                      },
-                      color: Colors.green,
-                      padding: const EdgeInsets.symmetric(horizontal: 40),
-                      elevation: 2,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      child: const Text(
-                        "GUARDAR",
-                        style: TextStyle(
-                            fontSize: 15,
-                            letterSpacing: 2.2,
-                            color: Colors.white),
+                        padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                        child:  Text('Registrate a una familia!',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.comfortaa(textStyle: TextStyle(fontSize: 30), fontWeight: FontWeight.bold) ),
                       ),
-                    ),
-                  ],
-                )
-                     /* Padding(
-                      padding:EdgeInsets.only(top: 20),
-                      child: IconButton(
-                        onPressed:() {
-                          ChangeUserFoto();
+                
+                     
+                      const SizedBox(height: 10.0,),
+              
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                        child: Text('Si aun no cuentas con una familia, ingresa el nombre de la familia y que integrante eres',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.pacifico(textStyle: TextStyle(fontSize: 30)) ),
+                      ),
+              
+                      
+                      const SizedBox(height: 80.0,),
+                      
+                        Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 35.0),
+                              child: TextFormField(
+                                validator: validategeneral,
+                                controller: _familiacontroller,
+                                decoration: InputDecoration(
+                                  errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.redAccent, width: 3)),
+                                  focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.greenAccent, width: 3)),
+                                  prefixIcon: Icon(Icons.groups_rounded, color: Colors.black54,),
+                                  enabledBorder: outlineInputBorder_enabled,
+                                  focusedBorder: OutlineInputBorder_focused,
+                                  contentPadding: EdgeInsets.fromLTRB(20, 18, 20, 15),
+                                  labelText: 'Nombre de Familia',
+                                  labelStyle: labelstyle1,
+                      
+                                ),
+                                onChanged: (value){
+                      
+                                },
+                              ),
+                            ),
+                        const SizedBox(height: 15.0,),
+              
+                        Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 35.0),
+                              child: TextFormField(
+                                validator: validategeneral,
+                                controller: _arbolcontroller,
+                                decoration: InputDecoration(
+                                  errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.redAccent, width: 3)),
+                                  focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.greenAccent, width: 3)),
+                                  prefixIcon: Icon(Icons.person_add, color: Colors.black54,),
+                                  enabledBorder: outlineInputBorder_enabled,
+                                  focusedBorder: OutlineInputBorder_focused,
+                                  contentPadding: EdgeInsets.fromLTRB(20, 18, 20, 15),
+                                  labelText: 'Miembro de Familia',
+                                  labelStyle: labelstyle1,
+                      
+                                ),
+                                onChanged: (value){
+                      
+                                },
+                              ),
+                            ),
+              
+                        const SizedBox(height: 25.0,),
+                        Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      RaisedButton(
+                        onPressed: () {
+                          createData(context);
                         },
-                        icon: Icon(Icons.person_add, size: 20,),
-                        iconSize: 30,
-                      ), ),*/
-                    
-                              ],
+                        color: Colors.green,
+                        padding: const EdgeInsets.symmetric(horizontal: 40),
+                        elevation: 2,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        child: const Text(
+                          "GUARDAR",
+                          style: TextStyle(
+                              fontSize: 15,
+                              letterSpacing: 2.2,
+                              color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  )
+                       /* Padding(
+                        padding:EdgeInsets.only(top: 20),
+                        child: IconButton(
+                          onPressed:() {
+                            ChangeUserFoto();
+                          },
+                          icon: Icon(Icons.person_add, size: 20,),
+                          iconSize: 30,
+                        ), ),*/
+                      
+                                ],
+                  ),
                 ),
               ),
             ),

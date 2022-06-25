@@ -66,3 +66,10 @@ String? validatecontraactual(String? contraform){
 
   return null;
 }
+
+String? validategeneral(String? generalform){
+  if(generalform == null || generalform.isEmpty)
+  return 'Porfavor llena el recuadro.';
+
+  return null;
+}
