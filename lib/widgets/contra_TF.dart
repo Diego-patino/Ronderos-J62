@@ -18,6 +18,7 @@ class passwordtextfield extends StatefulWidget {
 
 class _passwordtextfieldState extends State<passwordtextfield> {
 
+  bool _secureText1 = true;
   
 
   @override
@@ -28,13 +29,22 @@ class _passwordtextfieldState extends State<passwordtextfield> {
           child: TextFormField(
             controller: contraController,
             keyboardType: TextInputType.emailAddress,
-            obscureText: true,
+            obscureText: _secureText1,
             validator: validatecontra,
             decoration: InputDecoration(
-
-              icon: Icon(Icons.lock),
-              hintText: 'Contraseña',
-              labelText: 'Contraseña',
+            suffixIcon: IconButton(
+               onPressed: (){
+                  setState(() {
+                     _secureText1 = !_secureText1;
+                     });
+                    }, 
+                  icon: Icon(
+                _secureText1? Icons.no_encryption_gmailerrorred : Icons.remove_red_eye,
+                 color: _secureText1? Colors.black54 : Colors.green,
+              )),
+            icon: Icon(Icons.key),
+            hintText: 'Contraseña',
+            labelText: 'Contraseña',
 
             ),
 

@@ -43,6 +43,9 @@ class _CambiarcontraState extends State<Cambiarcontra> {
     final _formKey = GlobalKey<FormState>();
     String MensajError1 = '';
     bool cargando = false;
+    bool _secureText1 = true;
+    bool _secureText2 = true;
+    bool _secureText3 = true;
 
     @override
     void dispose() {
@@ -193,9 +196,7 @@ class _CambiarcontraState extends State<Cambiarcontra> {
         // title: Text('', style: GoogleFonts.balooPaaji2(textStyle:TextStyle(color: Colors.black, fontSize: 25))),
         leading: IconButton(
           onPressed: (){
-            Navigator.push(context, MaterialPageRoute(
-                                 builder: (context) =>
-                                  Configuracion()));
+             Navigator.of(context).pop();
           },
           icon: Icon(Icons.arrow_back_sharp, color: Colors.lightGreen, size: 30,)),
       ),
@@ -230,9 +231,19 @@ class _CambiarcontraState extends State<Cambiarcontra> {
                             child: TextFormField(
                               controller: _passwordcontroller,
                               validator: validatecontraactual,
-                              obscureText: true,
+                              obscureText: _secureText1,
                               keyboardType: TextInputType.emailAddress,
                               decoration: InputDecoration(
+                                suffixIcon: IconButton(
+                                  onPressed: (){
+                                    setState(() {
+                                      _secureText1 = !_secureText1;
+                                    });
+                                  }, 
+                                  icon: Icon(
+                                    _secureText1? Icons.no_encryption_gmailerrorred : Icons.remove_red_eye,
+                                    color: _secureText1? Colors.red : Colors.green,
+                                    )),
                                 prefixIcon: Icon(Icons.key_rounded, color: Colors.black54,),
                                 errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.redAccent, width: 3)),
                                 focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.greenAccent, width: 3)) ,
@@ -256,11 +267,21 @@ class _CambiarcontraState extends State<Cambiarcontra> {
                             child: TextFormField(
                               validator: validatecontra,
                               controller: _newpasswordcontroller,
-                              obscureText: true,
+                              obscureText: _secureText2,
                               keyboardType: TextInputType.emailAddress,
                               decoration: InputDecoration(
                                 errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.redAccent, width: 3)),
                                 focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.greenAccent, width: 3)) ,
+                                suffixIcon: IconButton(
+                                  onPressed: (){
+                                    setState(() {
+                                      _secureText2 = !_secureText2;
+                                    });
+                                  }, 
+                                  icon: Icon(
+                                    _secureText2? Icons.no_encryption_gmailerrorred : Icons.remove_red_eye,
+                                    color: _secureText2? Colors.red : Colors.green,
+                                    )),
                                 prefixIcon: Icon(Icons.key_rounded, color: Colors.black54,),
                                 enabledBorder: outlineInputBorder_enabled,
                                 focusedBorder: OutlineInputBorder_focused,
@@ -282,12 +303,22 @@ class _CambiarcontraState extends State<Cambiarcontra> {
                             child: TextFormField(
                               validator: validatecontra,
                               controller: _confirmpasswordcontroller,
-                              obscureText: true,
+                              obscureText: _secureText3,
                               keyboardType: TextInputType.emailAddress,
                               decoration: InputDecoration(
                                 errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.redAccent, width: 3)),
                                 focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.greenAccent, width: 3)) ,
                                 prefixIcon: Icon(Icons.key_rounded, color: Colors.black54,),
+                                suffixIcon: IconButton(
+                                  onPressed: (){
+                                    setState(() {
+                                      _secureText3 = !_secureText3;
+                                    });
+                                  }, 
+                                  icon: Icon(
+                                    _secureText3? Icons.no_encryption_gmailerrorred : Icons.remove_red_eye,
+                                    color: _secureText3? Colors.red : Colors.green,
+                                    )),
                                 enabledBorder: outlineInputBorder_enabled,
                                 focusedBorder: OutlineInputBorder_focused,
                                 contentPadding: EdgeInsets.fromLTRB(20, 18, 20, 15),

@@ -28,9 +28,7 @@ class _ConfiguracionState extends State<Configuracion> {
         title: Text('Configuracion', style: GoogleFonts.balooPaaji2(textStyle:TextStyle(color: Colors.black, fontSize: 25))),
         leading: IconButton(
           onPressed: (){
-            Navigator.push(context, MaterialPageRoute(
-                                 builder: (context) =>
-                                  HomePage123()));
+             Navigator.of(context).pop();
           },
           icon: Icon(Icons.arrow_back_sharp, color: Colors.lightGreen, size: 30,)),
       ),

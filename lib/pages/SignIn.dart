@@ -26,94 +26,97 @@ class _SignInPageState extends State<SignInPage> {
   final Color _color= const Color.fromARGB(255, 255, 255, 255);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: _color,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  const SizedBox(height: 20.0,),
-                  Image.network('https://media.discordapp.net/attachments/854848787763691550/983508331492704317/unknown.png',
-                        height: 300.0,
-                        width: 350.0,
-                  
-                        ),
-                  const SizedBox(height: 20.0,),
-                  
-                  const userTextField(),
-                  
-                  const SizedBox(height: 30.0,),
-                  
-                  passwordtextfield(),
-                  
-                  const SizedBox(height: 30.0,),
-                  
-                  StreamBuilder(
-                    builder: (BuildContext context, AsyncSnapshot snapshot){
-                      return RaisedButton(
-                        
-                        child:Container(
-                        
-                          padding: EdgeInsets.symmetric(horizontal: 70.0, vertical: 15.0),
-                          child: cargando? Container(child:CircularProgressIndicator(color: Colors.lightGreen,) , height: 20, width: 20,) : Text('Login',
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight:FontWeight.bold,
+    return WillPopScope(
+    onWillPop: () async => false,
+      child: Scaffold(
+        backgroundColor: _color,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    const SizedBox(height: 20.0,),
+                    Image.network('https://media.discordapp.net/attachments/854848787763691550/983508331492704317/unknown.png',
+                          height: 300.0,
+                          width: 350.0,
+                    
                           ),
-                        
-                          ),
-                        
-                        
-                        ) ,
-                        
-                        elevation: 10.0, // sombreado al boton
-                        color: Color.fromARGB(248, 255, 255, 255),
-                        onPressed: cargando? null: () {
-                          if (_formKey.currentState!.validate()) {
-                            signIn2(
-                              correo: correoController.text.trim(),
-                              contrasena: contraController.text.trim(),
-                            );
-                          }
-                        
-                          }
-                      );
-                        
-                    } 
-                    ),
-                            
-                            const SizedBox(height: 15.0,),
-                            
-                            Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                const Text("Aun no tienes una cuenta? ",),
-                                GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                RegisterPage()));
-                                              },
-                                  child: const Text(
-                                    "Registrate aquí",
-                                    style: TextStyle(
-                                      color: Colors.blueAccent,
-                                          fontWeight: FontWeight.bold,
-                                            fontSize: 15),
-                                              ),
-                                            )
-                                          ])
-                            
-                ],
+                    const SizedBox(height: 20.0,),
+                    
+                    const userTextField(),
+                    
+                    const SizedBox(height: 30.0,),
+                    
+                    passwordtextfield(),
+                    
+                    const SizedBox(height: 30.0,),
+                    
+                    StreamBuilder(
+                      builder: (BuildContext context, AsyncSnapshot snapshot){
+                        return RaisedButton(
+                          
+                          child:Container(
+                          
+                            padding: EdgeInsets.symmetric(horizontal: 70.0, vertical: 15.0),
+                            child: cargando? Container(child:CircularProgressIndicator(color: Colors.lightGreen,) , height: 20, width: 20,) : Text('Login',
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight:FontWeight.bold,
+                            ),
+                          
+                            ),
+                          
+                          
+                          ) ,
+                          
+                          elevation: 10.0, // sombreado al boton
+                          color: Color.fromARGB(248, 255, 255, 255),
+                          onPressed: cargando? null: () {
+                            if (_formKey.currentState!.validate()) {
+                              signIn2(
+                                correo: correoController.text.trim(),
+                                contrasena: contraController.text.trim(),
+                              );
+                            }
+                          
+                            }
+                        );
+                          
+                      } 
+                      ),
+                              
+                              const SizedBox(height: 15.0,),
+                              
+                              Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                  const Text("Aun no tienes una cuenta? ",),
+                                  GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                  RegisterPage()));
+                                                },
+                                    child: const Text(
+                                      "Registrate aquí",
+                                      style: TextStyle(
+                                        color: Colors.blueAccent,
+                                            fontWeight: FontWeight.bold,
+                                              fontSize: 15),
+                                                ),
+                                              )
+                                            ])
+                              
+                  ],
+                ),
               ),
-            ),
-          
+            
+          ),
         ),
       ),
     );

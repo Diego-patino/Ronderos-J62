@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:testfirebase/models/Familia.dart';
 import 'package:testfirebase/models/Users.dart';
 import 'package:testfirebase/models/usuarios123.dart';
 import 'package:testfirebase/pages/Configuracion.dart';
@@ -24,7 +25,10 @@ class Edicion_usuario extends StatefulWidget {
   @override
   State<Edicion_usuario> createState() => _Edicion_usuarioState();
 }
-
+class AlwaysDisabledFocusNode extends FocusNode {
+  @override
+  bool get hasFocus => false;
+}
 class _Edicion_usuarioState extends State<Edicion_usuario> {
     File? image;
     UploadTask? uploadTask;
@@ -66,7 +70,8 @@ class _Edicion_usuarioState extends State<Edicion_usuario> {
                 FlatButton(
                   onPressed:  (){
                   Navigator.of(context, rootNavigator: true).pop();
-                    Scroll123(context);
+                  _Scroll123(context);
+                 //   Scroll123(context);
                      },
                   child: Text(
                     'Si',
@@ -91,7 +96,7 @@ class _Edicion_usuarioState extends State<Edicion_usuario> {
     }
   }
 
-Future Scroll123(BuildContext context) async{
+Future _Scroll123(BuildContext context) async{
     
         setState(()=> cargando = true);
           showDialog(
@@ -101,19 +106,16 @@ Future Scroll123(BuildContext context) async{
               return Center(child: CircularProgressIndicator(color: Colors.green),);
             },
           );
-          await uploadFile(context);
+          await _uploadFile(context);
         Navigator.of(context, rootNavigator: true).pop();
-        await FirebaseAuth.instance.signOut();
-        Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => SignInPage()));
 
         final snackBar = SnackBar(content: Text("Los cambios se guardaron, porfavor vuelva a logearse"));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          setState(()=> cargando = false);
+        setState(()=> cargando = false);
         
 }
 
-  Future uploadFile(BuildContext context) async{
+  Future _uploadFile(BuildContext context) async{
    usuarios123 userModel = usuarios123();
         setState(()=> cargando = true);
         
@@ -144,6 +146,7 @@ Future Scroll123(BuildContext context) async{
          
       
         print("Modificación");
+        
         try {
           
         DocumentReference documentReference =
@@ -151,8 +154,14 @@ Future Scroll123(BuildContext context) async{
         documentReference
             .update({
               "foto" : userModel.FotoMomentanea.toString(),
+              if(_nombrecontroller.text.isNotEmpty)
               "nombre" : _nombrecontroller.text,
+              if(_nombrecontroller.text.isEmpty)
+              "nombre": Usuario_logeado.nombre,
+              if(_apellidocontroller.text.isNotEmpty)
               "apellido": _apellidocontroller.text,
+              if(_apellidocontroller.text.isEmpty)
+              "apellido": Usuario_logeado.apellido,
             })
             
             .then((value) => print("User Updated"))
@@ -160,13 +169,76 @@ Future Scroll123(BuildContext context) async{
             
           print('Nueva Foto: ${userModel.FotoMomentanea}');
 
-          
+          _familiaWrapper(context);
 
         } catch (e) {
           print(e);
         }
+        
+
+  }
+
+  Future _familiaWrapper(BuildContext context) async{
+    
+    print(Usuario_logeado.familia);
+    
+      String usuarionombre = '';
+      String usuarioapellido = '';
+
+      if (_nombrecontroller.text.isEmpty) {
+        usuarionombre = familiamodel.nombre!;
+      } if(_nombrecontroller.text.isNotEmpty){
+        usuarionombre = _nombrecontroller.text;
+      }
+      
+      if (_apellidocontroller.text.isEmpty) {
+        usuarioapellido = familiamodel.apellido!;
+      } if (_apellidocontroller.text.isNotEmpty) {
+        usuarioapellido = _apellidocontroller.text;
+      }
+
+
+    print(usuarionombre);
+    try {
+      DocumentReference documentReference2 =
+            FirebaseFirestore.instance.collection(familiamodel.familia!).doc('${familiamodel.nombre} ${familiamodel.apellido}');
+        documentReference2
+            .delete()           
+            .then((value) => print("User Updated${familiamodel.nombre}${familiamodel.apellido}"))
+            .catchError((error) => print("Failed to update user: $error"));
+    } catch (e) {
+      print("asdasdasdadasasdas");
+    }
+
+    try {
+      FirebaseFirestore firebaseFirestore2 = FirebaseFirestore.instance;
+          // writing all the values
+        if(_nombrecontroller.text.isNotEmpty)
+        familiamodel.nombre = _nombrecontroller.text;
+        if(_nombrecontroller.text.isEmpty)
+        familiamodel.nombre = familiamodel.nombre;
+        if(_apellidocontroller.text.isNotEmpty)
+        familiamodel.apellido = _apellidocontroller.text;
+        if(_apellidocontroller.text.isEmpty)
+        familiamodel.apellido = familiamodel.apellido;
+        familiamodel.arbol = familiamodel.arbol;
+        familiamodel.familia = Usuario_logeado.familia;
+
+          await firebaseFirestore2
+            .collection(Usuario_logeado.familia!)
+            .doc('${usuarionombre} ${usuarioapellido}')
+            .set(familiamodel.toMap());
+
+        } catch (e) {
+          print(e);
+          print("Fallo pipippipipipipi");
+        }
+
+        
+        await FirebaseAuth.instance.signOut();
+        Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => SignInPage()));
      
-        setState(()=> cargando = false);
 
   }
 
@@ -186,6 +258,7 @@ Future Scroll123(BuildContext context) async{
 
     // User? user1 = FirebaseAuth.instance.currentUser!;
     UserModel Usuario_logeado = UserModel();
+    Familiamodel familiamodel = Familiamodel();
     final user= FirebaseAuth.instance.currentUser!;
     final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
     final style1 = TextStyle(fontSize: 40, fontWeight: FontWeight.bold);
@@ -197,6 +270,8 @@ Future Scroll123(BuildContext context) async{
     final TextEditingController _confirmpasswordcontroller = TextEditingController();
     final TextEditingController _nombrecontroller = TextEditingController();
     final TextEditingController _apellidocontroller = TextEditingController();
+    bool _nombreedit = true;
+    bool _apellidoedit = true;
     bool cargando = false;
     final _formKey = GlobalKey<FormState>();
 
@@ -219,10 +294,19 @@ Future Scroll123(BuildContext context) async{
             .then((value) {
           this.Usuario_logeado = UserModel.fromMap(value.data());
           setState(() {});
+        
+        FirebaseFirestore.instance
+            .collection(Usuario_logeado.familia!)
+            .doc("${Usuario_logeado.nombre} ${Usuario_logeado.apellido}")
+            .get()
+            .then((value) {
+          this.familiamodel = Familiamodel.fromMap(value.data());
+          setState(() {});
+        });
         });
       }
-
   
+
 
   @override
   Widget build(BuildContext context) {
@@ -235,9 +319,7 @@ Future Scroll123(BuildContext context) async{
         title: Text('Editar Perfil', style: GoogleFonts.balooPaaji2(textStyle:TextStyle(color: Colors.black, fontSize: 25))),
         leading: IconButton(
           onPressed: (){
-            Navigator.push(context, MaterialPageRoute(
-                                 builder: (context) =>
-                                  Configuracion()));
+             Navigator.of(context).pop();
           },
           icon: Icon(Icons.arrow_back_sharp, color: Colors.lightGreen, size: 30,)),
       ),
@@ -317,21 +399,46 @@ Future Scroll123(BuildContext context) async{
                     
                       Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 35.0),
-                            child: TextFormField(
-                              controller: _nombrecontroller,
-                              validator: validatenombre,
-                              keyboardType: TextInputType.emailAddress,
+                            child: _nombreedit?TextField(
+                              enableInteractiveSelection: false,
+                              focusNode: AlwaysDisabledFocusNode(),
                               decoration: InputDecoration(
-                                errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.redAccent, width: 3)),
-                                focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.greenAccent, width: 3)) ,
-                                prefixIcon: Icon(Icons.account_circle_rounded, color: Colors.black54,),
+                                labelText: Usuario_logeado.nombre,
+                                labelStyle: labelstyle1,
+                                border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black12, width: 2),),
                                 enabledBorder: outlineInputBorder_enabled,
                                 focusedBorder: OutlineInputBorder_focused,
                                 contentPadding: EdgeInsets.fromLTRB(20, 18, 20, 15),
+                                suffixIcon: IconButton(
+                                  onPressed: (){
+                                    setState(() {
+                                      _nombreedit = !_nombreedit;
+                                    });
+                                  }, 
+                                  icon:Icon(Icons.edit))
+                              ),
+                            ): TextFormField(
+                              controller: _nombrecontroller,
+                              validator: validatenombre,
+                              autofocus: true,
+                              decoration: InputDecoration(
+                                errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.redAccent, width: 3)),
+                                focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.greenAccent, width: 3)) ,
+                                enabledBorder: outlineInputBorder_enabled,
+                                focusedBorder: OutlineInputBorder_focused,
+                                contentPadding: EdgeInsets.fromLTRB(20, 16, 20, 15),
                                 labelText: 'Nombre',
                                 hintText: "${Usuario_logeado.nombre}",
-                                labelStyle: labelstyle1,
                                 hintStyle: TextStyle(color: Colors.black87, fontSize: 18),
+                                suffixIcon: IconButton(
+                                  icon: Icon(Icons.edit_off_rounded, 
+                                    color: Colors.red ,),
+                                  onPressed: (){
+                                    setState(() {
+                                      _nombreedit = !_nombreedit;
+                                    });
+                                  },
+                                )
                     
                               ),
                               onChanged: (value){
@@ -343,21 +450,45 @@ Future Scroll123(BuildContext context) async{
             
                       Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 35.0),
-                            child: TextFormField(
+                            child: _apellidoedit?TextField(
+                              enableInteractiveSelection: false,
+                              focusNode: AlwaysDisabledFocusNode(),
+                              decoration: InputDecoration(
+                                labelText: Usuario_logeado.apellido,
+                                labelStyle: labelstyle1,
+                                border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black12, width: 3),),
+                                contentPadding: EdgeInsets.fromLTRB(20, 18, 20, 15),
+                                suffixIcon: IconButton(
+                                  onPressed: (){
+                                    setState(() {
+                                      _apellidoedit = !_apellidoedit;
+                                    });
+                                  }, 
+                                  icon:Icon(Icons.edit))
+                              ),
+                            ):TextFormField(
                               controller: _apellidocontroller,
                               validator: validateapellido,
-                              keyboardType: TextInputType.emailAddress,
+                              autofocus: true,
                               decoration: InputDecoration(
                                 errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.redAccent, width: 3)),
                                 focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.greenAccent, width: 3)) ,
-                                prefixIcon: Icon(Icons.account_circle_rounded, color: Colors.black54,),
                                 enabledBorder: outlineInputBorder_enabled,
                                 focusedBorder: OutlineInputBorder_focused,
-                                contentPadding: EdgeInsets.fromLTRB(20, 18, 20, 15),
+                                contentPadding: EdgeInsets.fromLTRB(20, 16, 20, 15),
                                 labelText: 'Apellido',
                                 hintText: "${Usuario_logeado.apellido}",
                                 labelStyle: labelstyle1,
                                 hintStyle: TextStyle(color: Colors.black87, fontSize: 18),
+                                suffixIcon: IconButton(
+                                  icon: Icon(Icons.edit_off_rounded, 
+                                    color: Colors.red ,),
+                                  onPressed: (){
+                                    setState(() {
+                                      _apellidoedit = !_apellidoedit;
+                                    });
+                                  },
+                                )
                     
                               ),
                               onChanged: (value){

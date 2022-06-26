@@ -30,6 +30,8 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _apellidocontroller = TextEditingController();
   String MensajError1 = '';
   bool cargando = false;
+  bool _secureText1 = true;
+  bool _secureText2 = true;
 
   @override
   void dispose() {
@@ -259,16 +261,25 @@ class _RegisterPageState extends State<RegisterPage> {
                     Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 35.0),
                         child: TextFormField(
-                          obscureText: true,
+                          obscureText: _secureText1,
                           validator: validatecontra,
                           controller: _passwordcontroller,
                           keyboardType: TextInputType.name,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(suffixIcon: IconButton(
+                                  onPressed: (){
+                                    setState(() {
+                                      _secureText1 = !_secureText1;
+                                    });
+                                  }, 
+                                  icon: Icon(
+                                    _secureText1? Icons.no_encryption_gmailerrorred : Icons.remove_red_eye,
+                                    color: _secureText1? Colors.black54 : Colors.green,
+                                    )),
                             errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.redAccent, width: 3)),
                             focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.greenAccent, width: 3)) ,
                             prefixIcon: Icon(Icons.key_rounded, color: Colors.black54,),
-                                enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black54, width: 3),),
-                                focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.greenAccent, width: 3)),
+                            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black54, width: 3),),
+                            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.greenAccent, width: 3)),
                             contentPadding: EdgeInsets.fromLTRB(20, 18, 20, 15),
                             hintText: '',
                             labelText: 'Contraseña',
@@ -286,11 +297,21 @@ class _RegisterPageState extends State<RegisterPage> {
                     Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 35.0),
                         child: TextFormField(
-                          obscureText: true,
+                          obscureText: _secureText2,
                           validator: validatecontra,
                           controller: _confirmpasswordcontroller,
                           keyboardType: TextInputType.name,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
+                            suffixIcon: IconButton(
+                                  onPressed: (){
+                                    setState(() {
+                                      _secureText2 = !_secureText2;
+                                    });
+                                  }, 
+                                  icon: Icon(
+                                    _secureText2? Icons.no_encryption_gmailerrorred : Icons.remove_red_eye,
+                                    color: _secureText2? Colors.black54 : Colors.green,
+                                    )),
                             errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.redAccent, width: 3)),
                             focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.greenAccent, width: 3)) ,
                             prefixIcon: Icon(Icons.key_rounded, color: Colors.black54,),

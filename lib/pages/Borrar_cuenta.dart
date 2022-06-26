@@ -20,9 +20,7 @@ class _BorrarCuentaState extends State<BorrarCuenta> {
         title: Text('Borrar Cuenta', style: GoogleFonts.balooPaaji2(textStyle:TextStyle(color: Colors.black, fontSize: 25))),
         leading: IconButton(
           onPressed: (){
-            Navigator.push(context, MaterialPageRoute(
-                                 builder: (context) =>
-                                  Configuracion()));
+             Navigator.of(context).pop();
           },
           icon: Icon(Icons.arrow_back_sharp, color: Colors.lightGreen, size: 30,)),
       ),

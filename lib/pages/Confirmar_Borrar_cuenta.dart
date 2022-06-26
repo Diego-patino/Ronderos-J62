@@ -93,7 +93,7 @@ class _ConfirmarBorrarCuentaState extends State<ConfirmarBorrarCuenta> {
                   )),
                 FlatButton(
                   onPressed: (){
-                    BorrarCuentaAuth();
+                    _BorrarCuentaAuth();
                   Navigator.of(context, rootNavigator: true).pop();
                      },
                   child: Text(
@@ -114,7 +114,7 @@ class _ConfirmarBorrarCuentaState extends State<ConfirmarBorrarCuenta> {
     }
   }
 
-  Future BorrarCuentaAuth() async {
+  Future _BorrarCuentaAuth() async {
     try {
       User? user = FirebaseAuth.instance.currentUser;
       AuthCredential credential = EmailAuthProvider.credential(email: Usuario_logeado.correo!, password: Usuario_logeado.contrasena!);
@@ -128,7 +128,7 @@ class _ConfirmarBorrarCuentaState extends State<ConfirmarBorrarCuenta> {
         } );
       });
 
-       BorrarCuentaFirestore();
+       _BorrarCuentaFirestore();
 
     } on FirebaseAuthException catch (e) {
       print(e);
@@ -139,7 +139,7 @@ class _ConfirmarBorrarCuentaState extends State<ConfirmarBorrarCuenta> {
 
   }
 
-Future BorrarCuentaFirestore() async{
+Future _BorrarCuentaFirestore() async{
   try {
       
     DocumentReference documentReference =
@@ -150,7 +150,7 @@ Future BorrarCuentaFirestore() async{
         .then((value) => print("Usuario eliminado"))
         .catchError((error) => print("Failed to delete student: $error"));
 
-        BorrarCuentaFamilia();
+        _BorrarCuentaFamilia();
     } catch (e) {
         print(e);
       
@@ -158,13 +158,13 @@ Future BorrarCuentaFirestore() async{
     }
 }
 
-Future BorrarCuentaFamilia() async{
+Future _BorrarCuentaFamilia() async{
   if (Usuario_logeado.familia != '') {
     
   try {
       
     DocumentReference documentReference =
-        FirebaseFirestore.instance.collection("${Usuario_logeado.familia}").doc('${Usuario_logeado.nombre}_${Usuario_logeado.apellido}');
+        FirebaseFirestore.instance.collection("${Usuario_logeado.familia}").doc('${Usuario_logeado.nombre} ${Usuario_logeado.apellido}');
 
     documentReference
         .delete()
@@ -190,9 +190,7 @@ Future BorrarCuentaFamilia() async{
         elevation: 0,
         leading: IconButton(
           onPressed: (){
-            Navigator.push(context, MaterialPageRoute(
-                                 builder: (context) =>
-                                  BorrarCuenta()));
+             Navigator.of(context).pop();
           },
           icon: Icon(Icons.cancel, color: Colors.redAccent, size: 30,)),
       ),

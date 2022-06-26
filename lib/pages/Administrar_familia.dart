@@ -64,7 +64,7 @@ class _Administrar_familiaState extends State<Administrar_familia> {
   }
 
   
-  Future createData() async {
+  Future _createData() async {
     print("created");
         print(_nombrecontroller.text);
         print(_apellidocontroller.text);
@@ -226,7 +226,7 @@ class _Administrar_familiaState extends State<Administrar_familia> {
                       RaisedButton(
                         padding: const EdgeInsets.symmetric(horizontal: 60),
                         onPressed: () {
-                          createData();
+                          _createData();
                         },
                         child: const Text("Crear", style: 
                             TextStyle(color: Colors.white),),
