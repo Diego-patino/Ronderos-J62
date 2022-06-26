@@ -48,7 +48,7 @@ class _Administrar_familiaState extends State<Administrar_familia> {
       }
    
   
-  final style1 = TextStyle(fontSize: 18, color: Colors.black);
+  final style1 = TextStyle(fontSize: 12, color: Colors.black);
   final TextEditingController _nombrecontroller = TextEditingController();
   final TextEditingController _apellidocontroller = TextEditingController();
   final TextEditingController _arbolcontroller = TextEditingController();
@@ -66,8 +66,11 @@ class _Administrar_familiaState extends State<Administrar_familia> {
   
   Future createData() async {
     print("created");
+        print(_nombrecontroller.text);
+        print(_apellidocontroller.text);
     if (_nombrecontroller.text.isNotEmpty) {
       if (_apellidocontroller.text.isNotEmpty) {
+
          try {
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
@@ -80,41 +83,57 @@ class _Administrar_familiaState extends State<Administrar_familia> {
         familiamodel.familia = Usuario_logeado.familia;
         await firebaseFirestore
             .collection('${Usuario_logeado.familia}')
-            .doc(_arbolcontroller.text)
+            .doc("${_nombrecontroller.text} ${_apellidocontroller.text}")
             .set(familiamodel.toMap());
+        
+        final snackBar = SnackBar(content: Text("Familiar agregado"));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        
       } catch (e) {
         print(e);
         final snackBar = SnackBar(content: Text("Llena toda la informacion del familiar que quieres agregar"));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
         }
-      } 
+      } if (_apellidocontroller.text.isEmpty) {
+        
         final snackBar = SnackBar(content: Text("Ingresa su apellido"));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    } 
+      } 
+    } if (_nombrecontroller.text.isEmpty) {
         final snackBar = SnackBar(content: Text("Ingresa su nombre"));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } 
      
         
   }
 
-  DeleteData() {
+  /*DeleteData() {
     print("Eliminar");
     try {
       
-    DocumentReference documentReference =
-        FirebaseFirestore.instance.collection("${Usuario_logeado.familia}").doc('${_arbolcontroller.text}');
+    DocumentReference documentReference1 =
+        FirebaseFirestore.instance.collection("${Usuario_logeado.familia}").doc('${_nombrecontroller.text} ${_apellidocontroller.text}');
 
-    documentReference
+    documentReference1
         .delete()
         .then((value) => print("Familiar eliminado"))
         .catchError((error) => print("Failed to delete student: $error"));
+
+    DocumentReference documentReference2 =
+        FirebaseFirestore.instance.collection("UsuariosApp").doc('${_nombrecontroller.text} ${_apellidocontroller.text}');
+
+    documentReference2
+        .delete()
+        .then((value) => print("Familiar eliminado"))
+        .catchError((error) => print("Failed to delete student: $error"));
+
     } catch (e) {
-        final snackBar = SnackBar(content: Text("Ingresa el familiar que quieras borrar en el arbol"));
+        final snackBar = SnackBar(content: Text("Familiar no encontrado"));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       
       
     }
-  }
+  }*/
 
 
 @override
@@ -215,17 +234,6 @@ class _Administrar_familiaState extends State<Administrar_familia> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16)),
                       ),
-                      RaisedButton(
-                        padding: const EdgeInsets.symmetric(horizontal: 60),
-                        onPressed: () {
-                         DeleteData();
-                        },
-                        child: const Text("Borrar", style: 
-                            TextStyle(color: Colors.white),),
-                            color: Colors.redAccent,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16)),
-                      ),
                     ],
                   ),
                   StreamBuilder<QuerySnapshot>(
@@ -313,7 +321,7 @@ class _Administrar_familiaState extends State<Administrar_familia> {
                                   child: Text((documentSnapshot["arbol"]),style: GoogleFonts.kronaOne(
                                     textStyle: 
                                     TextStyle(
-                                      fontSize: 14,
+                                      fontSize: 12,
                                       color: Colors.white)),)),
                               Positioned(
                                   bottom: 6,
@@ -321,7 +329,7 @@ class _Administrar_familiaState extends State<Administrar_familia> {
                                   child: Text((documentSnapshot["familia"]),style: GoogleFonts.kronaOne(
                                     textStyle: 
                                     TextStyle(
-                                      fontSize: 14,
+                                      fontSize: 12,
                                       color: Colors.white)),)),
                                                             
                                                           ]),
