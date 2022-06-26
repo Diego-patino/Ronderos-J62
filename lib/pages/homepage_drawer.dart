@@ -22,6 +22,53 @@ class MainDrawer extends StatefulWidget {
 
 class _MainDrawerState extends State<MainDrawer> {
 
+  Future _Alertdialogconfirm(BuildContext context) async{
+        
+      final alertDialog = showDialog(
+            context: context,
+            builder: (_) => AlertDialog(
+            shape: RoundedRectangleBorder(),
+            title: Text("Confirmar", 
+              style: GoogleFonts.poppins(
+                textStyle: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25)),),
+            content: Text("Desea salir del aplicativo?", 
+              style: GoogleFonts.prompt(
+                textStyle: TextStyle(
+                  fontSize: 15,
+                )),),
+            actions: <Widget>[
+              Wrap(
+                spacing: 70,
+                children: [
+                  FlatButton(
+                    onPressed:  (){
+                    Navigator.of(context, rootNavigator: true).pop();
+                      signOut(context);
+                      },
+                    child: Text(
+                      'Si',
+                      style: GoogleFonts.poppins(textStyle: TextStyle(
+                        color: Colors.green
+                      ),) 
+                    )),
+                  FlatButton(
+                    onPressed: ()=>
+                    Navigator.of(context, rootNavigator: true).pop(),
+                    child: Text(
+                      'No', 
+                      style: GoogleFonts.poppins(textStyle:TextStyle(
+                        color: Colors.red,
+                      ), ) 
+                    )
+                  ),
+              ],
+            )
+          ],
+        ));
+    }
+
    /* ReadData() {
     print("Lectura");
 
@@ -199,7 +246,7 @@ class _MainDrawerState extends State<MainDrawer> {
                               color: Colors.black)), ),
                           RaisedButton(
                             onPressed: () {
-                              signOut(context);
+                              _Alertdialogconfirm(context);
                             },
                             color: Colors.green,
                             padding: const EdgeInsets.symmetric(horizontal: 80),

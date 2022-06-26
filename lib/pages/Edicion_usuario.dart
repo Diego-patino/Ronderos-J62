@@ -42,10 +42,81 @@ class _Edicion_usuarioState extends State<Edicion_usuario> {
       print('la ruta es: ${image}');
   }
     
+  Future Alertdialogconfirm(BuildContext context) async{
+    if (_formKey.currentState!.validate()) {
+      
+    final alertDialog = showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+          shape: RoundedRectangleBorder(),
+          title: Text("Confirmar", 
+            style: GoogleFonts.poppins(
+              textStyle: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 25)),),
+          content: Text("¿Deseas guardar los cambios?", 
+            style: GoogleFonts.prompt(
+              textStyle: TextStyle(
+                fontSize: 15,
+              )),),
+          actions: <Widget>[
+            Wrap(
+              spacing: 70,
+              children: [
+                FlatButton(
+                  onPressed:  (){
+                  Navigator.of(context, rootNavigator: true).pop();
+                    Scroll123(context);
+                     },
+                  child: Text(
+                    'Si',
+                    style: GoogleFonts.poppins(textStyle: TextStyle(
+                      color: Colors.green
+                    ),) 
+                  )),
+                FlatButton(
+                  onPressed: ()=>
+                  Navigator.of(context, rootNavigator: true).pop(),
+                  child: Text(
+                    'No', 
+                    style: GoogleFonts.poppins(textStyle:TextStyle(
+                      color: Colors.red,
+                    ), ) 
+                  )
+                ),
+            ],
+          )
+        ],
+      ));
+    }
+  }
+
+Future Scroll123(BuildContext context) async{
+    
+        setState(()=> cargando = true);
+          showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (context){
+              return Center(child: CircularProgressIndicator(color: Colors.green),);
+            },
+          );
+          await uploadFile(context);
+        Navigator.of(context, rootNavigator: true).pop();
+        await FirebaseAuth.instance.signOut();
+        Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => SignInPage()));
+
+        final snackBar = SnackBar(content: Text("Los cambios se guardaron, porfavor vuelva a logearse"));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          setState(()=> cargando = false);
+        
+}
+
   Future uploadFile(BuildContext context) async{
    usuarios123 userModel = usuarios123();
-
-     if (_formKey.currentState!.validate()) {
+        setState(()=> cargando = true);
+        
          if (image != null) {
            final path = 'UsuariosAppFotos/${Usuario_logeado.correo}/${Usuario_logeado.uid}.png';
            final file = File(image!.path);
@@ -90,18 +161,12 @@ class _Edicion_usuarioState extends State<Edicion_usuario> {
           print('Nueva Foto: ${userModel.FotoMomentanea}');
 
           
-        await FirebaseAuth.instance.signOut();
-        Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => SignInPage()));
-
-        final snackBar = SnackBar(content: Text("Los cambios se guardaron, porfavor vuelva a logearse"));
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
         } catch (e) {
           print(e);
         }
      
-   }  
+        setState(()=> cargando = false);
 
   }
 
@@ -132,6 +197,7 @@ class _Edicion_usuarioState extends State<Edicion_usuario> {
     final TextEditingController _confirmpasswordcontroller = TextEditingController();
     final TextEditingController _nombrecontroller = TextEditingController();
     final TextEditingController _apellidocontroller = TextEditingController();
+    bool cargando = false;
     final _formKey = GlobalKey<FormState>();
 
     @override
@@ -326,7 +392,7 @@ class _Edicion_usuarioState extends State<Edicion_usuario> {
                           ),
                           RaisedButton(
                             onPressed: () {
-                              uploadFile(context);
+                              Alertdialogconfirm(context);
                             },
                             color: Colors.green,
                             padding: const EdgeInsets.symmetric(horizontal: 30),

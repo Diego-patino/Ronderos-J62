@@ -53,16 +53,77 @@ class _CambiarcontraState extends State<Cambiarcontra> {
       super.dispose();
     }
 
-  Future Cambiarcontrasena_FirebaseAuth() async {
+  Future _Alertdialogconfirm() async {
     final oldPassword = _passwordcontroller.text;
-    final newpassword = _newpasswordcontroller.text;
     if (_formKey.currentState!.validate()) {
-      print(Usuario_logeado.contrasena);
-      print(oldPassword);
         if (passwordConfirmed()) {
           if (Usuario_logeado.contrasena == oldPassword) {
               setState(()=> cargando = true);
-              try {
+              
+                final alertDialog = showDialog(
+                      context: context,
+                      builder: (_) => AlertDialog(
+                      shape: RoundedRectangleBorder(),
+                      title: Text("Confirmar", 
+                        style: GoogleFonts.poppins(
+                          textStyle: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25)),),
+                      content: Text("¿Deseas guardar los cambios?", 
+                        style: GoogleFonts.prompt(
+                          textStyle: TextStyle(
+                            fontSize: 15,
+                          )),),
+                      actions: <Widget>[
+                        Wrap(
+                          spacing: 70,
+                          children: [
+                            FlatButton(
+                              onPressed:  (){
+                                Cambiarcontrasena_FirebaseAuth();
+                              Navigator.of(context, rootNavigator: true).pop();
+                                },
+                              child: Text(
+                                'Si',
+                                style: GoogleFonts.poppins(textStyle: TextStyle(
+                                  color: Colors.green
+                                ),) 
+                              )),
+                            FlatButton(
+                              onPressed: ()=>
+                              Navigator.of(context, rootNavigator: true).pop(),
+                              child: Text(
+                                'No', 
+                                style: GoogleFonts.poppins(textStyle:TextStyle(
+                                  color: Colors.red,
+                                ), ) 
+                              )
+                            ),
+                        ],
+                      )
+                    ],
+                  ));
+        
+           } else {
+              final text = 'La contraseña actual ingresada no coincide';
+              final snackBar = SnackBar(content: Text(text));
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);  }
+
+          } else {
+              final text = 'Las contraseñas no coinciden';
+              final snackBar = SnackBar(content: Text(text));
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+          }
+        setState(()=> cargando = false);
+      }
+      
+  }
+
+    Future Cambiarcontrasena_FirebaseAuth() async{
+
+    final newpassword = _newpasswordcontroller.text;
+    try {
               FirebaseAuth.instance
               .signInWithEmailAndPassword(email: user.email!, password: Usuario_logeado.contrasena!)
               .then((userCredential) {
@@ -81,21 +142,6 @@ class _CambiarcontraState extends State<Cambiarcontra> {
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
               
             }
-        
-           } else {
-              final text = 'La contraseña actual ingresada no coincide';
-              final snackBar = SnackBar(content: Text(text));
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);  }
-
-          } else {
-              final text = 'Las contraseñas no coinciden';
-              final snackBar = SnackBar(content: Text(text));
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-          }
-        setState(()=> cargando = false);
-      }
-      
   }
 
   Future Cambiarcontrasena_FirebaseFirestore() async {
@@ -259,7 +305,7 @@ class _CambiarcontraState extends State<Cambiarcontra> {
 
                       RaisedButton(
                           onPressed: cargando? null: () {
-                            Cambiarcontrasena_FirebaseAuth();
+                            _Alertdialogconfirm();
                           },
                           color: Colors.green,
                           padding: const EdgeInsets.symmetric(horizontal: 55),

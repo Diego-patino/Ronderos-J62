@@ -255,51 +255,57 @@ class _Administrar_familiaState extends State<Administrar_familia> {
                                           
                                           child: Stack(
                                           children: [
-                                                                
-                              Stack(
-                              children: [
-                                Center(
-                                  child: Stack(
-                                  alignment: Alignment(0.0, -0.2),
-                                  children: [
-                                    Container(
-                                      color: Colors.white,
-                                      width: 200,
-                                      height: 20,
-                                    ),
-                                    Container(
-                                      alignment: Alignment(0.0, -0.2),
-                                      child: Text(
-                                        (documentSnapshot["nombre"]),
-                                          style: GoogleFonts.righteous(textStyle: style1
-                                        )),
-                                    ),
-                                  ],
-                                )),
-                              ],
-                            ),
-                            Stack(
-                              children: [
-                                Center(
-                                  child: Stack(
-                                  alignment: Alignment(0.0, 0.2),
-                                  children: [
-                                    Container(
-                                      color: Colors.white,
-                                      width: 200,
-                                      height: 20,
-                                    ),
-                                    Container(
-                                      alignment: Alignment(0.0, 0.2),
-                                      child: Text(
-                                        (documentSnapshot["apellido"]),
-                                          style: GoogleFonts.righteous(textStyle: style1
-                                        )),
-                                    ),
-                                  ],
-                                )),
-                              ],
-                            ),
+
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                                            
+                                      Stack(
+                                      children: [
+                                        Center(
+                                          child: Stack(
+                                          alignment: Alignment(0.0, -0.2),
+                                          children: [
+                                            Container(
+                                              color: Colors.white,
+                                              width: 200,
+                                              height: 20,
+                                            ),
+                                            Container(
+                                              alignment: Alignment(0.0, -1.2),
+                                              child: Text(
+                                                (documentSnapshot["nombre"]),
+                                                  style: GoogleFonts.righteous(textStyle: style1
+                                                      )),
+                                                  ),
+                                                ],
+                                              )),
+                                            ],
+                                          ),
+                                    Stack(
+                                      children: [
+                                        Center(
+                                          child: Stack(
+                                          alignment: Alignment.center,
+                                          children: [
+                                            Container(
+                                              color: Colors.white,
+                                              width: 200,
+                                              height: 20,
+                                            ),
+                                            Container(
+                                              alignment: Alignment(0.0, 0.2),
+                                              child: Text(
+                                                (documentSnapshot["apellido"]),
+                                                  style: GoogleFonts.righteous(textStyle: style1
+                                                      )),
+                                                  ),
+                                                ],
+                                              )),
+                                            ],
+                                          ),
+                                ]),
                                
                               Positioned(
                                   top: 6,
