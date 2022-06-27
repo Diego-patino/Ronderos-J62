@@ -7,17 +7,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:testfirebase/models/Familia.dart';
-import 'package:testfirebase/models/Users.dart';
-import 'package:testfirebase/models/usuarios123.dart';
-import 'package:testfirebase/pages/Configuracion.dart';
-import 'package:testfirebase/pages/HomePage.dart';
+import 'package:ronderos/models/Familia.dart';
+import 'package:ronderos/models/Users.dart';
+import 'package:ronderos/models/usuarios123.dart';
+import 'package:ronderos/pages/Configuracion.dart';
+import 'package:ronderos/pages/HomePage.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 import 'dart:io';
 import 'package:path/path.dart';
-import 'package:testfirebase/pages/SignIn.dart';
-import 'package:testfirebase/widgets/validators.dart';
+import 'package:ronderos/pages/SignIn.dart';
+import 'package:ronderos/widgets/validators.dart';
 
 class Edicion_usuario extends StatefulWidget {
   const Edicion_usuario({Key? key}) : super(key: key);
@@ -113,6 +113,10 @@ Future _Scroll123(BuildContext context) async{
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
         setState(()=> cargando = false);
         
+            await FirebaseAuth.instance.signOut();
+            Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => SignInPage()));
+        
 }
 
   Future _uploadFile(BuildContext context) async{
@@ -169,7 +173,12 @@ Future _Scroll123(BuildContext context) async{
             
           print('Nueva Foto: ${userModel.FotoMomentanea}');
 
-          _familiaWrapper(context);
+          if (Usuario_logeado.familia != ''){
+            _familiaWrapper(context);
+          } else {
+            return null;
+          }
+
 
         } catch (e) {
           print(e);
@@ -234,10 +243,6 @@ Future _Scroll123(BuildContext context) async{
           print("Fallo pipippipipipipi");
         }
 
-        
-        await FirebaseAuth.instance.signOut();
-        Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => SignInPage()));
      
 
   }

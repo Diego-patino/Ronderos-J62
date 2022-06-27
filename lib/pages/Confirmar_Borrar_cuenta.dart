@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:testfirebase/models/Familia.dart';
-import 'package:testfirebase/pages/Borrar_cuenta.dart';
-import 'package:testfirebase/pages/SignIn.dart';
+import 'package:ronderos/models/Familia.dart';
+import 'package:ronderos/pages/Borrar_cuenta.dart';
+import 'package:ronderos/pages/SignIn.dart';
 
 import '../models/Users.dart';
 import '../widgets/validators.dart';

@@ -2,11 +2,11 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:testfirebase/models/Config_opciones.dart';
-import 'package:testfirebase/pages/Administrar_familia.dart';
-import 'package:testfirebase/pages/Borrar_cuenta.dart';
-import 'package:testfirebase/pages/Cambiar_contra.dart';
-import 'package:testfirebase/pages/Edicion_usuario.dart';
+import 'package:ronderos/models/Config_opciones.dart';
+import 'package:ronderos/pages/Administrar_familia.dart';
+import 'package:ronderos/pages/Borrar_cuenta.dart';
+import 'package:ronderos/pages/Cambiar_contra.dart';
+import 'package:ronderos/pages/Edicion_usuario.dart';
 
 import 'HomePage.dart';
 

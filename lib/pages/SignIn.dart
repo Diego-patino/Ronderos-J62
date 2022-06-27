@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:testfirebase/models/Users.dart';
-import 'package:testfirebase/pages/Register.dart';
-import 'package:testfirebase/widgets/button_login.dart';
-import 'package:testfirebase/widgets/contra_TF.dart';
-import 'package:testfirebase/widgets/usuario_TF.dart';
+import 'package:ronderos/models/Users.dart';
+import 'package:ronderos/pages/Register.dart';
+import 'package:ronderos/widgets/button_login.dart';
+import 'package:ronderos/widgets/contra_TF.dart';
+import 'package:ronderos/widgets/usuario_TF.dart';
 
 import 'HomePage.dart';
 

@@ -4,13 +4,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:testfirebase/clases/auth_service.dart';
-import 'package:testfirebase/pages/HomePage.dart';
-import 'package:testfirebase/pages/SignIn.dart';
-import 'package:testfirebase/widgets/contra_TF.dart';
-import 'package:testfirebase/widgets/usuario_TF.dart';
-import 'package:testfirebase/models/Users.dart';
-import 'package:testfirebase/widgets/validators.dart';
+import 'package:ronderos/clases/auth_service.dart';
+import 'package:ronderos/pages/HomePage.dart';
+import 'package:ronderos/pages/SignIn.dart';
+import 'package:ronderos/widgets/contra_TF.dart';
+import 'package:ronderos/widgets/usuario_TF.dart';
+import 'package:ronderos/models/Users.dart';
+import 'package:ronderos/widgets/validators.dart';
 
 
 class RegisterPage extends StatefulWidget {

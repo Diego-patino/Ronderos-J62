@@ -2,11 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:testfirebase/models/Users.dart';
-import 'package:testfirebase/pages/Configuracion.dart';
-import 'package:testfirebase/pages/HomePage.dart';
-import 'package:testfirebase/pages/Administrar_familia.dart';
-import 'package:testfirebase/pages/Unirse_familia.dart';
+import 'package:ronderos/models/Users.dart';
+import 'package:ronderos/pages/Configuracion.dart';
+import 'package:ronderos/pages/HomePage.dart';
+import 'package:ronderos/pages/Administrar_familia.dart';
+import 'package:ronderos/pages/Unirse_familia.dart';
 
 import 'Edicion_usuario.dart';
 

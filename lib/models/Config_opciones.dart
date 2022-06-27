@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:testfirebase/pages/Cambiar_contra.dart';
-import 'package:testfirebase/pages/Edicion_usuario.dart';
+import 'package:ronderos/pages/Cambiar_contra.dart';
+import 'package:ronderos/pages/Edicion_usuario.dart';
 
 class Config1 {
   String configuracion;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:testfirebase/pages/Configuracion.dart';
-import 'package:testfirebase/pages/Confirmar_Borrar_cuenta.dart';
+import 'package:ronderos/pages/Configuracion.dart';
+import 'package:ronderos/pages/Confirmar_Borrar_cuenta.dart';
 
 class BorrarCuenta extends StatefulWidget {
   const BorrarCuenta({Key? key}) : super(key: key);

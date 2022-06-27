@@ -2,8 +2,8 @@ import 'dart:ffi';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:testfirebase/pages/Register.dart';
-import 'package:testfirebase/widgets/usuario_TF.dart';
+import 'package:ronderos/pages/Register.dart';
+import 'package:ronderos/widgets/usuario_TF.dart';
 
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth;

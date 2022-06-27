@@ -3,10 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:testfirebase/clases/auth_service.dart';
-import 'package:testfirebase/pages/HomePage.dart';
-import 'package:testfirebase/pages/SignIn.dart';
-import 'package:testfirebase/pages/Register.dart';
+import 'package:ronderos/clases/auth_service.dart';
+import 'package:ronderos/pages/HomePage.dart';
+import 'package:ronderos/pages/SignIn.dart';
+import 'package:ronderos/pages/Register.dart';
 // import 'package:testfirebase/pages/usuarios123.dart';
 
 Future<void> main() async {
@@ -50,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
          StreamProvider(create: (context)=> context.read<AuthenticationService>().authStateChanges, initialData: null)
     ],
     child: MaterialApp(
-          title: 'Login',
+          title: 'Ronderos',
           theme: ThemeData(
             primaryColor: Colors.white,
             visualDensity: VisualDensity.adaptivePlatformDensity,
