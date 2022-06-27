@@ -336,7 +336,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 child:Container(
                 
                       padding: const EdgeInsets.symmetric(horizontal: 70.0, vertical: 15.0),
-                      child: cargando? Container(child:CircularProgressIndicator(color: Colors.lightGreen,) , height: 20, width: 20,) : const Text('Crear Cuenta',
+                      child: cargando? Container(child:CircularProgressIndicator(color: Colors.lightGreen,) , height: 20, width: 20,) 
+                      : const Text('Crear Cuenta',
                       style: TextStyle(
                         fontSize: 16.0,
                         fontWeight:FontWeight.bold,
