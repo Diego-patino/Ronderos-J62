@@ -115,6 +115,7 @@ class _Unirse_familiaState extends State<Unirse_familia> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       endDrawer: Drawer( child: MainDrawer()),
       appBar: AppBar(
         backgroundColor: Colors.transparent,

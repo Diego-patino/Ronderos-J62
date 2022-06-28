@@ -184,6 +184,7 @@ Future _BorrarCuentaFamilia() async{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: _color,
       appBar: AppBar(
         backgroundColor: Colors.transparent,

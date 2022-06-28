@@ -14,6 +14,7 @@ class _BorrarCuentaState extends State<BorrarCuenta> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,

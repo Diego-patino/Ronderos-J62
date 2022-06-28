@@ -139,6 +139,7 @@ class _Administrar_familiaState extends State<Administrar_familia> {
 @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       endDrawer: Drawer( child: MainDrawer()),
       appBar: AppBar(
         backgroundColor: Colors.transparent,

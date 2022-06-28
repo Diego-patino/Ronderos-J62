@@ -318,6 +318,7 @@ Future _Scroll123(BuildContext context) async{
 
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
