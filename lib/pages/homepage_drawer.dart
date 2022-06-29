@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ronderos/models/Familia.dart';
 import 'package:ronderos/models/Users.dart';
 import 'package:ronderos/pages/Configuracion.dart';
 import 'package:ronderos/pages/HomePage.dart';
@@ -108,6 +109,7 @@ class _MainDrawerState extends State<MainDrawer> {
 
 
     UserModel Usuario_logeado = UserModel();
+    Familiamodel familiamodel = Familiamodel();
     User? user1 = FirebaseAuth.instance.currentUser!;
     final user= FirebaseAuth.instance.currentUser!;
     final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -122,154 +124,183 @@ class _MainDrawerState extends State<MainDrawer> {
             .get()
             .then((value) {
           this.Usuario_logeado = UserModel.fromMap(value.data());
-          print(Usuario_logeado.contrasena);
+          setState(() {});
+        
+        FirebaseFirestore.instance
+            .collection(Usuario_logeado.familia!)
+            .doc("${Usuario_logeado.nombre} ${Usuario_logeado.apellido}")
+            .get()
+            .then((value) {
+          this.familiamodel = Familiamodel.fromMap(value.data());
           setState(() {});
         });
+        });
       }
+      
   @override
   Widget build(BuildContext context) {
 
-    return Column(
-      children: [
-        Container(
-          child: Padding(
-            padding: EdgeInsets.only(top: 50.0),
-            child: SafeArea(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                    radius: 90.0,
-                    backgroundImage: NetworkImage(
-                      Usuario_logeado.foto.toString(),
-                      
-                    ),
-                  ),
-            
-                  const SizedBox(height: 25.0,),
-            
-                  Stack(
-                    children: [
-                      Center(
-                        child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Container(
-                            color: Colors.black87,
-                            width: 500,
-                            height: 55,
-                          ),
-                           Container(
-                            alignment: Alignment.center,
-                             child: Text(
-                              "${Usuario_logeado.nombre}",
-                                style: GoogleFonts.lato(textStyle: style1
-                              )),
-                           ),
-                        ],
-                      )),
-                    ],
-                  ),
-                  
-                  const SizedBox(height: 5.0,),
-            
-                  Stack(
-                    children: [
-                      Center(
-                        child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Container(
-                            color: Colors.black87,
-                            width: 500,
-                            height: 55,
-                          ),
-                           Container(
-                            alignment: Alignment.center,
-                             child: Text(
-                              "${Usuario_logeado.apellido}",
-                                style: GoogleFonts.lato(textStyle: style1
-                              )),
-                           ),
-                        ],
-                      )),
-                    ],
-                  ),
-            
-                  const SizedBox(height: 5.0,),
-
-                  Usuario_logeado.familia != ''?
-                  Stack(
-                    children: [
-                      Center(
-                        child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Container(
-                            color: Colors.black87,
-                            width: 500,
-                            height: 55,
-                          ),
-                           Container(
-                            alignment: Alignment.center,
-                             child: Text(
-                              "Familia ${Usuario_logeado.familia}",
-                                style: GoogleFonts.lato(textStyle: 
-                                  TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
-                              )),
-                           ),
-                        ],
-                      )),
-                    ],
-                  ): const SizedBox(height: 55.0,),
-
-                  const SizedBox(height: 150.0,),
-
-
-                  Column(
-                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
+    return Scaffold(
+    //  resizeToAvoidBottomInset: false,
+      body: Column(
+        children: [
+          Container(
+            child: Padding(
+              padding: EdgeInsets.only(top: 50.0),
+              child: SafeArea(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: 90.0,
+                      backgroundImage: NetworkImage(
+                        Usuario_logeado.foto.toString(),
                         
-                        RaisedButton(
-                          padding: const EdgeInsets.symmetric(horizontal: 33),
-                          shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                          onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(
-                                   builder: (context) =>
-                                    Configuracion()));},
-                            child: const Text("CONFIGURACION",
-                          style: TextStyle(
-                              fontSize: 15,
-                              letterSpacing: 2.2,
-                              color: Colors.black)), ),
-                          RaisedButton(
-                            onPressed: () {
-                              _Alertdialogconfirm(context);
-                            },
-                            color: Colors.green,
-                            padding: const EdgeInsets.symmetric(horizontal: 80),
-                            elevation: 2,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)),
-                            child: const Text(
-                              "SALIR",
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  letterSpacing: 2.2,
-                                  color: Colors.white),
+                      ),
+                    ),
+              
+                    const SizedBox(height: 25.0,),
+              
+                    Stack(
+                      children: [
+                        Center(
+                          child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Container(
+                              color: Colors.black87,
+                              width: 500,
+                              height: 55,
                             ),
-                          ),
+                             Container(
+                              alignment: Alignment.center,
+                               child: Text(
+                                "${Usuario_logeado.nombre}",
+                                  style: GoogleFonts.lato(textStyle: style1
+                                )),
+                             ),
+                          ],
+                        )),
                       ],
                     ),
-                  
-                ],
-              ),
-            ), ),
-        )
-      ],
+                    
+                    const SizedBox(height: 5.0,),
+              
+                    Stack(
+                      children: [
+                        Center(
+                          child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Container(
+                              color: Colors.black87,
+                              width: 500,
+                              height: 55,
+                            ),
+                             Container(
+                              alignment: Alignment.center,
+                               child: Text(
+                                "${Usuario_logeado.apellido}",
+                                  style: GoogleFonts.lato(textStyle: style1
+                                )),
+                             ),
+                          ],
+                        )),
+                      ],
+                    ),
+              
+                    const SizedBox(height: 5.0,),
+    
+                    Usuario_logeado.familia == ''? Container()
+                    :Usuario_logeado.familia != '' ?Stack(
+                      children: [
+                        Center(
+                          child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Container(
+                              color: Colors.black87,
+                              width: 500,
+                              height: 55,
+                            ),
+                             Container(
+                              alignment: Alignment.center,
+                               child: Text(
+                                "Familia ${Usuario_logeado.familia}",
+                                  style: GoogleFonts.lato(textStyle: 
+                                    TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
+                                )),
+                             ),
+                          ],
+                        )),
+                      ],
+                    ) : Container(),
+                    
+                    familiamodel.admin == true  ?
+                    Container(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            "Administrador",
+                            style: GoogleFonts.padauk(textStyle: TextStyle(fontSize: 20)),)),
+                      ),
+                    ): familiamodel.arbol != null ? Container(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            "${familiamodel.arbol}",
+                            style: GoogleFonts.padauk(textStyle: TextStyle(fontSize: 20)),)),
+                      ),
+                    ): Container()
+                  ],
+                ),
+              ), ),
+          )
+        ],
+      ),
+      floatingActionButton:  Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          RaisedButton(
+            padding: const EdgeInsets.symmetric(horizontal: 33),
+            shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20)),
+            onPressed: (){
+              Navigator.push(context, MaterialPageRoute(
+                builder: (context) =>
+                  Configuracion()));},
+            child: const Text("CONFIGURACION",
+            style: TextStyle(
+            fontSize: 15,
+            letterSpacing: 2.2,
+            color: Colors.black)), ),
+
+          RaisedButton(
+            onPressed: () {
+              _Alertdialogconfirm(context);
+              },
+            color: Colors.green,
+            padding: const EdgeInsets.symmetric(horizontal: 80),
+            elevation: 2,
+            shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20)),
+            child: const Text(
+              "SALIR",
+              style: TextStyle(
+              fontSize: 15,
+              letterSpacing: 2.2,
+              color: Colors.white),
+            ),
+          ),
+        ],
+      ),
     );
+    
   }
   
 }

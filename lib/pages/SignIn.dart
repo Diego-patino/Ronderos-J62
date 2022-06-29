@@ -29,7 +29,6 @@ class _SignInPageState extends State<SignInPage> {
     return WillPopScope(
     onWillPop: () async => false,
       child: Scaffold(
-      resizeToAvoidBottomInset: false,
         backgroundColor: _color,
         body: SafeArea(
           child: SingleChildScrollView(

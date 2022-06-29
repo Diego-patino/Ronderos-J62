@@ -67,6 +67,21 @@ String? validatecontraactual(String? contraform){
   return null;
 }
 
+String? validatearbol(String? arbolform){
+  if(arbolform == null || arbolform.isEmpty)
+  return 'Porfavor ingrese que tipo de familiar es.';
+
+    String pattern = 
+    r'^(?!.*?[!@#\$&*~])(?=.*?[a-z])(?!.*?[0-9])';  //Tiene que NO tener => (simbolos)(numeros)
+    // Para simbolos es => ... (?=.*?[!@#\$&*~]) ...
+    // Para Mayusculas es => ... (?=.*?[A-Z]) ...
+    RegExp regex = RegExp(pattern);
+    if (!regex.hasMatch(arbolform))
+    return 'Ingresar solo letras en el arbol';
+
+  return null;
+}
+
 String? validategeneral(String? generalform){
   if(generalform == null || generalform.isEmpty)
   return 'Porfavor llena el recuadro.';

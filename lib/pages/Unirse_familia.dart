@@ -64,6 +64,8 @@ class _Unirse_familiaState extends State<Unirse_familia> {
         familiamodel.apellido = Usuario_logeado.apellido;
         familiamodel.arbol = _arbolcontroller.text;
         familiamodel.familia = _familiacontroller.text;
+        familiamodel.uid = Usuario_logeado.uid;
+        familiamodel.admin = false;
 
           await firebaseFirestore
             .collection(_familiacontroller.text)
@@ -115,7 +117,6 @@ class _Unirse_familiaState extends State<Unirse_familia> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       endDrawer: Drawer( child: MainDrawer()),
       appBar: AppBar(
         backgroundColor: Colors.transparent,

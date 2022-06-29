@@ -19,10 +19,12 @@ class Configuracion extends StatefulWidget {
 
 class _ConfiguracionState extends State<Configuracion> {
   
+  final Divider divider = Divider(thickness: 5, endIndent: 50, indent: 50, );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+     // resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -40,6 +42,8 @@ class _ConfiguracionState extends State<Configuracion> {
             SizedBox(height: 10,),
       
             Container(child: Text("AJUSTES DE USUARIO", style: GoogleFonts.righteous(textStyle: TextStyle(fontSize: 20)),)),
+
+            divider,
       
             SizedBox(height: 10,),
       
@@ -74,6 +78,8 @@ class _ConfiguracionState extends State<Configuracion> {
             SizedBox(height: 20,),
       
             Container(child: Text("AJUSTES DE APLICACIÓN", style: GoogleFonts.righteous(textStyle: TextStyle(fontSize: 20)),)),
+            
+            divider,
       
             SizedBox(height: 10,),
       

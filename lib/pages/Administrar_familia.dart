@@ -12,6 +12,7 @@ import 'package:ronderos/pages/HomePage.dart';
 import 'package:ronderos/pages/homepage_drawer.dart';
 import 'package:ronderos/pages/Edicion_usuario.dart';
 import 'package:ronderos/widgets/Huerfano.dart';
+import 'package:ronderos/widgets/validators.dart';
 import 'dart:ffi';
 
 import '../models/Users.dart';
@@ -53,6 +54,7 @@ class _Administrar_familiaState extends State<Administrar_familia> {
   final TextEditingController _apellidocontroller = TextEditingController();
   final TextEditingController _arbolcontroller = TextEditingController();
   final TextEditingController _familiacontroller = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
     @override
   void dispose() {
@@ -65,44 +67,39 @@ class _Administrar_familiaState extends State<Administrar_familia> {
 
   
   Future _createData() async {
-    print("created");
+    print("Comenzando");
         print(_nombrecontroller.text);
         print(_apellidocontroller.text);
-    if (_nombrecontroller.text.isNotEmpty) {
-      if (_apellidocontroller.text.isNotEmpty) {
 
-         try {
+    if (_formKey.currentState!.validate()) {
+      try {
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
         Familiamodel familiamodel = Familiamodel();
 
         // writing all the values
-        familiamodel.nombre = _nombrecontroller.text;
-        familiamodel.apellido = _apellidocontroller.text;
-        familiamodel.arbol = _arbolcontroller.text;
-        familiamodel.familia = Usuario_logeado.familia;
-        await firebaseFirestore
-            .collection('${Usuario_logeado.familia}')
-            .doc("${_nombrecontroller.text} ${_apellidocontroller.text}")
-            .set(familiamodel.toMap());
-        
-        final snackBar = SnackBar(content: Text("Familiar agregado"));
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        
-      } catch (e) {
-        print(e);
-        final snackBar = SnackBar(content: Text("Llena toda la informacion del familiar que quieres agregar"));
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        }
-      } if (_apellidocontroller.text.isEmpty) {
-        
-        final snackBar = SnackBar(content: Text("Ingresa su apellido"));
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      } 
-    } if (_nombrecontroller.text.isEmpty) {
-        final snackBar = SnackBar(content: Text("Ingresa su nombre"));
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    } 
+          familiamodel.nombre = _nombrecontroller.text;
+          familiamodel.apellido = _apellidocontroller.text;
+          familiamodel.arbol = _arbolcontroller.text;
+          familiamodel.familia = Usuario_logeado.familia;
+          await firebaseFirestore
+              .collection('${Usuario_logeado.familia}')
+              .doc("${_nombrecontroller.text} ${_apellidocontroller.text}")
+              .set(familiamodel.toMap());
+            
+          final snackBar = SnackBar(content: Text("Familiar agregado"));
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          
+        } catch (e) {
+            print(e);
+            final snackBar = SnackBar(content: Text("Llena toda la informacion del familiar que quieres agregar"));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          }
+    } else {
+      final snackBar = SnackBar(content: Text("Llena toda la informacion del familiar que quieres agregar"));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      
+    }
      
         
   }
@@ -139,7 +136,7 @@ class _Administrar_familiaState extends State<Administrar_familia> {
 @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+     // resizeToAvoidBottomInset: false,
       endDrawer: Drawer( child: MainDrawer()),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -175,205 +172,215 @@ class _Administrar_familiaState extends State<Administrar_familia> {
        Usuario_logeado.familia != ''?
       SafeArea(
         child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Center(
-              child: 
-              
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: TextField(
-                      controller: _nombrecontroller,
-                      decoration: const InputDecoration(
-                        labelText: "Nombre",
-                        fillColor: Colors.white,
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue, width: 2.0),
+          child: Form(
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Center(
+                child: 
+                
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: TextFormField(
+                        validator: validatenombre,
+                        controller: _nombrecontroller,
+                        decoration: const InputDecoration(
+                          labelText: "Nombre",
+                          fillColor: Colors.white,
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue, width: 2.0),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: TextField(
-                      controller: _apellidocontroller,
-                      decoration: const InputDecoration(
-                        labelText: "Apellido",
-                        fillColor: Colors.white,
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue, width: 2.0),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: TextFormField(
+                        validator: validateapellido,
+                        controller: _apellidocontroller,
+                        decoration: const InputDecoration(
+                          labelText: "Apellido",
+                          fillColor: Colors.white,
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue, width: 2.0),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: TextField(
-                      controller: _arbolcontroller,
-                      decoration: const InputDecoration(
-                        labelText: "Arbol",
-                        fillColor: Colors.white,
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue, width: 2.0),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: TextFormField(
+                        validator: validatearbol,
+                        controller: _arbolcontroller,
+                        decoration: const InputDecoration(
+                          labelText: "Arbol",
+                          fillColor: Colors.white,
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue, width: 2.0),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      RaisedButton(
-                        padding: const EdgeInsets.symmetric(horizontal: 60),
-                        onPressed: () {
-                          _createData();
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        RaisedButton(
+                          padding: const EdgeInsets.symmetric(horizontal: 60),
+                          onPressed: () {
+                            _createData();
+                          },
+                          child: const Text("Crear", style: 
+                              TextStyle(color: Colors.white),),
+                              color: Colors.green,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16)),
+                        ),
+                      ],
+                    ),
+                    SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
+                      child: StreamBuilder<QuerySnapshot>(
+                        stream: FirebaseFirestore.instance
+                            .collection("${Usuario_logeado.familia}")
+                            .snapshots(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (snapshot.hasData) {
+                            return Container(
+                                      child: GridView.builder(
+                                        shrinkWrap: true,
+                                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount( crossAxisCount: 3, ), 
+                                          itemCount: snapshot.data!.docs.length,
+                                          itemBuilder: (context, index){
+                                            
+                                            DocumentSnapshot documentSnapshot =
+                                        snapshot.data!.docs[index];
+                                           //print(type);
+                                          return Padding(
+                                              padding: const EdgeInsets.symmetric(vertical: 7.0, horizontal: 7),
+                                              child: Container(
+                                                            decoration: BoxDecoration(
+                                                              color:Colors.redAccent[200],
+                                                              borderRadius: BorderRadius.all(Radius.circular(10))
+                                                            ),
+                                              
+                                              child: Stack(
+                                              children: [
+                    
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                                
+                                                               
+                                          Stack(
+                                          children: [
+                                            Center(
+                                              child: Stack(
+                                              alignment: Alignment(0.0, -0.2),
+                                              children: [
+                                                Container(
+                                                  color: Colors.white,
+                                                  width: 200,
+                                                  height: 20,
+                                                ),
+                                                Container(
+                                                  alignment: Alignment(0.0, -1.2),
+                                                  child: Text(
+                                                    (documentSnapshot["nombre"]),
+                                                      style: GoogleFonts.righteous(textStyle: style1
+                                                          )),
+                                                      ),
+                                                    ],
+                                                  )),
+                                                ],
+                                              ),
+                                        Stack(
+                                          children: [
+                                            Center(
+                                              child: Stack(
+                                              alignment: Alignment.center,
+                                              children: [
+                                                Container(
+                                                  color: Colors.white,
+                                                  width: 200,
+                                                  height: 20,
+                                                ),
+                                                Container(
+                                                  alignment: Alignment(0.0, 0.2),
+                                                  child: Text(
+                                                    (documentSnapshot["apellido"]),
+                                                      style: GoogleFonts.righteous(textStyle: style1
+                                                          )),
+                                                      ),
+                                                    ],
+                                                  )),
+                                                ],
+                                              ),
+                                    ]),
+                                   
+                                  Positioned(
+                                      top: 6,
+                                      left: 2,
+                                      child: Text((documentSnapshot["arbol"]),style: GoogleFonts.kronaOne(
+                                        textStyle: 
+                                        TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.white)),)),
+                                  Positioned(
+                                      bottom: 6,
+                                      right: 2,
+                                      child: Text((documentSnapshot["familia"]),style: GoogleFonts.kronaOne(
+                                        textStyle: 
+                                        TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.white)),)),
+                                                                
+                                                              ]),
+                                              )  
+                                            );
+                                           }
+                                           ) 
+                            );
+                                
+                         /*   return ListView.builder(
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  DocumentSnapshot documentSnapshot =
+                                      snapshot.data!.docs[index];
+                                      
+                                 return Row(
+                                    textDirection: TextDirection.ltr,
+                                    children: [
+                                      Expanded(
+                                          child: Text(documentSnapshot["StudentName"])),
+                                      Expanded(
+                                          child: Text(documentSnapshot["StudentID"])),
+                                      Expanded(
+                                          child:
+                                              Text(documentSnapshot["StudentNotas"])),
+                                      Expanded(
+                                          child: Text(
+                                              documentSnapshot["StudentProgramID"])),
+                                    ],
+                                  );
+                                },
+                                itemCount: snapshot.data!.docs.length); */
+                          } else {
+                            return const Align(
+                              alignment: FractionalOffset.bottomCenter,
+                              child: CircularProgressIndicator(),
+                            );
+                          }
                         },
-                        child: const Text("Crear", style: 
-                            TextStyle(color: Colors.white),),
-                            color: Colors.green,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16)),
                       ),
-                    ],
-                  ),
-                  StreamBuilder<QuerySnapshot>(
-                    stream: FirebaseFirestore.instance
-                        .collection("${Usuario_logeado.familia}")
-                        .snapshots(),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<QuerySnapshot> snapshot) {
-                      if (snapshot.hasData) {
-                        return Container(
-                                  child: GridView.builder(
-                                    shrinkWrap: true,
-                                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount( crossAxisCount: 3, ), 
-                                      itemCount: snapshot.data!.docs.length,
-                                      itemBuilder: (context, index){
-                                        
-                                        DocumentSnapshot documentSnapshot =
-                                    snapshot.data!.docs[index];
-                                       //print(type);
-                                      return Padding(
-                                          padding: const EdgeInsets.symmetric(vertical: 7.0, horizontal: 7),
-                                          child: Container(
-                                                        decoration: BoxDecoration(
-                                                          color:Colors.redAccent[200],
-                                                          borderRadius: BorderRadius.all(Radius.circular(10))
-                                                        ),
-                                          
-                                          child: Stack(
-                                          children: [
-
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                                            
-                                      Stack(
-                                      children: [
-                                        Center(
-                                          child: Stack(
-                                          alignment: Alignment(0.0, -0.2),
-                                          children: [
-                                            Container(
-                                              color: Colors.white,
-                                              width: 200,
-                                              height: 20,
-                                            ),
-                                            Container(
-                                              alignment: Alignment(0.0, -1.2),
-                                              child: Text(
-                                                (documentSnapshot["nombre"]),
-                                                  style: GoogleFonts.righteous(textStyle: style1
-                                                      )),
-                                                  ),
-                                                ],
-                                              )),
-                                            ],
-                                          ),
-                                    Stack(
-                                      children: [
-                                        Center(
-                                          child: Stack(
-                                          alignment: Alignment.center,
-                                          children: [
-                                            Container(
-                                              color: Colors.white,
-                                              width: 200,
-                                              height: 20,
-                                            ),
-                                            Container(
-                                              alignment: Alignment(0.0, 0.2),
-                                              child: Text(
-                                                (documentSnapshot["apellido"]),
-                                                  style: GoogleFonts.righteous(textStyle: style1
-                                                      )),
-                                                  ),
-                                                ],
-                                              )),
-                                            ],
-                                          ),
-                                ]),
-                               
-                              Positioned(
-                                  top: 6,
-                                  left: 2,
-                                  child: Text((documentSnapshot["arbol"]),style: GoogleFonts.kronaOne(
-                                    textStyle: 
-                                    TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.white)),)),
-                              Positioned(
-                                  bottom: 6,
-                                  right: 2,
-                                  child: Text((documentSnapshot["familia"]),style: GoogleFonts.kronaOne(
-                                    textStyle: 
-                                    TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.white)),)),
-                                                            
-                                                          ]),
-                                          )  
-                                        );
-                                       }
-                                       ) 
-                        );
-                            
-                     /*   return ListView.builder(
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              DocumentSnapshot documentSnapshot =
-                                  snapshot.data!.docs[index];
-                                  
-                             return Row(
-                                textDirection: TextDirection.ltr,
-                                children: [
-                                  Expanded(
-                                      child: Text(documentSnapshot["StudentName"])),
-                                  Expanded(
-                                      child: Text(documentSnapshot["StudentID"])),
-                                  Expanded(
-                                      child:
-                                          Text(documentSnapshot["StudentNotas"])),
-                                  Expanded(
-                                      child: Text(
-                                          documentSnapshot["StudentProgramID"])),
-                                ],
-                              );
-                            },
-                            itemCount: snapshot.data!.docs.length); */
-                      } else {
-                        return const Align(
-                          alignment: FractionalOffset.bottomCenter,
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                    },
-                  ),
-                  
-                ],
-              )
+                    ),
+                    
+                  ],
+                )
+              ),
             ),
           ),
         ),

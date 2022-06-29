@@ -318,7 +318,7 @@ Future _Scroll123(BuildContext context) async{
 
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      //resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -411,10 +411,10 @@ Future _Scroll123(BuildContext context) async{
                               decoration: InputDecoration(
                                 labelText: Usuario_logeado.nombre,
                                 labelStyle: labelstyle1,
-                                border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black12, width: 2),),
+                                border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black12, width: 3),),
+                                contentPadding: EdgeInsets.fromLTRB(20, 18, 20, 15),
                                 enabledBorder: outlineInputBorder_enabled,
                                 focusedBorder: OutlineInputBorder_focused,
-                                contentPadding: EdgeInsets.fromLTRB(20, 18, 20, 15),
                                 suffixIcon: IconButton(
                                   onPressed: (){
                                     setState(() {
@@ -464,6 +464,8 @@ Future _Scroll123(BuildContext context) async{
                                 labelStyle: labelstyle1,
                                 border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black12, width: 3),),
                                 contentPadding: EdgeInsets.fromLTRB(20, 18, 20, 15),
+                                enabledBorder: outlineInputBorder_enabled,
+                                focusedBorder: OutlineInputBorder_focused,
                                 suffixIcon: IconButton(
                                   onPressed: (){
                                     setState(() {

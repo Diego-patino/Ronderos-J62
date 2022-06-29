@@ -65,8 +65,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
 class AuthentiacionWrapper extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => Scaffold(
-    body: StreamBuilder<User?>(
+  Widget build(BuildContext context) => MaterialApp( home 
+    : StreamBuilder<User?>(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot){
         if (snapshot.hasData) {
