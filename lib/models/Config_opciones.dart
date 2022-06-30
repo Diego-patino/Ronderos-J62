@@ -27,12 +27,6 @@ List<Config1> Config1List = [
      descripcion: "Cambiar de Contraseña.",
      boton: Icon(Icons.password_outlined, size: 40,),
      materialPageRoute: "contra"),
-  Config1( 
-     configuracion: "Familia",
-     descripcion: "Administra tu Familia.",
-     boton: Icon(Icons.family_restroom_rounded, size: 40,),
-     materialPageRoute: "family"
-     ),
 ];
 
 class Config2 {

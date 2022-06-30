@@ -3,11 +3,16 @@ import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:ronderos/clases/auth_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:ronderos/models/Familia.dart';
+import 'package:ronderos/pages/HomepageScreens/HP_Administrar_familia.dart';
+import 'package:ronderos/pages/HomepageScreens/HP_Mapa.dart';
+import 'package:ronderos/pages/HomepageScreens/HP_chat.dart';
+import 'package:ronderos/pages/HomepageScreens/HP_test.dart';
 import 'package:ronderos/pages/Unirse_familia.dart';
 import 'package:ronderos/pages/homepage_drawer.dart';
 import 'package:ronderos/pages/Edicion_usuario.dart';
@@ -75,7 +80,9 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController _apellidocontroller = TextEditingController();
   final TextEditingController _arbolcontroller = TextEditingController();
   final TextEditingController _familiacontroller = TextEditingController();
-
+  final PageController _pageController = PageController(initialPage: 0);
+  int _page = 0;
+  int gaa = 0;
     @override
   void dispose() {
     _nombrecontroller.dispose();
@@ -116,11 +123,61 @@ class _HomePageState extends State<HomePage> {
                 ));
           })
       ],), 
-      body:
-      Usuario_logeado.familia != ''?
-        Center(
-          child: Text('Bienvenido')
-          ): Huerfano()     
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (newindex){
+          setState(() {
+            _page = newindex;
+          });
+        },
+        children: [
+          Bienvenido(),
+          Administrar_familia(),
+          ChatRonderos(),
+          MapaRonderos(),
+        ],
+      ),
+
+    bottomNavigationBar:  Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: GNav(
+        hoverColor: Colors.black12,
+        gap: 8,
+        curve: Curves.ease,
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        tabActiveBorder: Border.all(color: Colors.green, width: 1.5),
+        tabBorderRadius: 40,
+       // tabBackgroundGradient: LinearGradient(colors: [Colors.green.shade500,Colors.green.shade400, Colors.green.shade300,Colors.green.shade200,Colors.green.shade100,]),
+        onTabChange: (index){
+            _pageController.animateToPage(index, duration: Duration(milliseconds: 400), curve: Curves.ease);
+            },
+        selectedIndex: _page,
+        activeColor: Colors.green,
+        backgroundColor: Colors.transparent,
+        tabs: [
+          GButton(
+            icon: Icons.home,
+            text: "Principal",),
+          GButton(
+            icon: Icons.family_restroom_rounded,
+            text: "Familia",),
+          GButton(
+            icon: Icons.chat_bubble_outline_rounded,
+            text: "Mensajes", ),
+          GButton(
+            icon: Icons.map_rounded,
+            text: "Mapa", ),
+        ]),
+    ),  
+      floatingActionButton: Container(
+        width: 70,
+        height: 70,
+        child: FloatingActionButton(
+          onPressed: (){}, 
+          child: Icon(Icons.local_police, size: 45,),
+            backgroundColor: Colors.green, 
+            elevation: 6, ),
+      ),  
     );
 
     

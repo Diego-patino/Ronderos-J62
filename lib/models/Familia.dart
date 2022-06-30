@@ -4,10 +4,11 @@ class Familiamodel {
   String? arbol;
   String? familia;
   String? uid;
+  String? foto;
   bool? admin;
   
 
-  Familiamodel({this.nombre, this.apellido, this.arbol, this.familia, this.uid, this.admin});
+  Familiamodel({this.nombre, this.apellido, this.arbol, this.familia, this.uid, this.foto, this.admin,});
 
   // receiving data from server
   factory Familiamodel.fromMap(map) {
@@ -17,6 +18,7 @@ class Familiamodel {
       arbol: map['arbol'],
       familia: map['familia'],
       uid: map['uid'],
+      foto: map['foto'],
       admin: map['admin'],
     );
   }
@@ -29,6 +31,7 @@ class Familiamodel {
       'arbol': arbol,
       'familia': familia,
       'uid': uid,
+      'foto': foto,
       'admin': admin,
     };
   }

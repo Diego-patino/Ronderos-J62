@@ -6,7 +6,7 @@ import 'package:ronderos/models/Familia.dart';
 import 'package:ronderos/models/Users.dart';
 import 'package:ronderos/pages/Configuracion.dart';
 import 'package:ronderos/pages/HomePage.dart';
-import 'package:ronderos/pages/Administrar_familia.dart';
+import 'package:ronderos/pages/HomepageScreens/HP_Administrar_familia.dart';
 import 'package:ronderos/pages/Unirse_familia.dart';
 
 import 'Edicion_usuario.dart';

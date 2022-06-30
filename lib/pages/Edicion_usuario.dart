@@ -113,9 +113,11 @@ Future _Scroll123(BuildContext context) async{
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
         setState(()=> cargando = false);
         
+        
             await FirebaseAuth.instance.signOut();
             Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => SignInPage()));
+
         
 }
 
@@ -170,81 +172,71 @@ Future _Scroll123(BuildContext context) async{
             
             .then((value) => print("User Updated"))
             .catchError((error) => print("Failed to update user: $error"));
-            
           print('Nueva Foto: ${userModel.FotoMomentanea}');
 
           if (Usuario_logeado.familia != ''){
-            _familiaWrapper(context);
-          } else {
-            return null;
-          }
+            print(Usuario_logeado.familia);
+    
+              String usuarionombre = '';
+              String usuarioapellido = '';
+
+              if (_nombrecontroller.text.isEmpty) {
+                usuarionombre = familiamodel.nombre!;
+              } if(_nombrecontroller.text.isNotEmpty){
+                usuarionombre = _nombrecontroller.text;
+              }
+              
+              if (_apellidocontroller.text.isEmpty) {
+                usuarioapellido = familiamodel.apellido!;
+              } if (_apellidocontroller.text.isNotEmpty) {
+                usuarioapellido = _apellidocontroller.text;
+              }
+
+
+            print(usuarionombre);
+            try {
+              DocumentReference documentReference2 =
+                    FirebaseFirestore.instance.collection(familiamodel.familia!).doc('${familiamodel.nombre} ${familiamodel.apellido}');
+                documentReference2
+                    .delete()           
+                    .then((value) => print("User Updated${familiamodel.nombre}${familiamodel.apellido}"))
+                    .catchError((error) => print("Failed to update user: $error"));
+            } catch (e) {
+              print("asdasdasdadasasdas");
+            }
+
+            try {
+              FirebaseFirestore firebaseFirestore2 = FirebaseFirestore.instance;
+                  // writing all the values
+                if(_nombrecontroller.text.isNotEmpty)
+                familiamodel.nombre = _nombrecontroller.text;
+                if(_nombrecontroller.text.isEmpty)
+                familiamodel.nombre = familiamodel.nombre;
+                if(_apellidocontroller.text.isNotEmpty)
+                familiamodel.apellido = _apellidocontroller.text;
+                if(_apellidocontroller.text.isEmpty)
+                familiamodel.apellido = familiamodel.apellido;
+                familiamodel.arbol = familiamodel.arbol;
+                familiamodel.familia = Usuario_logeado.familia;
+                familiamodel.foto = userModel.FotoMomentanea;
+
+                  await firebaseFirestore2
+                    .collection(Usuario_logeado.familia!)
+                    .doc('${usuarionombre} ${usuarioapellido}')
+                    .set(familiamodel.toMap());
+
+                } catch (e) {
+                  print(e);
+                  print("Fallo pipippipipipipi");
+                }
+                  } else {
+                    return null;
+                  }
 
 
         } catch (e) {
           print(e);
         }
-        
-
-  }
-
-  Future _familiaWrapper(BuildContext context) async{
-    
-    print(Usuario_logeado.familia);
-    
-      String usuarionombre = '';
-      String usuarioapellido = '';
-
-      if (_nombrecontroller.text.isEmpty) {
-        usuarionombre = familiamodel.nombre!;
-      } if(_nombrecontroller.text.isNotEmpty){
-        usuarionombre = _nombrecontroller.text;
-      }
-      
-      if (_apellidocontroller.text.isEmpty) {
-        usuarioapellido = familiamodel.apellido!;
-      } if (_apellidocontroller.text.isNotEmpty) {
-        usuarioapellido = _apellidocontroller.text;
-      }
-
-
-    print(usuarionombre);
-    try {
-      DocumentReference documentReference2 =
-            FirebaseFirestore.instance.collection(familiamodel.familia!).doc('${familiamodel.nombre} ${familiamodel.apellido}');
-        documentReference2
-            .delete()           
-            .then((value) => print("User Updated${familiamodel.nombre}${familiamodel.apellido}"))
-            .catchError((error) => print("Failed to update user: $error"));
-    } catch (e) {
-      print("asdasdasdadasasdas");
-    }
-
-    try {
-      FirebaseFirestore firebaseFirestore2 = FirebaseFirestore.instance;
-          // writing all the values
-        if(_nombrecontroller.text.isNotEmpty)
-        familiamodel.nombre = _nombrecontroller.text;
-        if(_nombrecontroller.text.isEmpty)
-        familiamodel.nombre = familiamodel.nombre;
-        if(_apellidocontroller.text.isNotEmpty)
-        familiamodel.apellido = _apellidocontroller.text;
-        if(_apellidocontroller.text.isEmpty)
-        familiamodel.apellido = familiamodel.apellido;
-        familiamodel.arbol = familiamodel.arbol;
-        familiamodel.familia = Usuario_logeado.familia;
-
-          await firebaseFirestore2
-            .collection(Usuario_logeado.familia!)
-            .doc('${usuarionombre} ${usuarioapellido}')
-            .set(familiamodel.toMap());
-
-        } catch (e) {
-          print(e);
-          print("Fallo pipippipipipipi");
-        }
-
-     
-
   }
 
  /* ChangeUserFoto() {

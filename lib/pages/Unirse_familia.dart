@@ -65,7 +65,9 @@ class _Unirse_familiaState extends State<Unirse_familia> {
         familiamodel.arbol = _arbolcontroller.text;
         familiamodel.familia = _familiacontroller.text;
         familiamodel.uid = Usuario_logeado.uid;
+        familiamodel.foto =Usuario_logeado.foto;
         familiamodel.admin = false;
+        
 
           await firebaseFirestore
             .collection(_familiacontroller.text)

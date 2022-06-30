@@ -3,10 +3,11 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ronderos/models/Config_opciones.dart';
-import 'package:ronderos/pages/Administrar_familia.dart';
+import 'package:ronderos/pages/HomepageScreens/HP_Administrar_familia.dart';
 import 'package:ronderos/pages/Borrar_cuenta.dart';
 import 'package:ronderos/pages/Cambiar_contra.dart';
 import 'package:ronderos/pages/Edicion_usuario.dart';
+import 'package:ronderos/pages/SalirseFamilia.dart';
 
 import 'HomePage.dart';
 
@@ -65,8 +66,7 @@ class _ConfiguracionState extends State<Configuracion> {
                                   Navigator.push(context, MaterialPageRoute(
                                    builder: (context) =>
                                     config1.materialPageRoute == "cuenta" ? Edicion_usuario() :
-                                    config1.materialPageRoute == "contra" ? Cambiarcontra() :
-                                    Administrar_familia() ));
+                                    Cambiarcontra()));
                                 },
                               );
                             },
@@ -100,7 +100,7 @@ class _ConfiguracionState extends State<Configuracion> {
                                 onTap: (){
                                   Navigator.push(context, MaterialPageRoute(
                                    builder: (context) =>
-                                    config2.materialPageRoute == "salirfamily"? HomePage123() : BorrarCuenta()));
+                                    config2.materialPageRoute == "salirfamily"? SalirseFamilia() : BorrarCuenta()));
                                 },
                               );
                             },
