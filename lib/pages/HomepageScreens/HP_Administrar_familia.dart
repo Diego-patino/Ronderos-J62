@@ -32,7 +32,7 @@ class _Administrar_familiaState extends State<Administrar_familia> {
 
    UserModel Usuario_logeado = UserModel();
    Familiamodel familiamodel = Familiamodel();
-    final user= FirebaseAuth.instance.currentUser!;
+   final user= FirebaseAuth.instance.currentUser!;
    
     @override
     void initState() {

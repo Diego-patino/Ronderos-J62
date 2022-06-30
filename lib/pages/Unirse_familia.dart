@@ -119,36 +119,16 @@ class _Unirse_familiaState extends State<Unirse_familia> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      endDrawer: Drawer( child: MainDrawer()),
+      
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: InkWell(
-          onTap: () {
-                         Navigator.push(
-                             context,
-                             MaterialPageRoute(
-                                 builder: (context) =>
-                                  HomePage123())); 
-                                },
-          splashColor: Colors.black26,
-          child: Text("RONDEROS", style: GoogleFonts.bungeeShade(textStyle: TextStyle(color: Colors.black), fontSize: 26)
-            )
-          ),
-        actions: [
-        Builder(
-          builder: (context){
-            return IconButton(
-          
-          onPressed: ()=> Scaffold.of(context).openEndDrawer(),
-          icon: CircleAvatar(
-                  backgroundImage: NetworkImage(
-                    Usuario_logeado.foto.toString(),
-                  ),
-                ));
-          })
-      ],
-      
+        title: Text('Ingresa a una Familia', style: GoogleFonts.balooPaaji2(textStyle:TextStyle(color: Colors.black, fontSize: 25))),
+        leading: IconButton(
+          onPressed: (){
+             Navigator.of(context).pop();
+          },
+          icon: Icon(Icons.arrow_back_sharp, color: Colors.lightGreen, size: 30,)),
       ), 
     
     body:

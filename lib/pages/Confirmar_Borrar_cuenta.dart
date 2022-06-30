@@ -169,7 +169,7 @@ Future _BorrarCuentaFamilia() async{
     documentReference
         .delete()
         .then((value) => print("Familiar eliminado"))
-        .catchError((error) => print("Failed to delete student: $error"));
+        .catchError((error) => print("Failed to delete: $error"));
     } catch (e) {
         final snackBar = SnackBar(content: Text("aaaaaaaaaa"));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -269,22 +269,22 @@ Future _BorrarCuentaFamilia() async{
         ),
       ),
       
-      floatingActionButton: FloatingActionButton.extended(
-                            onPressed: () {
-                              BorrarCuentaConfirmar();
-                            },
-                            backgroundColor: Colors.red,
-                            
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30)),
-                            label: const Text(
-                              "Borrar Cuenta",
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  letterSpacing: 2.2,
-                                  color: Colors.white),
-                            ),
-                          ),
+      floatingActionButton: 
+        FloatingActionButton.extended(
+          onPressed: () {
+            BorrarCuentaConfirmar();
+           },
+          backgroundColor: Colors.red,
+          shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30)),
+          label: const Text(
+            "Borrar Cuenta",
+            style: TextStyle(
+            fontSize: 15,
+            letterSpacing: 2.2,
+            color: Colors.white),
+         ),
+      ),
     );
   }
 }
