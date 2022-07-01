@@ -8,7 +8,7 @@ Aqui en Ronderos nos encargamos de ofrecer un app de facil control sobre las fam
 
 ## PRUEBAS FUNCIONALES DEL APLICATIVO RONDEROS
 
-Register:
+**Register:**
 Como Usuario tendras que realizar estos sencillos pasos para poder registrarte.
   - Registrate ingresando tu: Nombre, Apellido, Correo, y contraseña.
   - Comprueba si la informacion ingresada es como te la piden
@@ -18,14 +18,14 @@ Como Usuario tendras que realizar estos sencillos pasos para poder registrarte.
   
   (El Boton te registrara con toda la informacion dentro de nuestra base de datos en Firebase).
   
-Salir del App:
+**Salir del App:**
 ¿Ya te vas tan rapido? Si es asi presiona el boton "SALIR" del Drawer.
   - Confirma el formulario de salida.
   - Verifica si te encuentras en el Login.
   
   (El app registrara tu salida del app con tu cuenta en Auth. y hasta que no te vuelvas a logear te pedira que ingreses con una cuenta).
   
-Login:
+**Login:**
 Si quieres logearte deberas seguir estos pasos:
   - Ingresa tu correo y contraseña correctamente
   - Ingresa en el boton ingresar para comprobar si existe dentro de la base de datos.
@@ -34,7 +34,7 @@ Si quieres logearte deberas seguir estos pasos:
   
   (El boton comprobara si existe un usuario con ese correo y contraseña dentro del Auth.)
   
-Mantenerte logeado:
+**Mantenerte logeado:**
 Si cierras y vuelves a abrir el aplicativo, se guardara tu informacion para que ya no tengas que logearte de nuevo.
   - Cierra o minimiza el app.
   - Vuelvelo a abrir y comprueba si aun te encuentras logeado con tu cuenta.
@@ -42,7 +42,7 @@ Si cierras y vuelves a abrir el aplicativo, se guardara tu informacion para que 
   (El app registra el inicio de tu cuenta de Auth. y te mantendra logeado hasta que decidas desloguearte).
   
   
-Registrate a una familia:
+**Registrate a una familia:**
 Como usuario nuevo deberas registrarte a una familia ya existente o crear una nueva.
   - En la pestaña Familia da click en "Aqui".
   - Ingresa el nombre de la familia (Para poder ver integrantes porfavor ingresa a nuestra familia Ronderos),
@@ -53,7 +53,7 @@ Como usuario nuevo deberas registrarte a una familia ya existente o crear una nu
   
   (El boton enviara tu informacion respectiva y te agregara como miembro dentro de la familia en su base de datos).
   
-Cambiar de foto:
+**Cambiar de foto:**
 ¿No te gusta tu actual foto? puedes cambiartela ingresando al boton de configuraciones en el Drawer.
   - Ingresa en mi Cuenta.
   - Ingresa en la camara verde en medio de tu foto actual.
@@ -63,7 +63,7 @@ Cambiar de foto:
   
   (El boton enviara tu foto al Storage de Firebase y lo recibira como link para reenviarlo a tus perfiles respectivos).
   
-Cambiar de Nombre o Apellido:
+**Cambiar de Nombre o Apellido:**
 ¿Te equivocaste de informacion? puedes cambiarla ingresando al boton de configuraciones en el Drawer.
   - Ingresa en mi Cuenta.
   - Presiona el lapiz para editar tu nombre/apellido.
@@ -73,7 +73,7 @@ Cambiar de Nombre o Apellido:
   
   (El boton cambiara tu informacion respectiva en tus perfiles de la base de datos).
   
-Cambiar contraseña:
+**Cambiar contraseña:**
 Si deseas cambiar tu contraseña, puedes hacerlo ingresando al boton de configuracion.
   - Ingresa en Contraseña.
   - Ingresa tu contraseña actual y tu nueva contraseña.
@@ -84,7 +84,7 @@ Si deseas cambiar tu contraseña, puedes hacerlo ingresando al boton de configur
   
   (El boton cambiara tu contraseña tanto en el Auth. como en tu perfil de usuario)
   
-Salirse de Familia:
+**Salirse de Familia:**
 Si deseas salirte de tu familia actual, puedes hacer en configuraciones.
   - Ingresa a Salirse de Familia.
   - Comprueba si la familia que visualizas es tu familia actual.
@@ -94,7 +94,7 @@ Si deseas salirte de tu familia actual, puedes hacer en configuraciones.
   
   (El boton te eliminara de la base de datos de la familia y te borrará tu familia de tu perfil principal).
   
-Borrar Cuenta:
+**Borrar Cuenta:**
 Finalmente, si deseas borrar tu cuenta de una vez por todas podras hacerlo desde la ventana de configuraciones.
   - Ingresa a Borrar Cuenta.
   - Si estas completamente seguro, presiona en Proceder.
@@ -106,7 +106,7 @@ Finalmente, si deseas borrar tu cuenta de una vez por todas podras hacerlo desde
   
 ## FUNCIONALIDAD EXTRA
 
-Agregar como admin:
+**Agregar como admin:**
 Si eres administrador de tu familia, podras agregar miembros nuevos a tu familia; para ello te ofrecemos una cuenta admin de la familia Ronderos para que uses.
   - Logeate con el correo: Pablo@gmail.com, contraseña: Pablo123.
   - Ingresa a la pagina de Familia.
