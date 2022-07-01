@@ -10,6 +10,7 @@ import 'package:ronderos/widgets/Huerfano.dart';
 
 import '../models/Familia.dart';
 import '../models/Users.dart';
+import 'SignIn.dart';
 
 class SalirseFamilia extends StatefulWidget {
   const SalirseFamilia({Key? key}) : super(key: key);
@@ -69,9 +70,9 @@ class _SalirseFamiliaState extends State<SalirseFamilia> {
                 FlatButton(
                   onPressed:  (){
                   SalirFamilia();
+                  Navigator.of(context, rootNavigator: true).pop();
                   final snackBar = SnackBar(content: Text("Escapaste de tu familia con exito"));
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  Navigator.of(context, rootNavigator: true).pop();
                  //   Scroll123(context);
                      },
                   child: Text(
@@ -139,8 +140,9 @@ class _SalirseFamiliaState extends State<SalirseFamilia> {
       return null;
     }
       
+      FirebaseAuth.instance.signOut();
       Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => HomePage123()));
+      MaterialPageRoute(builder: (context) => SignInPage()));
 
   }
 
@@ -199,7 +201,7 @@ class _SalirseFamiliaState extends State<SalirseFamilia> {
                     textAlign: TextAlign.center,
                     style: GoogleFonts.prompt(
                       textStyle: TextStyle(
-                        fontSize: 36,
+                        fontSize: 32,
                         color: Colors.white
                       )
                     )
@@ -329,7 +331,7 @@ class _SalirseFamiliaState extends State<SalirseFamilia> {
                             child: const Text(
                               "SALIR DE FAMILIA",
                               style: TextStyle(
-                                  fontSize: 15,
+                                  fontSize: 12,
                                   letterSpacing: 2.2,
                                   color: Colors.white),
                             ),

@@ -149,7 +149,7 @@ class _HomePageState extends State<HomePage> {
         tabBorderRadius: 40,
        // tabBackgroundGradient: LinearGradient(colors: [Colors.green.shade500,Colors.green.shade400, Colors.green.shade300,Colors.green.shade200,Colors.green.shade100,]),
         onTabChange: (index){
-            _pageController.animateToPage(index, duration: Duration(milliseconds: 400), curve: Curves.ease);
+            _pageController.animateToPage(index, duration: Duration(milliseconds: 600), curve: Curves.ease);
             },
         selectedIndex: _page,
         activeColor: Colors.green,
@@ -157,15 +157,19 @@ class _HomePageState extends State<HomePage> {
         tabs: [
           GButton(
             icon: Icons.home,
+            iconColor: Colors.black54,
             text: "Principal",),
           GButton(
             icon: Icons.family_restroom_rounded,
+            iconColor: Colors.black54,
             text: "Familia",),
           GButton(
             icon: Icons.chat_bubble_outline_rounded,
+            iconColor: Colors.black54,
             text: "Mensajes", ),
           GButton(
             icon: Icons.map_rounded,
+            iconColor: Colors.black54,
             text: "Mapa", ),
         ]),
     ),  

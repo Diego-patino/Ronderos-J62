@@ -246,82 +246,85 @@ class _Administrar_familiaState extends State<Administrar_familia> {
                                     snapshot.data!.docs[index];
                                     //print(type);
                                   return Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      height: 120,
-                                      margin: EdgeInsets.symmetric(
-                                        vertical: 2,
-                                        horizontal: 4,
-                                      ),
-                                      child: Stack(
-                                        children: [
-                                          Container(
-                                            height: 124.0,
-                                            margin: EdgeInsets.only(left: 46),
-                                            constraints: new BoxConstraints.expand(),
-                                            child: Container(
-                                            margin: EdgeInsets.fromLTRB(76.0, 16.0, 16.0, 16.0),
-                                              child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  SizedBox(height: 4.0,),
-                                                  
-                                                  Text("${documentSnapshot["nombre"]} ${documentSnapshot["apellido"]}",
-                                                  style: GoogleFonts.poppins(
-                                                    textStyle: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 17.0, 
-                                                      fontWeight: FontWeight.w600)
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          height: 120,
+                                          margin: EdgeInsets.symmetric(
+                                            vertical: 2,
+                                            horizontal: 4,
+                                          ),
+                                          child: InkWell(
+                                            onTap: (){},
+                                            child: Stack(
+                                              children: [
+                                                Container(
+                                                  height: 124.0,
+                                                  margin: EdgeInsets.only(left: 46),
+                                                  constraints: new BoxConstraints.expand(),
+                                                  child: Container(
+                                                  margin: EdgeInsets.fromLTRB(76.0, 16.0, 16.0, 16.0),
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        SizedBox(height: 4.0,),
+                                                        
+                                                        Text("${documentSnapshot["nombre"]} ${documentSnapshot["apellido"]}",
+                                                        style: GoogleFonts.poppins(
+                                                          textStyle: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 17.0, 
+                                                            fontWeight: FontWeight.w600)
+                                                          ),
+                                                        ),
+                                          
+                                                        Text(documentSnapshot["arbol"],
+                                                        style: GoogleFonts.poppins(
+                                                          textStyle: TextStyle(
+                                                            color: Colors.white, 
+                                                            fontSize: 16.0, 
+                                                            fontWeight: FontWeight.w400)
+                                                          ),
+                                                        ),
+                                                        
+                                                      ],
                                                     ),
                                                   ),
-
-                                                  Text(documentSnapshot["arbol"],
-                                                  style: GoogleFonts.poppins(
-                                                    textStyle: TextStyle(
-                                                      color: Colors.white, 
-                                                      fontSize: 16.0, 
-                                                      fontWeight: FontWeight.w400)
+                                                  decoration: BoxDecoration(
+                                                    color: Color(0xFF736AB7),
+                                                    shape: BoxShape.rectangle,
+                                                    borderRadius: BorderRadius.circular(8.0),
+                                                    boxShadow: <BoxShadow>[
+                                                      BoxShadow(
+                                                        color: Colors.black12,
+                                                        blurRadius: 10.0,
+                                                        offset: Offset(0.0, 10.0),
+                                                      )
+                                                    ]
+                                                  ),
+                                                ),
+                                                Container(
+                                                  margin: EdgeInsets.symmetric(vertical: 16),
+                                                  alignment: FractionalOffset.centerLeft,
+                                                  child: Container(
+                                                    height: 92,
+                                                    width: 92,
+                                                    child: CircleAvatar(
+                                                      radius: 90,
+                                                      backgroundImage: NetworkImage(
+                                                          "${documentSnapshot["foto"]}",
+                                                        ) 
                                                     ),
                                                   ),
-                                                  
-                                                ],
-                                              ),
-                                            ),
-                                            decoration: BoxDecoration(
-                                              color: Color(0xFF736AB7),
-                                              shape: BoxShape.rectangle,
-                                              borderRadius: BorderRadius.circular(8.0),
-                                              boxShadow: <BoxShadow>[
-                                                BoxShadow(
-                                                  color: Colors.black12,
-                                                  blurRadius: 10.0,
-                                                  offset: Offset(0.0, 10.0),
                                                 )
-                                              ]
+                                              ],
                                             ),
                                           ),
-                                          Container(
-                                            margin: EdgeInsets.symmetric(vertical: 16),
-                                            alignment: FractionalOffset.centerLeft,
-                                            child: Container(
-                                              height: 92,
-                                              width: 92,
-                                              child: CircleAvatar(
-                                                radius: 90,
-                                                backgroundImage: NetworkImage(
-                                                    "${documentSnapshot["foto"]}",
-                                                  ) 
-                                              ),
-                                            ),
-                                          )
-                                        ],
-                                      ),
 
-                                    ),
-                                  ),
-                                ],
+                                        ),
+                                      ),
+                                    ],
                               );
                                            }
                                            ) 

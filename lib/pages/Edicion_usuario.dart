@@ -113,11 +113,10 @@ Future _Scroll123(BuildContext context) async{
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
         setState(()=> cargando = false);
         
-        
-            await FirebaseAuth.instance.signOut();
+            
+            FirebaseAuth.instance.signOut();
             Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => SignInPage()));
-
         
 }
 
