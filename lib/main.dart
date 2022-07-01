@@ -50,6 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
          StreamProvider(create: (context)=> context.read<AuthenticationService>().authStateChanges, initialData: null)
     ],
     child: MaterialApp(
+           initialRoute: '/',
           title: 'Ronderos',
           theme: ThemeData(
             primaryColor: Colors.white,

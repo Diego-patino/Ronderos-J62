@@ -108,15 +108,17 @@ Future _Scroll123(BuildContext context) async{
           );
           await _uploadFile(context);
         Navigator.of(context, rootNavigator: true).pop();
-
+        FirebaseAuth.instance.signOut();
         final snackBar = SnackBar(content: Text("Los cambios se guardaron, porfavor vuelva a logearse"));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
         setState(()=> cargando = false);
+      Navigator.pushAndRemoveUntil(
+        context,   
+        MaterialPageRoute(builder: (BuildContext context) => SignInPage()), 
+        ModalRoute.withName('/')
+    );
+
         
-            
-            FirebaseAuth.instance.signOut();
-            Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => SignInPage()));
         
 }
 

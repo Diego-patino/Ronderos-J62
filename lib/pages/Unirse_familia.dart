@@ -82,7 +82,13 @@ class _Unirse_familiaState extends State<Unirse_familia> {
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
       
         } 
-    }     
+    } Navigator.pushAndRemoveUntil<dynamic>(
+        context,
+        MaterialPageRoute<dynamic>(
+          builder: (BuildContext context) => HomePage123(),
+        ),
+        (route) => false,//if you want to disable back feature set to false
+); 
   }
 
   Future updateData(BuildContext context) async {
@@ -106,9 +112,6 @@ class _Unirse_familiaState extends State<Unirse_familia> {
             .doc(user.uid)
             .set(userModel.toMap());
 
-        Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => HomePage123()));
-
      } catch (e) {
        print(e);
      }
@@ -126,7 +129,6 @@ class _Unirse_familiaState extends State<Unirse_familia> {
         title: Text('Ingresa a una Familia', style: GoogleFonts.balooPaaji2(textStyle:TextStyle(color: Colors.black, fontSize: 25))),
         leading: IconButton(
           onPressed: (){
-             Navigator.of(context).pop();
           },
           icon: Icon(Icons.arrow_back_sharp, color: Colors.lightGreen, size: 30,)),
       ), 

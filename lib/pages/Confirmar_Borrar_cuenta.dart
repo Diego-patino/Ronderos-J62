@@ -6,8 +6,10 @@ import 'package:ronderos/models/Familia.dart';
 import 'package:ronderos/pages/Borrar_cuenta.dart';
 import 'package:ronderos/pages/SignIn.dart';
 
+import '../main.dart';
 import '../models/Users.dart';
 import '../widgets/validators.dart';
+import 'HomePage.dart';
 
 class ConfirmarBorrarCuenta extends StatefulWidget {
   const ConfirmarBorrarCuenta({Key? key}) : super(key: key);
@@ -123,8 +125,11 @@ class _ConfirmarBorrarCuentaState extends State<ConfirmarBorrarCuenta> {
         value.user!.delete().then((res){
           
           FirebaseAuth.instance.signOut();
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => SignInPage()));
+            Navigator.pushAndRemoveUntil(
+              context,   
+              MaterialPageRoute(builder: (BuildContext context) => MyHomePage(title: "",)), 
+              ModalRoute.withName('/')
+            );
         } );
       });
 

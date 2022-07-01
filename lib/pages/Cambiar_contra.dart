@@ -3,8 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ronderos/pages/Configuracion.dart';
+import 'package:ronderos/pages/HomePage.dart';
 import 'package:ronderos/widgets/validators.dart';
 
+import '../main.dart';
 import '../models/Users.dart';
 import 'SignIn.dart';
 
@@ -145,6 +147,8 @@ class _CambiarcontraState extends State<Cambiarcontra> {
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
               
             }
+            
+
   }
 
   Future Cambiarcontrasena_FirebaseFirestore() async {
@@ -164,12 +168,15 @@ class _CambiarcontraState extends State<Cambiarcontra> {
                   .catchError((error) => print("Failed to update user: $error"));
                   print('Nueva contra: ${Usuario_logeado.contrasena}');
 
+              final snackBar = SnackBar(content: Text("Se cambio la contraseña, porfavor vuelva a logearse"));
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   await FirebaseAuth.instance.signOut();
-                  Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => SignInPage()));
+                    Navigator.pushAndRemoveUntil(
+                      context,   
+                      MaterialPageRoute(builder: (BuildContext context) => SignInPage()), 
+                      ModalRoute.withName('/')
+                  );
                   
-                  final snackBar = SnackBar(content: Text("Se cambio la contraseña, porfavor vuelva a logearse"));
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
             } on FirebaseAuthException catch (error) {
               print(error);

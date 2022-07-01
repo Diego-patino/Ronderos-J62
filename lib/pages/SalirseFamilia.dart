@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ronderos/main.dart';
 import 'package:ronderos/models/usuarios123.dart';
 import 'package:ronderos/pages/HomePage.dart';
 import 'package:ronderos/widgets/Huerfano.dart';
@@ -114,8 +115,12 @@ class _SalirseFamiliaState extends State<SalirseFamilia> {
 
     _BorrarCuentaFamilia();
       
-      final snackBar = SnackBar(content: Text("Escapaste de tu familia con exito"));
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      FirebaseAuth.instance.signOut();
+      Navigator.pushAndRemoveUntil(
+        context,   
+        MaterialPageRoute(builder: (BuildContext context) => MyHomePage(title: "")), 
+        ModalRoute.withName('/')
+    );
   }
 
   Future _BorrarCuentaFamilia() async{
@@ -140,9 +145,7 @@ class _SalirseFamiliaState extends State<SalirseFamilia> {
       return null;
     }
       
-      FirebaseAuth.instance.signOut();
-      Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => SignInPage()));
+      
 
   }
 
