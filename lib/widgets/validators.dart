@@ -35,12 +35,12 @@ String? validatenombre(String? nombreform){
   return 'Porfavor coloque su nombre';
 
   String pattern = 
-    r'^(?!.*?[!@#\$&*~])(?=.*?[a-z])(?!.*?[0-9])';  //Tiene que NO tener => (simbolos)(numeros)
+    r'^(?=.*?[a-zA-Z0-9&%=]+$)(?!.*?[0-9])';  //Tiene que NO tener => (simbolos)(numeros)
     // Para simbolos es => ... (?=.*?[!@#\$&*~]) ...
     // Para Mayusculas es => ... (?=.*?[A-Z]) ...
     RegExp regex = RegExp(pattern);
     if (!regex.hasMatch(nombreform))
-    return 'Ingresar solo letras en el nombre';
+    return 'Ingresar solo letras sin espacio en el nombre';
 
   return null;
 }
@@ -50,12 +50,12 @@ String? validateapellido(String? apellidoform){
   return 'Porfavor coloque su Apellido';
 
    String pattern = 
-    r'^(?!.*?[!@#\$&*~])(?=.*?[a-z])(?!.*?[0-9])';  //Tiene que NO tener => (simbolos)(numeros)
+    r'^(?=.*?[a-zA-Z0-9&%=]+$)(?!.*?[0-9])';  //Tiene que NO tener => (simbolos)(numeros)
     // Para simbolos es => ... (?=.*?[!@#\$&*~]) ...
     // Para Mayusculas es => ... (?=.*?[A-Z]) ...
     RegExp regex = RegExp(pattern);
     if (!regex.hasMatch(apellidoform))
-    return 'Ingresar solo letras en el apellido';
+    return 'Ingresar solo letras sin espacio en el apellido';
 
   return null;
 }
