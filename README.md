@@ -107,7 +107,7 @@ Finalmente, si deseas borrar tu cuenta de una vez por todas podras hacerlo desde
 ## FUNCIONALIDAD EXTRA
 
 **Agregar como admin:**
-Si eres administrador de tu familia, podras agregar miembros nuevos a tu familia; para ello te ofrecemos una cuenta admin de la familia Ronderos para que uses.
+Si eres el lider de tu familia, podras agregar miembros nuevos; para ello te ofrecemos una cuenta de lider de la familia Ronderos para que la uses.
   - Logeate con el correo: Pablo@gmail.com, contraseña: Pablo123.
   - Ingresa a la pagina de Familia.
   - Ingresa el nombre, apellido y Arbol(miembro de familia) del nuevo integrante;
