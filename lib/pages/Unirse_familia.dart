@@ -70,8 +70,10 @@ class _Unirse_familiaState extends State<Unirse_familia> {
         
 
           await firebaseFirestore
-            .collection(_familiacontroller.text)
-            .doc('${Usuario_logeado.nombre} ${Usuario_logeado.apellido}')
+            .collection("Familias")
+            .doc(_familiacontroller.text)
+            .collection("Miembros")
+            .doc('${Usuario_logeado.nombre}_${Usuario_logeado.apellido}_${Usuario_logeado.uid}')
             .set(familiamodel.toMap());
 
             updateData(context);

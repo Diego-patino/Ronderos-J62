@@ -35,8 +35,10 @@ class _ConfirmarBorrarCuentaState extends State<ConfirmarBorrarCuenta> {
           
         });
         FirebaseFirestore.instance
-            .collection("${Usuario_logeado.familia}")
-            .doc('${Usuario_logeado.nombre}_${Usuario_logeado.apellido}')
+            .collection("Familias")
+            .doc("${Usuario_logeado.familia}")
+            .collection("Miembros")
+            .doc('${Usuario_logeado.nombre}_${Usuario_logeado.apellido}_${Usuario_logeado.uid}')
             .get()
             .then((value) {
           this.familiamodel = Familiamodel.fromMap(value.data());
@@ -169,7 +171,7 @@ Future _BorrarCuentaFamilia() async{
   try {
       
     DocumentReference documentReference =
-        FirebaseFirestore.instance.collection("${Usuario_logeado.familia}").doc('${Usuario_logeado.nombre} ${Usuario_logeado.apellido}');
+        FirebaseFirestore.instance .collection("Familias").doc("${Usuario_logeado.familia}").collection("Miembros").doc('${Usuario_logeado.nombre}_${Usuario_logeado.apellido}_${Usuario_logeado.uid}');
 
     documentReference
         .delete()

@@ -127,8 +127,10 @@ class _MainDrawerState extends State<MainDrawer> {
           setState(() {});
         
         FirebaseFirestore.instance
-            .collection(Usuario_logeado.familia!)
-            .doc("${Usuario_logeado.nombre} ${Usuario_logeado.apellido}")
+            .collection("Familias")
+            .doc(Usuario_logeado.familia!)
+            .collection("Miembros")
+            .doc("${Usuario_logeado.nombre}_${Usuario_logeado.apellido}_${Usuario_logeado.uid}")
             .get()
             .then((value) {
           this.familiamodel = Familiamodel.fromMap(value.data());
