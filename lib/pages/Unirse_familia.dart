@@ -11,6 +11,7 @@ import 'package:ronderos/models/Familia.dart';
 import 'package:ronderos/pages/HomePage.dart';
 import 'package:ronderos/pages/homepage_drawer.dart';
 import 'package:ronderos/pages/Edicion_usuario.dart';
+import 'package:ronderos/widgets/Toast.dart';
 import 'package:ronderos/widgets/validators.dart';
 import 'dart:ffi';
 
@@ -26,8 +27,6 @@ class Unirse_familia extends StatefulWidget {
 
 class _Unirse_familiaState extends State<Unirse_familia> {
 
-    UserModel Usuario_logeado = UserModel();
-    final user= FirebaseAuth.instance.currentUser!;
    @override
     void initState() {
         super.initState();
@@ -41,6 +40,8 @@ class _Unirse_familiaState extends State<Unirse_familia> {
         });
       }
 
+    UserModel Usuario_logeado = UserModel();
+    final user= FirebaseAuth.instance.currentUser!;
     final TextEditingController _arbolcontroller = TextEditingController();
     final TextEditingController _familiacontroller = TextEditingController();
     final outlineInputBorder_enabled =OutlineInputBorder(borderSide: BorderSide(color: Colors.black12, width: 2.5),);
@@ -49,16 +50,16 @@ class _Unirse_familiaState extends State<Unirse_familia> {
     final _formKey = GlobalKey<FormState>();
 
   Future createData(BuildContext context) async {
-    print("created");    
+    print("created"); 
+
+      FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+      User? user = FirebaseAuth.instance.currentUser;
+
+      Familiamodel familiamodel = Familiamodel();   
 
     if (_formKey.currentState!.validate()) {
       
       try {
-      FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-          User? user = FirebaseAuth.instance.currentUser;
-
-          Familiamodel familiamodel = Familiamodel();
-
           // writing all the values
         familiamodel.nombre = Usuario_logeado.nombre;
         familiamodel.apellido = Usuario_logeado.apellido;
@@ -84,13 +85,32 @@ class _Unirse_familiaState extends State<Unirse_familia> {
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
       
         } 
+        
+
+      try {
+        print(_familiacontroller.text);
+        DocumentReference documentReference =
+            FirebaseFirestore.instance.collection("Familias").doc(_familiacontroller.text);
+        documentReference
+            .set({
+              "${Usuario_logeado.nombre}_${Usuario_logeado.apellido}": "Google Maps"
+            })
+            
+            .then((value) => print("User Updated"))
+            .catchError((error) => print("Failed to update user: $error"));
+        print('Nombre: ${Usuario_logeado.nombre}_${Usuario_logeado.apellido}  ');
+        } catch (e) {
+          print(e);
+        }
     } Navigator.pushAndRemoveUntil<dynamic>(
         context,
         MaterialPageRoute<dynamic>(
           builder: (BuildContext context) => HomePage123(),
         ),
         (route) => false,//if you want to disable back feature set to false
-); 
+
+    ); 
+        entrarfamiliatoast();
   }
 
   Future updateData(BuildContext context) async {
@@ -117,6 +137,8 @@ class _Unirse_familiaState extends State<Unirse_familia> {
      } catch (e) {
        print(e);
      }
+            final snackBar = SnackBar(content: Text("Bienvenido a la familia"));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
 
@@ -130,9 +152,10 @@ class _Unirse_familiaState extends State<Unirse_familia> {
         elevation: 0,
         title: Text('Ingresa a una Familia', style: GoogleFonts.balooPaaji2(textStyle:TextStyle(color: Colors.black, fontSize: 25))),
         leading: IconButton(
-          onPressed: (){
+        onPressed: (){
+             Navigator.of(context).pop();
           },
-          icon: Icon(Icons.arrow_back_sharp, color: Colors.lightGreen, size: 30,)),
+        icon: Icon(Icons.arrow_back_sharp, color: Colors.lightGreen, size: 30,)),
       ), 
     
     body:

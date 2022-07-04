@@ -17,6 +17,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
 import 'package:path/path.dart';
 import 'package:ronderos/pages/SignIn.dart';
+import 'package:ronderos/widgets/Toast.dart';
 import 'package:ronderos/widgets/validators.dart';
 
 class Edicion_usuario extends StatefulWidget {
@@ -109,14 +110,16 @@ Future _Scroll123(BuildContext context) async{
           await _uploadFile(context);
         Navigator.of(context, rootNavigator: true).pop();
         FirebaseAuth.instance.signOut();
-        final snackBar = SnackBar(content: Text("Los cambios se guardaron, porfavor vuelva a logearse"));
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      /*  final snackBar = SnackBar(content: Text("Los cambios se guardaron, porfavor vuelva a logearse"));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);*/
         setState(()=> cargando = false);
       Navigator.pushAndRemoveUntil(
         context,   
         MaterialPageRoute(builder: (BuildContext context) => SignInPage()), 
         ModalRoute.withName('/')
     );
+
+    edicioncuentatoast();
 
         
         

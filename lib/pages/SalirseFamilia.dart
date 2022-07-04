@@ -8,6 +8,7 @@ import 'package:ronderos/main.dart';
 import 'package:ronderos/models/usuarios123.dart';
 import 'package:ronderos/pages/HomePage.dart';
 import 'package:ronderos/widgets/Huerfano.dart';
+import 'package:ronderos/widgets/Toast.dart';
 
 import '../models/Familia.dart';
 import '../models/Users.dart';
@@ -72,10 +73,9 @@ class _SalirseFamiliaState extends State<SalirseFamilia> {
               children: [
                 FlatButton(
                   onPressed:  (){
-                  SalirFamilia();
-                  Navigator.of(context, rootNavigator: true).pop();
-                  final snackBar = SnackBar(content: Text("Escapaste de tu familia con exito"));
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    SalirFamilia(context);
+                    Navigator.of(context, rootNavigator: true).pop();
+                    salirfamiliatoast();
                  //   Scroll123(context);
                      },
                   child: Text(
@@ -100,7 +100,8 @@ class _SalirseFamiliaState extends State<SalirseFamilia> {
       ));
   }
 
-  Future SalirFamilia() async{
+  Future SalirFamilia(BuildContext context) async{
+    
     try {
         DocumentReference documentReference =
             FirebaseFirestore.instance.collection("UsuariosApp").doc(Usuario_logeado.uid);
@@ -111,18 +112,20 @@ class _SalirseFamiliaState extends State<SalirseFamilia> {
             
             .then((value) => print("User Updated"))
             .catchError((error) => print("Failed to update user: $error"));
+
+             final snackBar = SnackBar(content: Text("Escapaste de tu familia con exito, porfavor vuelva a logearse"));
+             ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } catch (e) {
       print(e);
     }
+                  
 
     _BorrarCuentaFamilia();
       
-      FirebaseAuth.instance.signOut();
       Navigator.pushAndRemoveUntil(
         context,   
-        MaterialPageRoute(builder: (BuildContext context) => MyHomePage(title: "")), 
-        ModalRoute.withName('/')
-    );
+        MaterialPageRoute(builder: (BuildContext context) => HomePage123()), 
+        ModalRoute.withName('/'));
   }
 
   Future _BorrarCuentaFamilia() async{
@@ -143,6 +146,20 @@ class _SalirseFamiliaState extends State<SalirseFamilia> {
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           
           
+        }
+
+        try {
+           DocumentReference documentReference =
+            FirebaseFirestore.instance.collection("Familias").doc(Usuario_logeado.familia);
+        documentReference
+            .update({
+              "${Usuario_logeado.nombre}_${Usuario_logeado.apellido}": FieldValue.delete()
+            })
+            
+            .then((value) => print("User Updated"))
+            .catchError((error) => print("Failed to update user: $error"));
+        } catch (e) {
+          print(e);
         }
     } else{
       return null;

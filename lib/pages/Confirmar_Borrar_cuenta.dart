@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ronderos/models/Familia.dart';
 import 'package:ronderos/pages/Borrar_cuenta.dart';
 import 'package:ronderos/pages/SignIn.dart';
+import 'package:ronderos/widgets/Toast.dart';
 
 import '../main.dart';
 import '../models/Users.dart';
@@ -141,8 +142,7 @@ class _ConfirmarBorrarCuentaState extends State<ConfirmarBorrarCuenta> {
       print(e);
     }
 
-        final snackBar = SnackBar(content: Text("Nos vemos pronto:)"));
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      borrarcuentatoast();
 
   }
 
@@ -183,6 +183,20 @@ Future _BorrarCuentaFamilia() async{
       
       
     }
+
+    try {
+      DocumentReference documentReference =
+      FirebaseFirestore.instance.collection("Familias").doc(Usuario_logeado.familia);
+        documentReference
+          .update({
+            "${Usuario_logeado.nombre}_${Usuario_logeado.apellido}": FieldValue.delete()
+          })
+            
+          .then((value) => print("User Updated"))
+          .catchError((error) => print("Failed to update user: $error"));
+        } catch (e) {
+          print(e);
+        }
   } else{
     return null;
   }

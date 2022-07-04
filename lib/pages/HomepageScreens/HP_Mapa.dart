@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 class MapaRonderos extends StatefulWidget {
@@ -8,11 +11,40 @@ class MapaRonderos extends StatefulWidget {
 }
 
 class _MapaRonderosState extends State<MapaRonderos> {
+
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
+  final FirebaseMessaging _fcm = FirebaseMessaging.instance;
+
+  @override
+  void initState() {
+    WidgetsFlutterBinding.ensureInitialized();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  Future _GetToken() async {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    _fcm.unsubscribeFromTopic("Ronderos");
+    String? fcmtoken = await _fcm.getToken();
+
+    print("El token esa: ${fcmtoken}");
+
+  } 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(child: Container(
-        child: Text('MapaGoogle'),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('MapaGoogle'),
+              RaisedButton(onPressed: _GetToken, child: Text("data"))
+            ],
+          ),
+        ),
       )),
     );
   }

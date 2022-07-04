@@ -124,6 +124,7 @@ class _HomePageState extends State<HomePage> {
           })
       ],), 
       body: PageView(
+        physics: BouncingScrollPhysics(),
         controller: _pageController,
         onPageChanged: (newindex){
           setState(() {

@@ -124,10 +124,14 @@ class _RegisterPageState extends State<RegisterPage> {
         (context),
         MaterialPageRoute(builder: (context) => HomeScreen()),
         (route) => false); */
-       Navigator.pushAndRemoveUntil(
-        (context),
-        MaterialPageRoute(builder: (context) => HomePage123()),
-        (route) => false);
+       Navigator.pushAndRemoveUntil<dynamic>(
+        context,
+        MaterialPageRoute<dynamic>(
+          builder: (BuildContext context) => HomePage123(),
+        ),
+        (route) => false,//if you want to disable back feature set to false
+
+    );
         
   }
 
@@ -181,6 +185,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 35.0),
                     child: TextFormField(
+                      cursorColor: Colors.green,
                       validator: validatenombre,
                       controller: _nombrecontroller,
                       keyboardType: TextInputType.name,
@@ -208,6 +213,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 35.0),
                         child: TextFormField(
+                          cursorColor: Colors.green,
                           validator: validateapellido,
                           controller: _apellidocontroller,
                           keyboardType: TextInputType.name,
@@ -219,9 +225,10 @@ class _RegisterPageState extends State<RegisterPage> {
                             focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.greenAccent, width: 3)),
                             contentPadding: EdgeInsets.fromLTRB(20, 18, 20, 15),
                             border: OutlineInputBorder(),
+                            iconColor: Colors.green,
                             hintText: '',
                             labelText: 'Apellido',
-                            labelStyle: TextStyle(color: Colors.black45, fontSize: 18)
+                            labelStyle: TextStyle(color: Colors.black45, fontSize: 18),
                 
                           ),
                           onChanged: (value){
@@ -235,6 +242,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 35.0),
                         child: TextFormField(
+                         cursorColor: Colors.green,
                           controller: _emailcontroller,
                           validator: validateEmail,
                           keyboardType: TextInputType.emailAddress,
@@ -261,6 +269,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 35.0),
                         child: TextFormField(
+                          cursorColor: Colors.green,
                           obscureText: _secureText1,
                           validator: validatecontra,
                           controller: _passwordcontroller,
@@ -297,6 +306,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 35.0),
                         child: TextFormField(
+                          cursorColor: Colors.green,
                           obscureText: _secureText2,
                           validator: validatecontra,
                           controller: _confirmpasswordcontroller,
@@ -315,8 +325,8 @@ class _RegisterPageState extends State<RegisterPage> {
                             errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.redAccent, width: 3)),
                             focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.greenAccent, width: 3)) ,
                             prefixIcon: Icon(Icons.key_rounded, color: Colors.black54,),
-                                enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black54, width: 3),),
-                                focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.greenAccent, width: 3)),
+                            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black54, width: 3),),
+                            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.greenAccent, width: 3)),
                             contentPadding: EdgeInsets.fromLTRB(20, 18, 20, 15),
                             hintText: '',
                             labelText: 'Confirmar contraseña',

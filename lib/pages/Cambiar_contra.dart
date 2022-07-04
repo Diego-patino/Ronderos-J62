@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ronderos/pages/Configuracion.dart';
 import 'package:ronderos/pages/HomePage.dart';
+import 'package:ronderos/widgets/Toast.dart';
 import 'package:ronderos/widgets/validators.dart';
 
 import '../main.dart';
@@ -147,6 +148,8 @@ class _CambiarcontraState extends State<Cambiarcontra> {
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
               
             }
+
+        edicioncuentatoast();
             
 
   }
