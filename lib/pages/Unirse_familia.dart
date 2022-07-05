@@ -76,7 +76,7 @@ class _Unirse_familiaState extends State<Unirse_familia> {
             .collection("Familias")
             .doc(_familiacontroller.text)
             .collection("Miembros")
-            .doc('${Usuario_logeado.nombre}_${Usuario_logeado.apellido}_${Usuario_logeado.uid}')
+            .doc('${Usuario_logeado.uid}')
             .set(familiamodel.toMap());
 
             updateData(context);
@@ -95,7 +95,8 @@ class _Unirse_familiaState extends State<Unirse_familia> {
             FirebaseFirestore.instance.collection("Familias").doc(_familiacontroller.text).collection("Tokens").doc(Usuario_logeado.phonekey);
         documentReference
             .set({
-              "nombre": "${Usuario_logeado.nombre}_${Usuario_logeado.apellido}",
+              "nombre": Usuario_logeado.nombre,
+              "apellido": Usuario_logeado.apellido,
               "creadoEl": FieldValue.serverTimestamp(),
               "uid": Usuario_logeado.uid,
               "token": Usuario_logeado.phonekey,

@@ -32,7 +32,7 @@ Future<void> main() async {
     channel = const AndroidNotificationChannel(
       'high_importance_channel', // id
       'High Importance Notifications', // title
-      importance: Importance.high,
+      importance: Importance.max,
     );
     final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     /// Create an Android Notification Channel.

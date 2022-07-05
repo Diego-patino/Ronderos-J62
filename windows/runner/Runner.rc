@@ -89,11 +89,11 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.ronderos" "\0"
+            VALUE "CompanyName", "com.diegopatino" "\0"
             VALUE "FileDescription", "testfirebase" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "testfirebase" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2022 com.ronderos. All rights reserved." "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2022 com.diegopatino. All rights reserved." "\0"
             VALUE "OriginalFilename", "testfirebase.exe" "\0"
             VALUE "ProductName", "testfirebase" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"

@@ -10,7 +10,36 @@
       "client_info": {
         "mobilesdk_app_id": "1:306482395945:android:6dbe894bed4f05ae5f5538",
         "android_client_info": {
-          "package_name": "com.ronderos.testfirebase"
+          "package_name": "com.company.ronderos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "306482395945-o1gjesjscjistsqc1rhhde18u56oqm2l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5MvPI3qZ6XJfDZWLtPf5q-gBktmKN7ek"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "306482395945-o1gjesjscjistsqc1rhhde18u56oqm2l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:306482395945:android:bdec8320bb04e88f5f5538",
+        "android_client_info": {
+          "package_name": "com.diegopatino.Ronderos"
         }
       },
       "oauth_client": [
@@ -39,7 +68,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:306482395945:android:73aa414a96d915405f5538",
         "android_client_info": {
-          "package_name": "com.ronderos.testfirebase"
+          "package_name": "com.diegopatino.Ronderos"
         }
       },
       "oauth_client": [

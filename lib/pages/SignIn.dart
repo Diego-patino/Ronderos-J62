@@ -126,7 +126,7 @@ class _SignInPageState extends State<SignInPage> {
     setState(()=> cargando = true);
     if (_formKey.currentState!.validate()) {
       try {
-        await FirebaseAuth.instance
+        FirebaseAuth.instance
             .signInWithEmailAndPassword(email: correo, password: contrasena)
             .then((uid) => {
                   Navigator.of(context).pushReplacement(

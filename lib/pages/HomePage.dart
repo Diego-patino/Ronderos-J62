@@ -64,13 +64,14 @@ class _HomePageState extends State<HomePage> {
 
   
    
-  Familiamodel familiamodel = Familiamodel();
-   UserModel Usuario_logeado = UserModel();
+    Familiamodel familiamodel = Familiamodel();
+    UserModel Usuario_logeado = UserModel();
     final user= FirebaseAuth.instance.currentUser!;
 
    @override
     void initState() {
         super.initState();
+        print('GAAAAAAAAAAAAAAAAAAAAAAAAAA');
         FirebaseFirestore.instance
             .collection("UsuariosApp")
             .doc(user.uid)
@@ -85,24 +86,18 @@ class _HomePageState extends State<HomePage> {
             .collection("Miembros")
             .doc("${Usuario_logeado.nombre}_${Usuario_logeado.apellido}_${Usuario_logeado.uid}")
             .get()
-            .then((value) {
+            .then((value) async{
           this.familiamodel = Familiamodel.fromMap(value.data());
           setState(() {});
-        });
-        });
-
-      Future _GetToken() async {
       
         _fcm.unsubscribeFromTopic("Ronderos");
         String? fcmtoken = await _fcm.getToken();
 
-            print("El token es: ${fcmtoken}");
-          
           if (fcmtoken != Usuario_logeado.phonekey) {
-            
+            print("Comenzamos GAAAAAAAAAAAAAAAA");
+            print("El token es: ${fcmtoken}");
+            print("El antiguo Token es: ${Usuario_logeado.phonekey}");
 
-            final snackBar = SnackBar(content: Text("fallo: ${Usuario_logeado.phonekey}"));
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
             try {
               DocumentReference documentReference =
                   FirebaseFirestore.instance.collection("UsuariosApp").doc(Usuario_logeado.uid);
@@ -111,7 +106,7 @@ class _HomePageState extends State<HomePage> {
                     "phonekey": fcmtoken
                   })
                   
-                  .then((value) => print("User Updated"))
+                  .then((value) => print("Se cambio el Token en el UsuariosApp"))
                   .catchError((error) => print("Failed to update user: $error"));
             } catch (e) {
               print(e);
@@ -125,7 +120,7 @@ class _HomePageState extends State<HomePage> {
                     "phonekey": fcmtoken
                   })
                   
-                  .then((value) => print("User Updated"))
+                  .then((value) => print("Se cambio el Token en la familia/Miembros"))
                   .catchError((error) => print("Failed to update user: $error"));
             } catch (e) {
               print(e);
@@ -133,9 +128,9 @@ class _HomePageState extends State<HomePage> {
 
             try {
                 // writing all the values
-              print(_familiacontroller.text);
+              print(Usuario_logeado.familia);
               DocumentReference documentReference =
-                  FirebaseFirestore.instance.collection("Familias").doc(_familiacontroller.text).collection("Tokens").doc(fcmtoken);
+                  FirebaseFirestore.instance.collection("Familias").doc(Usuario_logeado.familia).collection("Tokens").doc(fcmtoken);
               documentReference
                   .set({
                     "nombre": "${Usuario_logeado.nombre}_${Usuario_logeado.apellido}",
@@ -144,7 +139,7 @@ class _HomePageState extends State<HomePage> {
                     "token": Usuario_logeado.phonekey,
                   })
                   
-                  .then((value) => print("User Updated"))
+                  .then((value) => print("Se agrego un nuevo token en familia/Tokens"))
                   .catchError((error) => print("Failed to update user: $error"));
               print('Nombre: ${Usuario_logeado.nombre}_${Usuario_logeado.apellido}  ');
               } catch (e) {
@@ -152,28 +147,23 @@ class _HomePageState extends State<HomePage> {
               } 
 
           } if(fcmtoken == Usuario_logeado.phonekey){
-            return null;
+            return print("Todo bien papi np pipipipipipi");
           }
 
-        }
+        });
+        });
+
+      
       }
    
   
   final style1 = TextStyle(fontSize: 18, color: Colors.black);
-  final TextEditingController _nombrecontroller = TextEditingController();
-  final TextEditingController _apellidocontroller = TextEditingController();
-  final TextEditingController _arbolcontroller = TextEditingController();
-  final TextEditingController _familiacontroller = TextEditingController();
   final PageController _pageController = PageController(initialPage: 0);
   
   int _page = 0;
   int gaa = 0;
     @override
   void dispose() {
-    _nombrecontroller.dispose();
-    _apellidocontroller.dispose();
-    _arbolcontroller.dispose();
-    _familiacontroller.dispose();
     super.dispose();
   }
 

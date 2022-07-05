@@ -179,62 +179,56 @@ Future _Scroll123(BuildContext context) async{
           print('Nueva Foto: ${userModel.FotoMomentanea}');
 
           if (Usuario_logeado.familia != ''){
+
+            FieldValue? UsuarioDate = familiamodel.agregadoEl;
             print(Usuario_logeado.familia);
-    
-              String usuarionombre = '';
-              String usuarioapellido = '';
-
-              if (_nombrecontroller.text.isEmpty) {
-                usuarionombre = familiamodel.nombre!;
-              } if(_nombrecontroller.text.isNotEmpty){
-                usuarionombre = _nombrecontroller.text;
-              }
-              
-              if (_apellidocontroller.text.isEmpty) {
-                usuarioapellido = familiamodel.apellido!;
-              } if (_apellidocontroller.text.isNotEmpty) {
-                usuarioapellido = _apellidocontroller.text;
-              }
-
-
-            print(usuarionombre);
-            try {
-              DocumentReference documentReference2 =
-                    FirebaseFirestore.instance
-                    .collection("Familias")
-                    .doc(familiamodel.familia!)
-                    .collection("Miembros")
-                    .doc('${familiamodel.nombre}_${familiamodel.apellido}_${familiamodel.uid}');
-                documentReference2
-                    .delete()           
-                    .then((value) => print("User Updated${familiamodel.nombre} ${familiamodel.apellido}"))
-                    .catchError((error) => print("Failed to update user: $error"));
-            } catch (e) {
-              print("asdasdasdadasasdas");
-            }
 
             try {
-              FirebaseFirestore firebaseFirestore2 = FirebaseFirestore.instance;
-                  // writing all the values
+              print(Usuario_logeado.familia);
+              print(Usuario_logeado.uid);
+              DocumentReference documentReference =
+              FirebaseFirestore.instance.collection("Familias").doc(Usuario_logeado.familia).collection("Miembros").doc(Usuario_logeado.uid);
+              documentReference
+              .update({
+                "foto" : userModel.FotoMomentanea.toString(),
                 if(_nombrecontroller.text.isNotEmpty)
-                familiamodel.nombre = _nombrecontroller.text;
+                "nombre" : _nombrecontroller.text,
                 if(_nombrecontroller.text.isEmpty)
-                familiamodel.nombre = familiamodel.nombre;
+                "nombre": Usuario_logeado.nombre,
                 if(_apellidocontroller.text.isNotEmpty)
-                familiamodel.apellido = _apellidocontroller.text;
+                "apellido": _apellidocontroller.text,
                 if(_apellidocontroller.text.isEmpty)
-                familiamodel.apellido = familiamodel.apellido;
-                familiamodel.arbol = familiamodel.arbol;
-                familiamodel.familia = Usuario_logeado.familia;
-                familiamodel.foto = userModel.FotoMomentanea;
+                "apellido": Usuario_logeado.apellido,
+            })
+            
+            .then((value) => print("User Updated"))
+            .catchError((error) => print("Failed to update user: $error"));
+                 print('Nueva Foto: ${userModel.FotoMomentanea}');
+                } catch (e) {
+                  print(e);
+                  print("Fallo pipippipipipipi");
+                }
 
-                  await firebaseFirestore2
-                    .collection("Familias")
-                    .doc(Usuario_logeado.familia!)
-                    .collection("Miembros")
-                    .doc('${usuarionombre}_${usuarioapellido}_${familiamodel.uid}')
-                    .set(familiamodel.toMap());
-
+                try {
+              print(Usuario_logeado.familia);
+              print(Usuario_logeado.uid);
+              DocumentReference documentReference =
+              FirebaseFirestore.instance.collection("Familias").doc(Usuario_logeado.familia).collection("Tokens").doc(Usuario_logeado.phonekey);
+              documentReference
+              .update({
+                if(_nombrecontroller.text.isNotEmpty)
+                "nombre" : _nombrecontroller.text,
+                if(_nombrecontroller.text.isEmpty)
+                "nombre": Usuario_logeado.nombre,
+                if(_apellidocontroller.text.isNotEmpty)
+                "apellido": _apellidocontroller.text,
+                if(_apellidocontroller.text.isEmpty)
+                "apellido": Usuario_logeado.apellido,
+              })
+            
+            .then((value) => print("User Updated"))
+            .catchError((error) => print("Failed to update user: $error"));
+             print('Nueva Foto: ${userModel.FotoMomentanea}');
                 } catch (e) {
                   print(e);
                   print("Fallo pipippipipipipi");

@@ -135,7 +135,7 @@ class _SalirseFamiliaState extends State<SalirseFamilia> {
           
         DocumentReference documentReference =
             FirebaseFirestore.instance
-            .collection("Familias").doc("${Usuario_logeado.familia}").collection("Miembros").doc('${Usuario_logeado.nombre}_${Usuario_logeado.apellido}_${Usuario_logeado.uid}');
+            .collection("Familias").doc("${Usuario_logeado.familia}").collection("Miembros").doc(Usuario_logeado.uid);
 
         documentReference
             .delete()
@@ -160,6 +160,23 @@ class _SalirseFamiliaState extends State<SalirseFamilia> {
             .catchError((error) => print("Failed to update user: $error"));
         } catch (e) {
           print(e);
+        }
+
+        try {
+          
+        DocumentReference documentReference =
+            FirebaseFirestore.instance
+            .collection("Familias").doc("${Usuario_logeado.familia}").collection("Tokens").doc(Usuario_logeado.phonekey);
+
+        documentReference
+            .delete()
+            .then((value) => print("Token de Familiar eliminado"))
+            .catchError((error) => print("Failed to delete: $error"));
+        } catch (e) {
+            final snackBar = SnackBar(content: Text("aaaaaaaaaa"));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          
+          
         }
     } else{
       return null;
