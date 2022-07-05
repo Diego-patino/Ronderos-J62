@@ -66,7 +66,9 @@ class _Unirse_familiaState extends State<Unirse_familia> {
         familiamodel.arbol = _arbolcontroller.text;
         familiamodel.familia = _familiacontroller.text;
         familiamodel.uid = Usuario_logeado.uid;
-        familiamodel.foto =Usuario_logeado.foto;
+        familiamodel.foto = Usuario_logeado.foto;
+        familiamodel.phonekey= Usuario_logeado.phonekey;
+        familiamodel.agregadoEl= FieldValue.serverTimestamp();
         familiamodel.admin = false;
         
 
@@ -84,6 +86,29 @@ class _Unirse_familiaState extends State<Unirse_familia> {
             final snackBar = SnackBar(content: Text("Porfavor ingresa el nombre de la familia y que miembro eres"));
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
       
+        }
+
+      try {
+          // writing all the values
+        print(_familiacontroller.text);
+        DocumentReference documentReference =
+            FirebaseFirestore.instance.collection("Familias").doc(_familiacontroller.text).collection("Tokens").doc(Usuario_logeado.phonekey);
+        documentReference
+            .set({
+              "nombre": "${Usuario_logeado.nombre}_${Usuario_logeado.apellido}",
+              "creadoEl": FieldValue.serverTimestamp(),
+              "uid": Usuario_logeado.uid,
+              "token": Usuario_logeado.phonekey,
+            })
+            
+            .then((value) => print("User Updated"))
+            .catchError((error) => print("Failed to update user: $error"));
+        print('Nombre: ${Usuario_logeado.nombre}_${Usuario_logeado.apellido}  ');
+        } catch (e) {
+          print(e);
+
+            final snackBar = SnackBar(content: Text("Porfavor ingresa el nombre de la familia y que miembro eres"));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
         } 
         
 
@@ -102,6 +127,8 @@ class _Unirse_familiaState extends State<Unirse_familia> {
         } catch (e) {
           print(e);
         }
+
+        
     } Navigator.pushAndRemoveUntil<dynamic>(
         context,
         MaterialPageRoute<dynamic>(
@@ -121,18 +148,16 @@ class _Unirse_familiaState extends State<Unirse_familia> {
 
      try {
        
-        // writing all the values
-        userModel.correo = user.email;
-        userModel.uid = user.uid;
-        userModel.nombre = Usuario_logeado.nombre;
-        userModel.apellido = Usuario_logeado.apellido;
-        userModel.contrasena = Usuario_logeado.contrasena;
-        userModel.foto = Usuario_logeado.foto;
-        userModel.familia = _familiacontroller.text;
-        await firebaseFirestore
-            .collection('UsuariosApp')
-            .doc(user.uid)
-            .set(userModel.toMap());
+        DocumentReference documentReference =
+          FirebaseFirestore.instance.collection("UsuariosApp").doc(Usuario_logeado.uid);
+          documentReference
+          .update({
+            "familia" : _familiacontroller.text,
+        })
+                  
+        .then((value) => print("User Updated"))
+        .catchError((error) => print("Failed to update user: $error"));
+          print('Nueva contra: ${Usuario_logeado.contrasena}');
 
      } catch (e) {
        print(e);

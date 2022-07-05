@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -22,6 +23,8 @@ import 'dart:ffi';
 import '../models/Users.dart';
 import 'SignIn.dart';
 
+
+final FirebaseMessaging _fcm = FirebaseMessaging.instance;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -59,8 +62,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+  
+   
+  Familiamodel familiamodel = Familiamodel();
    UserModel Usuario_logeado = UserModel();
     final user= FirebaseAuth.instance.currentUser!;
+
    @override
     void initState() {
         super.initState();
@@ -71,7 +78,84 @@ class _HomePageState extends State<HomePage> {
             .then((value) {
           this.Usuario_logeado = UserModel.fromMap(value.data());
           setState(() {});
+        
+        FirebaseFirestore.instance
+            .collection("Familias")
+            .doc(Usuario_logeado.familia!)
+            .collection("Miembros")
+            .doc("${Usuario_logeado.nombre}_${Usuario_logeado.apellido}_${Usuario_logeado.uid}")
+            .get()
+            .then((value) {
+          this.familiamodel = Familiamodel.fromMap(value.data());
+          setState(() {});
         });
+        });
+
+      Future _GetToken() async {
+      
+        _fcm.unsubscribeFromTopic("Ronderos");
+        String? fcmtoken = await _fcm.getToken();
+
+            print("El token es: ${fcmtoken}");
+          
+          if (fcmtoken != Usuario_logeado.phonekey) {
+            
+
+            final snackBar = SnackBar(content: Text("fallo: ${Usuario_logeado.phonekey}"));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            try {
+              DocumentReference documentReference =
+                  FirebaseFirestore.instance.collection("UsuariosApp").doc(Usuario_logeado.uid);
+              documentReference
+                  .update({
+                    "phonekey": fcmtoken
+                  })
+                  
+                  .then((value) => print("User Updated"))
+                  .catchError((error) => print("Failed to update user: $error"));
+            } catch (e) {
+              print(e);
+            }
+
+            try {
+              DocumentReference documentReference =
+                  FirebaseFirestore.instance.collection("Familias").doc(Usuario_logeado.familia).collection("Miembros").doc("${Usuario_logeado.nombre}_${Usuario_logeado.apellido}_${Usuario_logeado.uid}");
+              documentReference
+                  .update({
+                    "phonekey": fcmtoken
+                  })
+                  
+                  .then((value) => print("User Updated"))
+                  .catchError((error) => print("Failed to update user: $error"));
+            } catch (e) {
+              print(e);
+            }
+
+            try {
+                // writing all the values
+              print(_familiacontroller.text);
+              DocumentReference documentReference =
+                  FirebaseFirestore.instance.collection("Familias").doc(_familiacontroller.text).collection("Tokens").doc(fcmtoken);
+              documentReference
+                  .set({
+                    "nombre": "${Usuario_logeado.nombre}_${Usuario_logeado.apellido}",
+                    "creadoEl": FieldValue.serverTimestamp(),
+                    "uid": Usuario_logeado.uid,
+                    "token": Usuario_logeado.phonekey,
+                  })
+                  
+                  .then((value) => print("User Updated"))
+                  .catchError((error) => print("Failed to update user: $error"));
+              print('Nombre: ${Usuario_logeado.nombre}_${Usuario_logeado.apellido}  ');
+              } catch (e) {
+                print(e);
+              } 
+
+          } if(fcmtoken == Usuario_logeado.phonekey){
+            return null;
+          }
+
+        }
       }
    
   
@@ -81,6 +165,7 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController _arbolcontroller = TextEditingController();
   final TextEditingController _familiacontroller = TextEditingController();
   final PageController _pageController = PageController(initialPage: 0);
+  
   int _page = 0;
   int gaa = 0;
     @override
@@ -190,7 +275,6 @@ class _HomePageState extends State<HomePage> {
 }
 
 
- 
 Future<void> signOut(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
     Navigator.of(context).pushReplacement(

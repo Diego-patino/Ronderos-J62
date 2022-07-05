@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Familiamodel {
   String? nombre;
   String? apellido;
@@ -5,10 +7,12 @@ class Familiamodel {
   String? familia;
   String? uid;
   String? foto;
+  String? phonekey;
+  FieldValue? agregadoEl;
   bool? admin;
   
 
-  Familiamodel({this.nombre, this.apellido, this.arbol, this.familia, this.uid, this.foto, this.admin,});
+  Familiamodel({this.nombre, this.apellido, this.arbol, this.familia, this.uid, this.foto, this.admin, this.phonekey, this.agregadoEl});
 
   // receiving data from server
   factory Familiamodel.fromMap(map) {
@@ -20,6 +24,8 @@ class Familiamodel {
       uid: map['uid'],
       foto: map['foto'],
       admin: map['admin'],
+      phonekey: map['phonekey'],
+      agregadoEl: map[Timestamp]
     );
   }
 
@@ -33,6 +39,8 @@ class Familiamodel {
       'uid': uid,
       'foto': foto,
       'admin': admin,
+      'phonekey': phonekey,
+      'agregadoEl': agregadoEl,
     };
   }
 }

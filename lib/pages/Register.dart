@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -106,6 +107,12 @@ class _RegisterPageState extends State<RegisterPage> {
 
     UserModel userModel = UserModel();
 
+    final FirebaseMessaging _fcm = FirebaseMessaging.instance;
+    _fcm.unsubscribeFromTopic("Ronderos");
+      String? fcmtoken = await _fcm.getToken();
+
+      print("El token es: ${fcmtoken}");
+
     // writing all the values
     userModel.correo = user!.email;
     userModel.uid = user.uid;
@@ -114,6 +121,8 @@ class _RegisterPageState extends State<RegisterPage> {
     userModel.contrasena = _passwordcontroller.text;
     userModel.foto = 'https://media.discordapp.net/attachments/856312697112756247/986066114364706836/unknown.png';
     userModel.familia = '';
+    userModel.phonekey = fcmtoken;
+    userModel.creadoEn = FieldValue.serverTimestamp();
 
     await firebaseFirestore
         .collection("UsuariosApp")
@@ -400,6 +409,7 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
     );
+    
   }
 
    }
