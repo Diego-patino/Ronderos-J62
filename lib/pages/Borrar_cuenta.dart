@@ -64,8 +64,8 @@ class _BorrarCuentaState extends State<BorrarCuenta> {
         child: InkWell(
           onTap: () {
             Navigator.push(context, MaterialPageRoute(
-                                 builder: (context) =>
-                                  ConfirmarBorrarCuenta()));
+              builder: (context) =>
+                ConfirmarBorrarCuenta()));
           },
           child: const SizedBox(
             height: kToolbarHeight,

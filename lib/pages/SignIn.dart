@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ronderos/models/Users.dart';
+import 'package:ronderos/pages/ErrorRoute.dart';
 import 'package:ronderos/pages/Register.dart';
 import 'package:ronderos/widgets/button_login.dart';
 import 'package:ronderos/widgets/contra_TF.dart';
@@ -75,12 +76,10 @@ class _SignInPageState extends State<SignInPage> {
                           elevation: 10.0, // sombreado al boton
                           color: Color.fromARGB(248, 255, 255, 255),
                           onPressed: cargando? null: () {
-                            if (_formKey.currentState!.validate()) {
                               signIn2(
-                                correo: correoController.text.trim(),
-                                contrasena: contraController.text.trim(),
+                                correo: correoController.text,
+                                contrasena: contraController.text
                               );
-                            }
                           
                             }
                         );
@@ -126,7 +125,7 @@ class _SignInPageState extends State<SignInPage> {
     setState(()=> cargando = true);
     if (_formKey.currentState!.validate()) {
       try {
-        FirebaseAuth.instance
+        await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: correo, password: contrasena)
             .then((uid) => {
                   Navigator.of(context).pushReplacement(
@@ -144,5 +143,6 @@ class _SignInPageState extends State<SignInPage> {
       setState(()=> cargando = false);
   }
 
-}
+} 
+
 }

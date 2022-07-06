@@ -7,52 +7,150 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:ronderos/clases/auth_service.dart';
+import 'package:ronderos/pages/Alerta.dart';
+import 'package:ronderos/pages/AuthWrapper.dart';
+import 'package:ronderos/pages/ErrorRoute.dart';
 import 'package:ronderos/pages/HomePage.dart';
 import 'package:ronderos/pages/SignIn.dart';
 import 'package:ronderos/pages/Register.dart';
+
+import 'dart:async';
+
+
 // import 'package:testfirebase/pages/usuarios123.dart';
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+final FirebaseMessaging _fcm = FirebaseMessaging.instance;
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey(
+  debugLabel: "Main Navigator");
+  
+String? payload;
+//String? routeToGo = '/';
+late String routeToGo = '/';
+
+const AndroidNotificationChannel channel = AndroidNotificationChannel(
+  'high_importance_channel', // id
+  'High Importance Notifications', // titletion
+  importance: Importance.high,
+
+  
+);
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
   await Firebase.initializeApp();
   print('Handling a background message ${message.messageId}');
+
+  print("_firebaseMessagingBackgroundHandler Clicked!");
+   routeToGo = '/second';
+   print(message.notification!.body);
+
+   /*
+   flutterLocalNotificationsPlugin.show(
+      message.notification.hashCode,
+      message.notification?.title,
+      message.notification?.body,
+      NotificationDetails(
+        android: AndroidNotificationDetails(
+          channel.id,
+          channel.name,
+        ),
+      ));
+      */
 }
 
-late AndroidNotificationChannel channel;
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
-final FirebaseMessaging _fcm = FirebaseMessaging.instance;
+Future<void> selectNotification(String? payload) async {
+  if (payload != null) {
+    debugPrint('notification payload: $payload');
+    navigatorKey.currentState?.pushNamed('/second');
+    print('JAAJAJAJAJJA ${payload.toString()}');
+    print(navigatorKey.currentState);
+  }
+}
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Firebase.initializeApp().then((value) async {
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-    if (!kIsWeb) {
-    channel = const AndroidNotificationChannel(
-      'high_importance_channel', // id
-      'High Importance Notifications', // title
-      importance: Importance.max,
-    );
-    final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-    /// Create an Android Notification Channel.
-    ///
-    /// We use this channel in the `AndroidManifest.xml` file to override the
-    /// default FCM channel to enable heads up notifications.
+    
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(channel);
 
-    /// Update the iOS foreground notification presentation options to allow
-    /// heads up notifications.
+        var initialzationSettingsAndroid =
+    AndroidInitializationSettings('@mipmap/ic_launcher');
+    var initializationSettings =
+    InitializationSettings(android: initialzationSettingsAndroid);
+    flutterLocalNotificationsPlugin.initialize(initializationSettings);
+
+    final NotificationAppLaunchDetails? notificationAppLaunchDetails =
+    await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
+
+
     await FirebaseMessaging.instance
         .setForegroundNotificationPresentationOptions(
       alert: true,
       badge: true,
       sound: true,
     );
-  }
+
+        StreamController<String> _messageStream =
+            new StreamController.broadcast();
+            
+        Stream<String> messagesStream = _messageStream.stream;
+
+        Future _backgroundHandler(RemoteMessage message) async {
+          print('onBackground Handler ${message.messageId}');
+          print("HTREGEGF: ${message.data}");
+          _messageStream.add(message.data['Ronderos'] ?? 'No data');
+        }
+
+        Future _onMessageHandler(RemoteMessage message) async {
+          // print( 'onMessage Handler ${ message.messageId }');
+          print("HTREGEGF: ${message.data}");
+          _messageStream.add(message.data['Ronderos'] ?? 'No data');
+        }
+
+        Future _onMessageOpenApp(RemoteMessage message) async {
+          // print( 'onMessageOpenApp Handler ${ message.messageId }');
+          print("HTREGEGF: ${message.data}");
+          _messageStream.add(message.data['Ronderos'] ?? 'No data');
+        }
+
+          // Push Notifications
+      /*    await Firebase.initializeApp();
+          await FirebaseMessaging.instance
+              .setForegroundNotificationPresentationOptions(
+            alert: true,
+            badge: true,
+            sound: true,
+          );*/
+          // Handlers
+          FirebaseMessaging.onMessage.listen(_onMessageHandler);
+          FirebaseMessaging.onMessageOpenedApp.listen(_onMessageOpenApp); 
+
+    print('payload=$payload');
+    payload= notificationAppLaunchDetails!.payload;
+      if(payload != null){
+        routeToGo = '/second';
+        navigatorKey.currentState?.pushNamed('/second');
+        print(routeToGo);
+        print('GAAAAAAAA $payload');
+      }
+
+      await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+      onSelectNotification: selectNotification);
+
+      FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
+      print(message.notification!.body != null);
+        if (message.notification!.body != null) {
+          navigatorKey.currentState?.pushNamed('/second');
+          routeToGo ='/second';
+        }
+    });
+
     runApp(const MyApp());
   });
 }
@@ -98,12 +196,6 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     });*/
     
-    var initialzationSettingsAndroid =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
-    var initializationSettings =
-        InitializationSettings(android: initialzationSettingsAndroid);
-
-    flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification? notification = message.notification;
@@ -119,10 +211,14 @@ class _MyHomePageState extends State<MyHomePage> {
               channel.name,
               // TODO add a proper drawable resource to android, for now using
               //      one that already exists in example app.
-              icon: 'launch_background',
+              icon: android.smallIcon,
             ),
           ),
         );
+        
+          print("Titulo ${notification.title}");
+          
+          print("Cuerpo ${notification.body}");
       }
     });
 
@@ -149,34 +245,30 @@ class _MyHomePageState extends State<MyHomePage> {
          StreamProvider(create: (context)=> context.read<AuthenticationService>().authStateChanges, initialData: null)
     ],
     child: MaterialApp(
-          
-          initialRoute: '/',
+          navigatorKey: navigatorKey,
+          initialRoute: (routeToGo!= null)? routeToGo = '/':routeToGo,
           title: 'Ronderos',
           theme: ThemeData(
             primaryColor: Colors.white,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          home: AuthentiacionWrapper(),
+          onGenerateRoute:(RouteSettings settings) {
+          switch (settings.name) {
+            case '/second':
+              return MaterialPageRoute(
+                builder: (_) => const Alerta(),
+              );
+              break;
+            case '/':
+              return MaterialPageRoute(
+                builder: (_) => const AuthenticationWrapper() );
+            default:
+              return MaterialPageRoute(builder: (_) => const errorRoute());
+          }},
         ),
       );
   }
 
-  
-}
-
-class AuthentiacionWrapper extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) => MaterialApp( home 
-    : StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (context, snapshot){
-        if (snapshot.hasData) {
-          return HomePage123();
-        } else {
-          return SignInPage();
-        }
-      } ),
-  );
   
 }
 
@@ -190,7 +282,7 @@ Future _GetToken() async {
 
     print("El token es: ${fcmtoken}");
   } catch (e) {
-    print("PUTASUMARE: ${e}");
+    print("AAAAAAAAAAAAAAAAAAAAAAAAAAAA: ${e}");
   }
 
   } 

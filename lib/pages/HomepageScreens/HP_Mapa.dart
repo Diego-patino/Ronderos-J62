@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:ronderos/pages/ErrorRoute.dart';
+import 'package:ronderos/pages/Mapa.dart';
 
 class MapaRonderos extends StatefulWidget {
   const MapaRonderos({Key? key}) : super(key: key);
@@ -41,7 +43,14 @@ class _MapaRonderosState extends State<MapaRonderos> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text('MapaGoogle'),
-              RaisedButton(onPressed: _GetToken, child: Text("data"))
+                RaisedButton(
+                  onPressed:(){
+                     _GetToken;
+                     Navigator.push(context, MaterialPageRoute(
+                      builder: (context) =>
+                        MapaFamilia()));
+                  }, 
+                  child: Text("data"))
             ],
           ),
         ),
