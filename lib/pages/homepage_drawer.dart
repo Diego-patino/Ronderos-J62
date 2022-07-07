@@ -124,18 +124,24 @@ class _MainDrawerState extends State<MainDrawer> {
             .get()
             .then((value) {
           this.Usuario_logeado = UserModel.fromMap(value.data());
+          print('aaaaaaaaaaaaaaaaaaaaaa: ${Usuario_logeado.contrasena}');
           setState(() {});
-        
+          
+        });
         FirebaseFirestore.instance
+            .collection("Urbanizaciones")
+            .doc(Usuario_logeado.urbanizacion)
             .collection("Familias")
-            .doc(Usuario_logeado.familia!)
+            .doc("${Usuario_logeado.familia}")
             .collection("Miembros")
-            .doc("${Usuario_logeado.nombre}_${Usuario_logeado.apellido}_${Usuario_logeado.uid}")
+            .doc('${Usuario_logeado.nombre}_${Usuario_logeado.apellido}_${Usuario_logeado.uid}')
             .get()
             .then((value) {
           this.familiamodel = Familiamodel.fromMap(value.data());
+          print('aaaaaaaaaaaaaaaaaaaaaa: ${familiamodel.arbol}');
           setState(() {});
-        });
+
+        
         });
       }
       

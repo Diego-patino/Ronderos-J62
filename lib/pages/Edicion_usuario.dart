@@ -187,7 +187,7 @@ Future _Scroll123(BuildContext context) async{
               print(Usuario_logeado.familia);
               print(Usuario_logeado.uid);
               DocumentReference documentReference =
-              FirebaseFirestore.instance.collection("Familias").doc(Usuario_logeado.familia).collection("Miembros").doc(Usuario_logeado.uid);
+              FirebaseFirestore.instance.collection("Urbanizaciones").doc(Usuario_logeado.urbanizacion).collection("Familias").doc(Usuario_logeado.familia).collection("Miembros").doc(Usuario_logeado.uid);
               documentReference
               .update({
                 "foto" : userModel.FotoMomentanea.toString(),
@@ -213,7 +213,7 @@ Future _Scroll123(BuildContext context) async{
               print(Usuario_logeado.familia);
               print(Usuario_logeado.uid);
               DocumentReference documentReference =
-              FirebaseFirestore.instance.collection("Familias").doc(Usuario_logeado.familia).collection("Tokens").doc(Usuario_logeado.phonekey);
+              FirebaseFirestore.instance.collection("Urbanizaciones").doc(Usuario_logeado.urbanizacion).collection("Familias").doc(Usuario_logeado.familia).collection("Tokens").doc(Usuario_logeado.phonekey);
               documentReference
               .update({
                 if(_nombrecontroller.text.isNotEmpty)
@@ -294,18 +294,24 @@ Future _Scroll123(BuildContext context) async{
             .get()
             .then((value) {
           this.Usuario_logeado = UserModel.fromMap(value.data());
+          print('aaaaaaaaaaaaaaaaaaaaaa: ${Usuario_logeado.contrasena}');
           setState(() {});
-        
+          
+        });
         FirebaseFirestore.instance
+            .collection("Urbanizaciones")
+            .doc(Usuario_logeado.urbanizacion)
             .collection("Familias")
-            .doc(Usuario_logeado.familia!)
+            .doc("${Usuario_logeado.familia}")
             .collection("Miembros")
-            .doc("${Usuario_logeado.nombre}_${Usuario_logeado.apellido}_${Usuario_logeado.uid}")
+            .doc('${Usuario_logeado.nombre}_${Usuario_logeado.apellido}_${Usuario_logeado.uid}')
             .get()
             .then((value) {
           this.familiamodel = Familiamodel.fromMap(value.data());
+          print('aaaaaaaaaaaaaaaaaaaaaa: ${familiamodel.arbol}');
           setState(() {});
-        });
+
+        
         });
       }
   

@@ -48,6 +48,9 @@ class _Unirse_familiaState extends State<Unirse_familia> {
     final OutlineInputBorder_focused = OutlineInputBorder(borderSide: BorderSide(color: Colors.greenAccent, width: 3));
     final labelstyle1 = TextStyle(color: Colors.black45, fontSize: 18);
     final _formKey = GlobalKey<FormState>();
+    String dropdownvalue = "";
+    var selectedUrbanizacion, selectedType;
+    var selectedFamilia, selectedType2;
 
   Future createData(BuildContext context) async {
     print("created"); 
@@ -67,12 +70,15 @@ class _Unirse_familiaState extends State<Unirse_familia> {
         familiamodel.familia = _familiacontroller.text;
         familiamodel.uid = Usuario_logeado.uid;
         familiamodel.foto = Usuario_logeado.foto;
-        familiamodel.phonekey= Usuario_logeado.phonekey;
-        familiamodel.agregadoEl= FieldValue.serverTimestamp();
+        familiamodel.phonekey = Usuario_logeado.phonekey;
+        familiamodel.agregadoEl = FieldValue.serverTimestamp();
+        familiamodel.urbanizacion = selectedUrbanizacion;
         familiamodel.admin = false;
         
 
           await firebaseFirestore
+            .collection("Urbanizaciones")
+            .doc(selectedUrbanizacion)
             .collection("Familias")
             .doc(_familiacontroller.text)
             .collection("Miembros")
@@ -92,7 +98,7 @@ class _Unirse_familiaState extends State<Unirse_familia> {
           // writing all the values
         print(_familiacontroller.text);
         DocumentReference documentReference =
-            FirebaseFirestore.instance.collection("Familias").doc(_familiacontroller.text).collection("Tokens").doc(Usuario_logeado.phonekey);
+            FirebaseFirestore.instance.collection("Urbanizaciones").doc(selectedUrbanizacion).collection("Familias").doc(_familiacontroller.text).collection("Tokens").doc(Usuario_logeado.phonekey);
         documentReference
             .set({
               "nombre": Usuario_logeado.nombre,
@@ -105,6 +111,16 @@ class _Unirse_familiaState extends State<Unirse_familia> {
             .then((value) => print("User Updated"))
             .catchError((error) => print("Failed to update user: $error"));
         print('Nombre: ${Usuario_logeado.nombre}_${Usuario_logeado.apellido}  ');
+
+              Navigator.pushAndRemoveUntil<dynamic>(
+              context,
+              MaterialPageRoute<dynamic>(
+                builder: (BuildContext context) => HomePage123(),
+              ),
+              (route) => false,//if you want to disable back feature set to false
+
+          ); 
+              entrarfamiliatoast();
         } catch (e) {
           print(e);
 
@@ -113,7 +129,7 @@ class _Unirse_familiaState extends State<Unirse_familia> {
         } 
         
 
-      try {
+    /*  try {
         print(_familiacontroller.text);
         DocumentReference documentReference =
             FirebaseFirestore.instance.collection("Familias").doc(_familiacontroller.text);
@@ -128,17 +144,9 @@ class _Unirse_familiaState extends State<Unirse_familia> {
         } catch (e) {
           print(e);
         }
-
+*/
         
-    } Navigator.pushAndRemoveUntil<dynamic>(
-        context,
-        MaterialPageRoute<dynamic>(
-          builder: (BuildContext context) => HomePage123(),
-        ),
-        (route) => false,//if you want to disable back feature set to false
-
-    ); 
-        entrarfamiliatoast();
+    } 
   }
 
   Future updateData(BuildContext context) async {
@@ -154,6 +162,7 @@ class _Unirse_familiaState extends State<Unirse_familia> {
           documentReference
           .update({
             "familia" : _familiacontroller.text,
+            "urbanizacion": selectedUrbanizacion,
         })
                   
         .then((value) => print("User Updated"))
@@ -185,117 +194,263 @@ class _Unirse_familiaState extends State<Unirse_familia> {
       ), 
     
     body:
-        Center(
-          child: SafeArea(
-            child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-              child: Form(
-                key: _formKey,
-                child: Center(
-                  child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                        child:  Text('Registrate a una familia!',
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.comfortaa(textStyle: TextStyle(fontSize: 30), fontWeight: FontWeight.bold) ),
-                      ),
-                
-                     
-                      const SizedBox(height: 10.0,),
+        SafeArea(
+          child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+            child: Form(
+              key: _formKey,
+              child: Center(
+                child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                   /* Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                      child:  Text('Registrate a una familia!',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.comfortaa(textStyle: TextStyle(fontSize: 30), fontWeight: FontWeight.bold) ),
+                      
+                      style: GoogleFonts.pacifico(textStyle: TextStyle(fontSize: 30)) ),
+                    ),*/
               
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                        child: Text('Si aun no cuentas con una familia, ingresa el nombre de la familia y que integrante eres',
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.pacifico(textStyle: TextStyle(fontSize: 30)) ),
-                      ),
-              
+                   
+                    const SizedBox(height: 10.0,),
+            
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      child: Text('¿Aun no cuentas con una familia?',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.bellota(textStyle: TextStyle(fontSize: 40), fontWeight: FontWeight.bold)),
+                    ),
+
+                  const SizedBox(height: 5.0,),
+
+                  Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                      child:  Text('Sigue estos pasos para que puedas ser adoptado en una!',
+                      textAlign: TextAlign.center,
                       
-                      const SizedBox(height: 80.0,),
+                      style: GoogleFonts.pacifico(textStyle: TextStyle(fontSize: 25)) ),
+                    ),
+
+                  const SizedBox(height: 45.0,),
+
+                   Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child:  Text('Selecciona tu urbanizacion!',
+                      textAlign: TextAlign.center,
                       
-                        Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 35.0),
-                              child: TextFormField(
-                                validator: validategeneral,
-                                controller: _familiacontroller,
-                                decoration: InputDecoration(
-                                  errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.redAccent, width: 3)),
-                                  focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.greenAccent, width: 3)),
-                                  prefixIcon: Icon(Icons.groups_rounded, color: Colors.black54,),
-                                  enabledBorder: outlineInputBorder_enabled,
-                                  focusedBorder: OutlineInputBorder_focused,
-                                  contentPadding: EdgeInsets.fromLTRB(20, 18, 20, 15),
-                                  labelText: 'Nombre de Familia',
-                                  labelStyle: labelstyle1,
-                      
-                                ),
-                                onChanged: (value){
-                      
-                                },
-                              ),
-                            ),
-                        const SizedBox(height: 15.0,),
-              
-                        Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 35.0),
-                              child: TextFormField(
-                                validator: validategeneral,
-                                controller: _arbolcontroller,
-                                decoration: InputDecoration(
-                                  errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.redAccent, width: 3)),
-                                  focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.greenAccent, width: 3)),
-                                  prefixIcon: Icon(Icons.person_add, color: Colors.black54,),
-                                  enabledBorder: outlineInputBorder_enabled,
-                                  focusedBorder: OutlineInputBorder_focused,
-                                  contentPadding: EdgeInsets.fromLTRB(20, 18, 20, 15),
-                                  labelText: 'Miembro de Familia',
-                                  labelStyle: labelstyle1,
-                      
-                                ),
-                                onChanged: (value){
-                      
-                                },
-                              ),
-                            ),
-              
-                        const SizedBox(height: 25.0,),
-                        Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      RaisedButton(
-                        onPressed: () {
-                          createData(context);
-                        },
-                        color: Colors.green,
-                        padding: const EdgeInsets.symmetric(horizontal: 40),
-                        elevation: 2,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)),
-                        child: const Text(
-                          "GUARDAR",
-                          style: TextStyle(
-                              fontSize: 15,
-                              letterSpacing: 2.2,
-                              color: Colors.white),
+                      style: GoogleFonts.comfortaa(textStyle: TextStyle(fontSize: 25), ) ),
+                    ),
+                              
+                    const SizedBox(height: 10.0,),   
+
+                    StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance.collection("Urbanizaciones").snapshots(),
+                builder: (context, snapshot){
+                  if (!snapshot.hasData)
+                    return const Text("Loading.....");
+                  else {
+                    List<DropdownMenuItem> currencyItems = [];
+                    for (int i = 0; i < snapshot.data!.docs.length; i++) {
+                      DocumentSnapshot snap = snapshot.data!.docs[i];
+                      currencyItems.add(
+                        DropdownMenuItem(
+                          child: Text(
+                            snap.id,
+                            style: TextStyle(color: Color(0xff11b719)),
+                          ),
+                          value: "${snap.id}",
                         ),
-                      ),
-                    ],
-                  )
-                       /* Padding(
-                        padding:EdgeInsets.only(top: 20),
-                        child: IconButton(
-                          onPressed:() {
-                            ChangeUserFoto();
+                      );
+                    }
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(Icons.add_location_alt_outlined,
+                            size: 25.0, color: Color(0xff11b719)),
+                        SizedBox(width: 25.0),
+                        DropdownButton<dynamic>(
+                          items: currencyItems,
+                          onChanged: (urbValue) {
+                            /*final snackBar = SnackBar(
+                              content: Text(
+                                'La Urbanizacion seleccionada es:  $UrbValue',
+                                style: TextStyle(color: Color(0xff11b719)),
+                              ),
+                            );
+                            Scaffold.of(context).showSnackBar(snackBar);*/
+                            setState(() {
+                              selectedUrbanizacion = urbValue;
+                              print(selectedUrbanizacion);
+                              selectedFamilia = null;
+                            });
                           },
-                          icon: Icon(Icons.person_add, size: 20,),
-                          iconSize: 30,
-                        ), ),*/
+                          value: selectedUrbanizacion,
+                          isExpanded: false,
+                          hint: const Text(
+                            "Selecciona tu urbanizacion",
+                            style: TextStyle(color: Color(0xff11b719)),
+                          ),
+                        ),
+                      ],
+                    );
+                  }
+                }),
+
+            selectedUrbanizacion!=null?
+              Column(
+                children: [
+
+                  SizedBox(height: 10,),
+                   Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                      child:  Text('Selecciona la familia a la que quieres ingresar!',
+                      textAlign: TextAlign.center,
                       
-                                ],
-                  ),
+                      style: GoogleFonts.comfortaa(textStyle: TextStyle(fontSize: 25),) ),
+                    ),
+
+                  SizedBox(height: 10,),
+
+                  StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance.collection("Urbanizaciones").doc(selectedUrbanizacion).collection("Familias").snapshots(),
+                builder: (context, snapshot2){
+                  if (!snapshot2.hasData)
+                    return const Text("Loading.....");
+                  else {
+                    List<DropdownMenuItem> FamilyItems = [];
+                    for (int i = 0; i < snapshot2.data!.docs.length; i++) {
+                      DocumentSnapshot snap2 = snapshot2.data!.docs[i];
+                      FamilyItems.add(
+                        DropdownMenuItem(
+                          child: Text(
+                            snap2.id,
+                            style: TextStyle(color: Color(0xff11b719)),
+                          ),
+                          value: "${snap2.id}",
+                        ),
+                      );
+                    }
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(Icons.family_restroom,
+                            size: 25.0, color: Color(0xff11b719)),
+                        SizedBox(width: 25.0),
+                        DropdownButton<dynamic>(
+                          
+                          items: selectedUrbanizacion=="No tengo urbanizacion"? FamilyItems:null,
+                          onChanged: (famValue) {
+                            /*final snackBar = SnackBar(
+                              content: Text(
+                                'La Urbanizacion seleccionada es:  $UrbValue',
+                                style: TextStyle(color: Color(0xff11b719)),
+                              ),
+                            );
+                            Scaffold.of(context).showSnackBar(snackBar);*/
+                            setState(() {
+                              selectedFamilia = famValue;
+                              print(selectedFamilia);
+                            });
+                          },
+                          value: selectedFamilia,
+                          isExpanded: false,
+                          hint: const Text(
+                            "Selecciona tu Familia",
+                            style: TextStyle(color: Color(0xff11b719)),
+                          ),
+                        ),
+                      ],
+                    );
+                  }
+                }),
+
+                    SizedBox(height: 10,),
+                          Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 35.0),
+                                child: TextFormField(
+                                  validator: validategeneral,
+                                  controller: _familiacontroller,
+                                  decoration: InputDecoration(
+                                    errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.redAccent, width: 3)),
+                                    focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.greenAccent, width: 3)),
+                                    prefixIcon: Icon(Icons.groups_rounded, color: Colors.black54,),
+                                    enabledBorder: outlineInputBorder_enabled,
+                                    focusedBorder: OutlineInputBorder_focused,
+                                    contentPadding: EdgeInsets.fromLTRB(20, 18, 20, 15),
+                                    labelText: 'Nombre de Familia',
+                                    labelStyle: labelstyle1,
+                    
+                                  ),
+                                  onChanged: (value){
+                    
+                                  },
+                                ),
+                              ),
+                        ],
+                      ):Container(),
+                      const SizedBox(height: 15.0,),
+            
+                      Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 35.0),
+                            child: TextFormField(
+                              validator: validategeneral,
+                              controller: _arbolcontroller,
+                              decoration: InputDecoration(
+                                errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.redAccent, width: 3)),
+                                focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.greenAccent, width: 3)),
+                                prefixIcon: Icon(Icons.person_add, color: Colors.black54,),
+                                enabledBorder: outlineInputBorder_enabled,
+                                focusedBorder: OutlineInputBorder_focused,
+                                contentPadding: EdgeInsets.fromLTRB(20, 18, 20, 15),
+                                labelText: 'Miembro de Familia',
+                                labelStyle: labelstyle1,
+                    
+                              ),
+                              onChanged: (value){
+                    
+                              },
+                            ),
+                          ),
+            
+                      const SizedBox(height: 25.0,),
+                      Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    RaisedButton(
+                      onPressed: () {
+                        createData(context);
+                      },
+                      color: Colors.green,
+                      padding: const EdgeInsets.symmetric(horizontal: 40),
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      child: const Text(
+                        "GUARDAR",
+                        style: TextStyle(
+                            fontSize: 15,
+                            letterSpacing: 2.2,
+                            color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+                
+                SizedBox(height: 40.0),
+            
+                     /* Padding(
+                      padding:EdgeInsets.only(top: 20),
+                      child: IconButton(
+                        onPressed:() {
+                          ChangeUserFoto();
+                        },
+                        icon: Icon(Icons.person_add, size: 20,),
+                        iconSize: 30,
+                      ), ),*/
+                    
+                              ],
                 ),
               ),
             ),

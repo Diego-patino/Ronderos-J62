@@ -22,7 +22,7 @@ class ConfirmarBorrarCuenta extends StatefulWidget {
 class _ConfirmarBorrarCuentaState extends State<ConfirmarBorrarCuenta> {
   
 
-
+    @override
     void initState() {
         super.initState();
         FirebaseFirestore.instance
@@ -36,6 +36,8 @@ class _ConfirmarBorrarCuentaState extends State<ConfirmarBorrarCuenta> {
           
         });
         FirebaseFirestore.instance
+            .collection("Urbanizaciones")
+            .doc(Usuario_logeado.urbanizacion)
             .collection("Familias")
             .doc("${Usuario_logeado.familia}")
             .collection("Miembros")
@@ -171,7 +173,7 @@ Future _BorrarCuentaFamilia() async{
   try {
       
     DocumentReference documentReference =
-        FirebaseFirestore.instance .collection("Familias").doc("${Usuario_logeado.familia}").collection("Miembros").doc('${Usuario_logeado.nombre}_${Usuario_logeado.apellido}_${Usuario_logeado.uid}');
+        FirebaseFirestore.instance .collection("Urbanizaciones").doc(Usuario_logeado.urbanizacion).collection("Familias").doc("${Usuario_logeado.familia}").collection("Miembros").doc(Usuario_logeado.uid);
 
     documentReference
         .delete()
@@ -183,7 +185,7 @@ Future _BorrarCuentaFamilia() async{
       
       
     }
-
+/*
     try {
       DocumentReference documentReference =
       FirebaseFirestore.instance.collection("Familias").doc(Usuario_logeado.familia);
@@ -196,7 +198,7 @@ Future _BorrarCuentaFamilia() async{
           .catchError((error) => print("Failed to update user: $error"));
         } catch (e) {
           print(e);
-        }
+        }*/
   } else{
     return null;
   }

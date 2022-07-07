@@ -9,10 +9,11 @@ class UserModel {
   String? contrasena;
   String? familia;
   String? phonekey;
+  String? urbanizacion;
   FieldValue? creadoEn;
   
 
-  UserModel({this.uid, this.nombre, this.apellido, this.correo, this.foto, this.contrasena, this.familia, this.phonekey, this.creadoEn});
+  UserModel({this.uid, this.nombre, this.apellido, this.correo, this.foto, this.contrasena, this.familia, this.phonekey, this.creadoEn, this.urbanizacion});
 
   // receiving data from server
   factory UserModel.fromMap(map) {
@@ -25,6 +26,7 @@ class UserModel {
       contrasena: map['contrasena'],
       familia: map['familia'],
       phonekey: map['phonekey'],
+      urbanizacion: map['urbanizacion'],
       creadoEn: map[Timestamp],
     );
   }
@@ -40,6 +42,7 @@ class UserModel {
       'contrasena': contrasena,
       'familia': familia,
       'phonekey': phonekey,
+      'urbanizacion': urbanizacion,
       'creadoEn': creadoEn
     };
   }

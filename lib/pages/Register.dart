@@ -122,6 +122,7 @@ class _RegisterPageState extends State<RegisterPage> {
     userModel.foto = 'https://media.discordapp.net/attachments/856312697112756247/986066114364706836/unknown.png';
     userModel.familia = '';
     userModel.phonekey = fcmtoken;
+    userModel.urbanizacion = '';
     userModel.creadoEn = FieldValue.serverTimestamp();
 
     await firebaseFirestore
@@ -295,7 +296,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     )),
                             errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.redAccent, width: 3)),
                             focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.greenAccent, width: 3)) ,
-                            prefixIcon: Icon(Icons.key_rounded, color: Colors.black54,),
+                            prefixIcon: Icon(Icons.visibility_off_rounded, color: Colors.black54,),
                             enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black54, width: 3),),
                             focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.greenAccent, width: 3)),
                             contentPadding: EdgeInsets.fromLTRB(20, 18, 20, 15),
@@ -333,7 +334,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     )),
                             errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.redAccent, width: 3)),
                             focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.greenAccent, width: 3)) ,
-                            prefixIcon: Icon(Icons.key_rounded, color: Colors.black54,),
+                            prefixIcon: Icon(Icons.visibility_off_rounded, color: Colors.black54,),
                             enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black54, width: 3),),
                             focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.greenAccent, width: 3)),
                             contentPadding: EdgeInsets.fromLTRB(20, 18, 20, 15),

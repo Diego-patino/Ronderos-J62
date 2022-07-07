@@ -81,6 +81,8 @@ class _HomePageState extends State<HomePage> {
           setState(() {});
         
         FirebaseFirestore.instance
+            .collection("Urbanizaciones")
+            .doc(Usuario_logeado.urbanizacion)
             .collection("Familias")
             .doc(Usuario_logeado.familia!)
             .collection("Miembros")

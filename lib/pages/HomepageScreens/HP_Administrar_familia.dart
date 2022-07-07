@@ -46,10 +46,12 @@ class _Administrar_familiaState extends State<Administrar_familia> {
           setState(() {});
         
         FirebaseFirestore.instance
+            .collection("Urbanizaciones")
+            .doc(Usuario_logeado.urbanizacion)
             .collection("Familias")
-            .doc(Usuario_logeado.familia!)
+            .doc(Usuario_logeado.familia)
             .collection("Miembros")
-            .doc("${Usuario_logeado.nombre}_${Usuario_logeado.apellido}_${Usuario_logeado.uid}")
+            .doc(Usuario_logeado.uid)
             .get()
             .then((value) {
           this.familiamodel = Familiamodel.fromMap(value.data());
@@ -161,7 +163,6 @@ class _Administrar_familiaState extends State<Administrar_familia> {
                 child: 
                 Column(
                   children: [
-
                     Text("Familia ${Usuario_logeado.familia}", style: GoogleFonts.kodchasan(textStyle: TextStyle(fontSize: 30, fontWeight: FontWeight.bold))),                    
 
                     familiamodel.admin == true ?
@@ -232,6 +233,8 @@ class _Administrar_familiaState extends State<Administrar_familia> {
                       physics: BouncingScrollPhysics(),
                       child: StreamBuilder<QuerySnapshot>(
                         stream: FirebaseFirestore.instance
+                            .collection("Urbanizaciones")
+                            .doc("${familiamodel.urbanizacion}")
                             .collection("Familias")
                             .doc("${Usuario_logeado.familia}")
                             .collection("Miembros")

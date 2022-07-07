@@ -8,11 +8,12 @@ class Familiamodel {
   String? uid;
   String? foto;
   String? phonekey;
+  String? urbanizacion;
   FieldValue? agregadoEl;
   bool? admin;
   
 
-  Familiamodel({this.nombre, this.apellido, this.arbol, this.familia, this.uid, this.foto, this.admin, this.phonekey, this.agregadoEl});
+  Familiamodel({this.nombre, this.apellido, this.arbol, this.familia, this.uid, this.foto, this.admin, this.phonekey, this.agregadoEl, this.urbanizacion});
 
   // receiving data from server
   factory Familiamodel.fromMap(map) {
@@ -25,6 +26,7 @@ class Familiamodel {
       foto: map['foto'],
       admin: map['admin'],
       phonekey: map['phonekey'],
+      urbanizacion: map['urbanizacion'],
       agregadoEl: map[Timestamp]
     );
   }
@@ -40,6 +42,7 @@ class Familiamodel {
       'foto': foto,
       'admin': admin,
       'phonekey': phonekey,
+      'urbanizacion': urbanizacion,
       'agregadoEl': agregadoEl,
     };
   }
