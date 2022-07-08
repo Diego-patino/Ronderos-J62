@@ -3,7 +3,7 @@
 Aqui en Ronderos nos encargamos de ofrecer un app de facil control sobre las familias y los miembros registrados (tanto manuales como automaticos) vinculado con la base de datos de Firebase, mas a futuro ofreceremos:
 
     - Una alerta de robos; para mantener al tanto a todos los miembros de las vulnerabilidades que puedan ocurrirle a alguno de ellos.
-    ~~- Un mapa vinculado con Google Maps para ubicar correspondientemente a los miembros tanto de la familia como del barrio.~~
+    <del>- Un mapa vinculado con Google Maps para ubicar correspondientemente a los miembros tanto de la familia como del barrio.~~</del>
     - Un chat que facilite la comunicacion entre los miembros.
 
 ## PRUEBAS FUNCIONALES DEL APLICATIVO RONDEROS
