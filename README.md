@@ -3,7 +3,6 @@
 Aqui en Ronderos nos encargamos de ofrecer un app de facil control sobre las familias y los miembros registrados (tanto manuales como automaticos) vinculado con la base de datos de Firebase, mas a futuro ofreceremos:
 
     - Una alerta de robos; para mantener al tanto a todos los miembros de las vulnerabilidades que puedan ocurrirle a alguno de ellos.
-    <del>- Un mapa vinculado con Google Maps para ubicar correspondientemente a los miembros tanto de la familia como del barrio.~~</del>
     - Un chat que facilite la comunicacion entre los miembros.
 
 ## PRUEBAS FUNCIONALES DEL APLICATIVO RONDEROS
@@ -103,18 +102,46 @@ Finalmente, si deseas borrar tu cuenta de una vez por todas podras hacerlo desde
   - Comprueba que te encuentras en el Login y comprueba si aun puedes logearte con tu cuenta.
   
   (El boton eliminara todos tus datos de nuestras bases de datos)
-  
-## FUNCIONALIDAD EXTRA
 
-**Agregar como admin:**
-Si eres el lider de tu familia, podras agregar miembros nuevos; para ello te ofrecemos una cuenta de lider de la familia Ronderos para que la uses.
-  - Logeate con el correo: Pablo@gmail.com, contraseña: Pablo123.
-  - Ingresa a la pagina de Familia.
-  - Ingresa el nombre, apellido y Arbol(miembro de familia) del nuevo integrante;
-  - Si has llenado todos los recuadros correctamente, presiona el boton crear.
-  - Comprueba si se creó un nuevo usuario y buscalo dentro de los integrantes.
+## Cambios realizados en funcionalidades pasadas
+
+**Mejoramos los flitros de los textos que el usuario tenga que ingresar para evitar complicaciones con nuestra base datos.**
   
-  (El boton crea un nuevo usuario dentro de la base de datos, esto es para aquellos integrantes que no cuenten con un celular).
+## NUEVAS FUNCIONALIDADES
+
+**Registrarse mas facilmente a familias ya existentes:**
+Ahora podras registrarte a cualquier familia disponible en la nueva opcion de urbanizaciones, para ello tienes que:
+  - Ingresar a la segunda pestaña del HomePage.
+  - Presion en "Aqui"
+  - Dale en comenzar y sigue los pasos;
+  - Selecciona una urbanizacion.
+  - Selecciona una familia ya existente.
+  - Dinos que miembro eres.
+  - Presiona en "ADOPTAME!"
   
+  (El boton te registrara como nuevo miembro en una de las familias ya existentes sin tener que escribir el nombre de la familia).
+  
+**Vizualisar las otras urbanizaciones:**
+Quieres ver a las otras urbanizaciones? Puedes verla ahora! (Recomendamos para una mejor experiencia seleccionar la urbanizacion Calle 13):
+  - Ingresar a la segunda pestaña del HomePage.
+  - Presion en "Aqui"
+  - Presiona en "Registrar"
+  - Se te abrira el mapa de google y sigue los pasos que te indican.
+  - Presiona en el boton "i" en la parte superior derecha de la pantalla.
+  - Ingresa la urbanizacion que quieras vizualizar (De preferencia Calle 13).
+  - Ingresa el nombre de tu familia.
+  - Presiona en el boton "Busca mi urbanizacion!"
+  
+  (El boton te permitirar vizualisar a todas las familias y te enviara a la ubicacion de la urbanizacion seleccionada).
+
+**Registrar mi familia en una urbanizacion:**
+Quieres registrar a tu familia? Solo sigue los mismos pasos para vizualisar una urbanizacion y sigue desde aqui:
+  . . .
+  - Presiona en el boton "Busca mi urbanizacion!"
+  - Presiona la ubicacion de tu hogar en el mapa.
+  - Presiona el boton de "agregar" en la parte inferior de la pantalla.
+  - Confirma el formulario con el boton "Oh si agregalo!"
+  
+  (El boton te registrara a tu familia en nuestra base de datos para que puedas unirte despues).
 
  
