@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:animations/animations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,6 +10,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:ronderos/models/Familia.dart';
 import 'package:ronderos/pages/HomePage.dart';
+import 'package:ronderos/pages/Registrar_familia.dart';
 import 'package:ronderos/pages/homepage_drawer.dart';
 import 'package:ronderos/pages/Edicion_usuario.dart';
 import 'package:ronderos/widgets/Toast.dart';
@@ -25,11 +27,31 @@ class Unirse_familia extends StatefulWidget {
   State<Unirse_familia> createState() => _Unirse_familiaState();
 }
 
-class _Unirse_familiaState extends State<Unirse_familia> {
+class _Unirse_familiaState extends State<Unirse_familia> with TickerProviderStateMixin{
 
    @override
     void initState() {
         super.initState();
+        animationcontroller = AnimationController(
+          value: 0,
+          duration: Duration(milliseconds: 1000),
+          reverseDuration: Duration(milliseconds: 200),
+          vsync: this,)..addStatusListener((status) {
+            setState(() { });});
+            
+        animationcontroller2 = AnimationController(
+          value: 0,
+          duration: Duration(milliseconds: 1000),
+          reverseDuration: Duration(milliseconds: 200),
+          vsync: this,)..addStatusListener((status) {
+            setState(() { });});
+            
+        animationcontroller3 = AnimationController(
+          value: 0,
+          duration: Duration(milliseconds: 1000),
+          reverseDuration: Duration(milliseconds: 200),
+          vsync: this,)..addStatusListener((status) {
+            setState(() { });});
         FirebaseFirestore.instance
             .collection("UsuariosApp")
             .doc(user.uid)
@@ -51,6 +73,18 @@ class _Unirse_familiaState extends State<Unirse_familia> {
     String dropdownvalue = "";
     var selectedUrbanizacion, selectedType;
     var selectedFamilia, selectedType2;
+    late AnimationController animationcontroller;
+    late AnimationController animationcontroller2;
+    late AnimationController animationcontroller3;
+    bool get isForwardAnimation => 
+      animationcontroller.status == AnimationStatus.forward ||
+      animationcontroller.status == AnimationStatus.completed;
+    bool get isForwardAnimation2 => 
+      animationcontroller2.status == AnimationStatus.forward ||
+      animationcontroller2.status == AnimationStatus.completed;
+    bool get isForwardAnimation3 => 
+      animationcontroller3.status == AnimationStatus.forward ||
+      animationcontroller3.status == AnimationStatus.completed;    
 
   Future createData(BuildContext context) async {
     print("created"); 
@@ -67,7 +101,7 @@ class _Unirse_familiaState extends State<Unirse_familia> {
         familiamodel.nombre = Usuario_logeado.nombre;
         familiamodel.apellido = Usuario_logeado.apellido;
         familiamodel.arbol = _arbolcontroller.text;
-        familiamodel.familia = _familiacontroller.text;
+        familiamodel.familia = selectedFamilia;
         familiamodel.uid = Usuario_logeado.uid;
         familiamodel.foto = Usuario_logeado.foto;
         familiamodel.phonekey = Usuario_logeado.phonekey;
@@ -80,7 +114,7 @@ class _Unirse_familiaState extends State<Unirse_familia> {
             .collection("Urbanizaciones")
             .doc(selectedUrbanizacion)
             .collection("Familias")
-            .doc(_familiacontroller.text)
+            .doc(selectedFamilia)
             .collection("Miembros")
             .doc('${Usuario_logeado.uid}')
             .set(familiamodel.toMap());
@@ -98,7 +132,7 @@ class _Unirse_familiaState extends State<Unirse_familia> {
           // writing all the values
         print(_familiacontroller.text);
         DocumentReference documentReference =
-            FirebaseFirestore.instance.collection("Urbanizaciones").doc(selectedUrbanizacion).collection("Familias").doc(_familiacontroller.text).collection("Tokens").doc(Usuario_logeado.phonekey);
+            FirebaseFirestore.instance.collection("Urbanizaciones").doc(selectedUrbanizacion).collection("Familias").doc(selectedFamilia).collection("Tokens").doc(Usuario_logeado.phonekey);
         documentReference
             .set({
               "nombre": Usuario_logeado.nombre,
@@ -110,7 +144,7 @@ class _Unirse_familiaState extends State<Unirse_familia> {
             
             .then((value) => print("User Updated"))
             .catchError((error) => print("Failed to update user: $error"));
-        print('Nombre: ${Usuario_logeado.nombre}_${Usuario_logeado.apellido}  ');
+        print('Nombre: ${Usuario_logeado.nombre} ${Usuario_logeado.apellido}  ');
 
               Navigator.pushAndRemoveUntil<dynamic>(
               context,
@@ -161,7 +195,7 @@ class _Unirse_familiaState extends State<Unirse_familia> {
           FirebaseFirestore.instance.collection("UsuariosApp").doc(Usuario_logeado.uid);
           documentReference
           .update({
-            "familia" : _familiacontroller.text,
+            "familia" : selectedFamilia,
             "urbanizacion": selectedUrbanizacion,
         })
                   
@@ -225,221 +259,366 @@ class _Unirse_familiaState extends State<Unirse_familia> {
 
                   const SizedBox(height: 5.0,),
 
-                  Padding(
+                  
+                const SizedBox(height: 15.0,),
+
+                 Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                      child:  Text('Sigue estos pasos para que puedas ser adoptado en una!',
+                      child:  Text('Registra a tu familia aqui',
                       textAlign: TextAlign.center,
                       
-                      style: GoogleFonts.pacifico(textStyle: TextStyle(fontSize: 25)) ),
+                      style: GoogleFonts.akayaTelivigala(textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),) ),
                     ),
+                    const SizedBox(height: 5.0,),
+                    
+                      Container(
+                          height: 40,
+                        decoration: const ShapeDecoration(
+                          shadows:[
+                            BoxShadow(
+                              offset: Offset(0.0, 0.0),
+                              color: Colors.purpleAccent,
+                              blurRadius: 10,
+                            ),
+                          ],
+                          shape: StadiumBorder(),
+                          gradient: LinearGradient(
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                          colors: [
+                            Colors.blue,
+                            Colors.purple,
+                          ],
+                        ),),
+                        child: FlatButton(
+                          focusColor: Colors.green,
+                          height: 40,
+                            shape: StadiumBorder(),
+                            color: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            onPressed:() {
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) =>
+                                  RegistrarFamilia()
+                                  )
+                                );
+                              },
+                            padding: const EdgeInsets.symmetric(horizontal: 65),
+                            child: const Text(
+                              "Registrar",
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  letterSpacing: 2.2,
+                                  color: Colors.white),
+                            ),
+                          ),
+                      ),
+
+                  Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      child:  Text('O Sigue estos pasos para que puedas ser adoptado en una!',
+                      textAlign: TextAlign.center,
+                      
+                      style: GoogleFonts.pacifico(textStyle: TextStyle(fontSize: 24)) ),
+                    ),
+                    isForwardAnimation?Container():
+                    RaisedButton(
+                          onPressed:() {
+                              animationcontroller.forward();
+                            
+                            },
+                          color: Colors.green,
+                          padding: const EdgeInsets.symmetric(horizontal: 65),
+                          elevation: 2,
+                          child: const Text(
+                            "COMENZAR",
+                            style: TextStyle(
+                                fontSize: 15,
+                                letterSpacing: 2.2,
+                                color: Colors.white),
+                          ),
+                        ),
 
                   const SizedBox(height: 45.0,),
 
-                   Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child:  Text('Selecciona tu urbanizacion!',
-                      textAlign: TextAlign.center,
-                      
-                      style: GoogleFonts.comfortaa(textStyle: TextStyle(fontSize: 25), ) ),
+                   AnimatedBuilder(
+                    animation: animationcontroller,
+                    builder: (context, child) => FadeScaleTransition(
+                      animation: animationcontroller,
+                      child: child,
                     ),
+                     child: Visibility(
+                      visible: animationcontroller.status != AnimationStatus.dismissed,
+                       child: Column(
+                         children: [
+                           Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                              child:  Text('Selecciona tu urbanizacion!',
+                              textAlign: TextAlign.center,
                               
-                    const SizedBox(height: 10.0,),   
-
-                    StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance.collection("Urbanizaciones").snapshots(),
-                builder: (context, snapshot){
-                  if (!snapshot.hasData)
-                    return const Text("Loading.....");
-                  else {
-                    List<DropdownMenuItem> currencyItems = [];
-                    for (int i = 0; i < snapshot.data!.docs.length; i++) {
-                      DocumentSnapshot snap = snapshot.data!.docs[i];
-                      currencyItems.add(
-                        DropdownMenuItem(
-                          child: Text(
-                            snap.id,
-                            style: TextStyle(color: Color(0xff11b719)),
-                          ),
-                          value: "${snap.id}",
-                        ),
-                      );
-                    }
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(Icons.add_location_alt_outlined,
-                            size: 25.0, color: Color(0xff11b719)),
-                        SizedBox(width: 25.0),
-                        DropdownButton<dynamic>(
-                          items: currencyItems,
-                          onChanged: (urbValue) {
-                            /*final snackBar = SnackBar(
-                              content: Text(
-                                'La Urbanizacion seleccionada es:  $UrbValue',
-                                style: TextStyle(color: Color(0xff11b719)),
+                              style: GoogleFonts.comfortaa(textStyle: TextStyle(fontSize: 20), ) ),
+                            ),
+                                      
+                            const SizedBox(height: 10.0,),   
+                     
+                            StreamBuilder<QuerySnapshot>(
+                              stream: FirebaseFirestore.instance.collection("Urbanizaciones").snapshots(),
+                              builder: (context, snapshot){
+                                if (!snapshot.hasData)
+                                      return const Text("Loading.....");
+                                else {
+                                      List<DropdownMenuItem> currencyItems = [];
+                                      for (int i = 0; i < snapshot.data!.docs.length; i++) {
+                                        DocumentSnapshot snap = snapshot.data!.docs[i];
+                                        currencyItems.add(
+                                          DropdownMenuItem(
+                                            child: Text(
+                                              snap.id,
+                                              style: TextStyle(color: Color(0xff11b719)),
+                                            ),
+                                            value: "${snap.id}",
+                                          ),
+                                        );
+                                      }
+                            return Align(
+                              alignment: Alignment.center,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.add_location_alt_outlined,
+                                      size: 25.0, color: Color(0xff11b719)),
+                                  SizedBox(width: 20,),
+                                  Container(
+                                    width: 250,
+                                    child: DropdownButton<dynamic>(
+                                      items: currencyItems,
+                                      onChanged: (urbValue) {
+                                        /*final snackBar = SnackBar(
+                                          content: Text(
+                                            'La Urbanizacion seleccionada es:  $UrbValue',
+                                            style: TextStyle(color: Color(0xff11b719)),
+                                          ),
+                                        );
+                                        Scaffold.of(context).showSnackBar(snackBar);*/
+                                        setState(() {
+                                          selectedUrbanizacion = urbValue;
+                                          print(selectedUrbanizacion);
+                                          selectedFamilia = null;
+                                          animationcontroller2.forward();
+                                            
+                                          animationcontroller3.reverse();
+                                        });
+                                      },
+                                      value: selectedUrbanizacion,
+                                      isExpanded: true,
+                                      hint: const Text(
+                                        "Selecciona tu urbanizacion",
+                                        style: TextStyle(color: Color(0xff11b719)),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             );
-                            Scaffold.of(context).showSnackBar(snackBar);*/
-                            setState(() {
-                              selectedUrbanizacion = urbValue;
-                              print(selectedUrbanizacion);
-                              selectedFamilia = null;
-                            });
-                          },
-                          value: selectedUrbanizacion,
-                          isExpanded: false,
-                          hint: const Text(
-                            "Selecciona tu urbanizacion",
-                            style: TextStyle(color: Color(0xff11b719)),
-                          ),
-                        ),
-                      ],
-                    );
-                  }
-                }),
+                                       }
+                                     }),
+                         ],
+                       ),
+                     ),
+                   ),
 
             selectedUrbanizacion!=null?
-              Column(
-                children: [
-
-                  SizedBox(height: 10,),
-                   Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                      child:  Text('Selecciona la familia a la que quieres ingresar!',
-                      textAlign: TextAlign.center,
-                      
-                      style: GoogleFonts.comfortaa(textStyle: TextStyle(fontSize: 25),) ),
-                    ),
-
-                  SizedBox(height: 10,),
-
-                  StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance.collection("Urbanizaciones").doc(selectedUrbanizacion).collection("Familias").snapshots(),
-                builder: (context, snapshot2){
-                  if (!snapshot2.hasData)
-                    return const Text("Loading.....");
-                  else {
-                    List<DropdownMenuItem> FamilyItems = [];
-                    for (int i = 0; i < snapshot2.data!.docs.length; i++) {
-                      DocumentSnapshot snap2 = snapshot2.data!.docs[i];
-                      FamilyItems.add(
-                        DropdownMenuItem(
-                          child: Text(
-                            snap2.id,
-                            style: TextStyle(color: Color(0xff11b719)),
-                          ),
-                          value: "${snap2.id}",
-                        ),
-                      );
-                    }
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(Icons.family_restroom,
-                            size: 25.0, color: Color(0xff11b719)),
-                        SizedBox(width: 25.0),
-                        DropdownButton<dynamic>(
+              AnimatedBuilder(
+                animation: animationcontroller2,
+                builder: (context, child)=> FadeScaleTransition(
+                  animation: animationcontroller2,
+                  child: child,),
+                child: Visibility(
+                  visible: animationcontroller2.status != AnimationStatus.dismissed,
+                  child: Column(
+                    children: [
+                
+                      SizedBox(height: 10,),
+                       Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                          child:  Text('Selecciona la familia a la que quieres ingresar!',
+                          textAlign: TextAlign.center,
                           
-                          items: selectedUrbanizacion=="No tengo urbanizacion"? FamilyItems:null,
-                          onChanged: (famValue) {
-                            /*final snackBar = SnackBar(
-                              content: Text(
-                                'La Urbanizacion seleccionada es:  $UrbValue',
+                          style: GoogleFonts.comfortaa(textStyle: TextStyle(fontSize: 20),) ),
+                        ),
+                
+                      SizedBox(height: 10,),
+                
+                      StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance.collection("Urbanizaciones").doc(selectedUrbanizacion).collection("Familias").snapshots(),
+                    builder: (context, snapshot2){
+                      if (!snapshot2.hasData)
+                        return const Text("Loading.....");
+                      else {
+                        List<DropdownMenuItem> FamilyItems = [];
+                        for (int i = 0; i < snapshot2.data!.docs.length; i++) {
+                          DocumentSnapshot snap2 = snapshot2.data!.docs[i];
+                          FamilyItems.add(
+                            DropdownMenuItem(
+                              child: Text(
+                                snap2.id,
                                 style: TextStyle(color: Color(0xff11b719)),
                               ),
-                            );
-                            Scaffold.of(context).showSnackBar(snackBar);*/
-                            setState(() {
-                              selectedFamilia = famValue;
-                              print(selectedFamilia);
-                            });
-                          },
-                          value: selectedFamilia,
-                          isExpanded: false,
-                          hint: const Text(
-                            "Selecciona tu Familia",
-                            style: TextStyle(color: Color(0xff11b719)),
-                          ),
-                        ),
-                      ],
-                    );
-                  }
-                }),
-
-                    SizedBox(height: 10,),
-                          Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 35.0),
-                                child: TextFormField(
-                                  validator: validategeneral,
-                                  controller: _familiacontroller,
-                                  decoration: InputDecoration(
-                                    errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.redAccent, width: 3)),
-                                    focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.greenAccent, width: 3)),
-                                    prefixIcon: Icon(Icons.groups_rounded, color: Colors.black54,),
-                                    enabledBorder: outlineInputBorder_enabled,
-                                    focusedBorder: OutlineInputBorder_focused,
-                                    contentPadding: EdgeInsets.fromLTRB(20, 18, 20, 15),
-                                    labelText: 'Nombre de Familia',
-                                    labelStyle: labelstyle1,
-                    
-                                  ),
-                                  onChanged: (value){
-                    
+                              value: "${snap2.id}",
+                            ),
+                          );
+                        }
+                        return Align(
+                          alignment: Alignment.center,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(Icons.family_restroom,
+                                  size: 25.0, color: Color(0xff11b719)),
+                              SizedBox(width: 25.0),
+                              Container(
+                                width: 240,
+                                child: DropdownButton<dynamic>(
+                                  
+                                  items: FamilyItems,
+                                  onChanged: (famValue) {
+                                    /*final snackBar = SnackBar(
+                                      content: Text(
+                                        'La Urbanizacion seleccionada es:  $UrbValue',
+                                        style: TextStyle(color: Color(0xff11b719)),
+                                      ),
+                                    );
+                                    Scaffold.of(context).showSnackBar(snackBar);*/
+                                    setState(() {
+                                      selectedFamilia = famValue;
+                                      print(selectedFamilia);
+                                      
+                                    animationcontroller3.forward();
+                                    });
                                   },
+                                  value: selectedFamilia,
+                                  isExpanded: true,
+                                  hint: const Text(
+                                    "Selecciona tu Familia",
+                                    style: TextStyle(color: Color(0xff11b719)),
+                                  ),
                                 ),
                               ),
-                        ],
-                      ):Container(),
-                      const SizedBox(height: 15.0,),
-            
-                      Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 35.0),
-                            child: TextFormField(
-                              validator: validategeneral,
-                              controller: _arbolcontroller,
-                              decoration: InputDecoration(
-                                errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.redAccent, width: 3)),
-                                focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.greenAccent, width: 3)),
-                                prefixIcon: Icon(Icons.person_add, color: Colors.black54,),
-                                enabledBorder: outlineInputBorder_enabled,
-                                focusedBorder: OutlineInputBorder_focused,
-                                contentPadding: EdgeInsets.fromLTRB(20, 18, 20, 15),
-                                labelText: 'Miembro de Familia',
-                                labelStyle: labelstyle1,
-                    
-                              ),
-                              onChanged: (value){
-                    
-                              },
-                            ),
+                            ],
                           ),
-            
-                      const SizedBox(height: 25.0,),
-                      Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    RaisedButton(
-                      onPressed: () {
-                        createData(context);
-                      },
-                      color: Colors.green,
-                      padding: const EdgeInsets.symmetric(horizontal: 40),
-                      elevation: 2,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      child: const Text(
-                        "GUARDAR",
-                        style: TextStyle(
-                            fontSize: 15,
-                            letterSpacing: 2.2,
-                            color: Colors.white),
+                        );
+                      }
+                    }),
+                
+                             /*   Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                          child:  Text('O registra a tu familia aqui',
+                          textAlign: TextAlign.center,
+                          
+                          style: GoogleFonts.comfortaa(textStyle: TextStyle(fontSize: 25),) ),
+                        ),
+                
+                        SizedBox(height: 10,),
+                              Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 35.0),
+                                    child: TextFormField(
+                                      validator: validategeneral,
+                                      controller: _familiacontroller,
+                                      decoration: InputDecoration(
+                                        errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.redAccent, width: 3)),
+                                        focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.greenAccent, width: 3)),
+                                        prefixIcon: Icon(Icons.groups_rounded, color: Colors.black54,),
+                                        enabledBorder: outlineInputBorder_enabled,
+                                        focusedBorder: OutlineInputBorder_focused,
+                                        contentPadding: EdgeInsets.fromLTRB(20, 18, 20, 15),
+                                        labelText: 'Nombre de Familia',
+                                        labelStyle: labelstyle1,
+                        
+                                      ),
+                                      onChanged: (value){
+                        
+                                      },
+                                    ),
+                                  ),*/
+                            ],
+                          ),
+                ),
+              ):Container(),
+                      const SizedBox(height: 15.0,),
+
+                      
+                  AnimatedBuilder(
+                    animation: animationcontroller3,
+                    builder: (context, child) => FadeScaleTransition(
+                      animation: animationcontroller3,
+                      child: child,
+                    ),
+                    child: Visibility(
+                      visible: animationcontroller3.status != AnimationStatus.dismissed,
+                      child: Column(
+                        children: [
+                    
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                                child:  Text('Dinos que familiar eres!',
+                                textAlign: TextAlign.center,
+                                
+                                style: GoogleFonts.comfortaa(textStyle: TextStyle(fontSize: 28),) ),
+                              ),
+                    
+                              SizedBox(height: 10,),
+                    
+                              Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 28.0),
+                                      child: TextFormField(
+                                        validator: validatefamilia,
+                                        controller: _arbolcontroller,
+                                        decoration: InputDecoration(
+                                          errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.redAccent, width: 3)),
+                                          focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.greenAccent, width: 3)),
+                                          prefixIcon: Icon(Icons.person_add, color: Colors.black54,),
+                                          enabledBorder: outlineInputBorder_enabled,
+                                          focusedBorder: OutlineInputBorder_focused,
+                                          contentPadding: EdgeInsets.fromLTRB(20, 10, 20, 15),
+                                          labelText: 'Miembro de Familia',
+                                          labelStyle: labelstyle1,
+                              
+                                        ),
+                                        onChanged: (value){
+                              
+                                        },
+                                      ),
+                                    ),
+                      
+                                const SizedBox(height: 25.0,),
+                                Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              RaisedButton(
+                                onPressed: () {
+                                  createData(context);
+                                },
+                                color: Colors.green,
+                                padding: const EdgeInsets.symmetric(horizontal: 40),
+                                elevation: 2,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20)),
+                                child: const Text(
+                                  "ADOPTAME!",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      letterSpacing: 2.2,
+                                      color: Colors.white),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-                
-                SizedBox(height: 40.0),
+                  ),
             
+                SizedBox(height: 20.0),
                      /* Padding(
                       padding:EdgeInsets.only(top: 20),
                       child: IconButton(

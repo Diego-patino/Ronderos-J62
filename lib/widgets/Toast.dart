@@ -48,3 +48,27 @@ void edicioncuentatoast() => Fluttertoast.showToast(
   fontSize: 15
   
 );
+
+void confirmarUrbToast() => Fluttertoast.showToast(
+  msg: "Sigue los pasos e ingresa tu urbanizacion",
+  
+  toastLength: Toast.LENGTH_SHORT,
+  gravity: ToastGravity.BOTTOM,
+  timeInSecForIosWeb: 2,
+  backgroundColor: Colors.green,
+  textColor: Colors.white,
+  fontSize: 15
+  
+);
+
+void confirmarFamiliaToast() => Fluttertoast.showToast(
+  msg: "Sigue los pasos e ingresa tu Familia",
+  
+  toastLength: Toast.LENGTH_SHORT,
+  gravity: ToastGravity.BOTTOM,
+  timeInSecForIosWeb: 2,
+  backgroundColor: Colors.green,
+  textColor: Colors.white,
+  fontSize: 15
+  
+);

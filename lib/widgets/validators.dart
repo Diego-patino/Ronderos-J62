@@ -88,3 +88,19 @@ String? validategeneral(String? generalform){
 
   return null;
 }
+
+String? validatefamilia(String? familiaform){
+  if(familiaform == null || familiaform.isEmpty)
+  return 'Porfavor llena el recuadro.';
+
+  String pattern = 
+    r'^(?!.*?[!@#\$&*~])(?=.*?[a-z])(?!.*?[0-9])';  //Tiene que NO tener => (simbolos)(numeros)
+    // Para simbolos es => ... (?=.*?[!@#\$&*~]) ...
+    // Para Mayusculas es => ... (?=.*?[A-Z]) ...
+    RegExp regex = RegExp(pattern);
+    if (!regex.hasMatch(familiaform))
+    return """    Ingresa correctamente la familia: 
+    Mayuscula al inicio y solo letras""";
+
+  return null;
+}
