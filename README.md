@@ -3,7 +3,7 @@
 Aqui en Ronderos nos encargamos de ofrecer un app de facil control sobre las familias y los miembros registrados (tanto manuales como automaticos) vinculado con la base de datos de Firebase, mas a futuro ofreceremos:
 
     - Una alerta de robos; para mantener al tanto a todos los miembros de las vulnerabilidades que puedan ocurrirle a alguno de ellos.
-    - Un mapa vinculado con Google Maps para ubicar correspondientemente a los miembros tanto de la familia como del barrio.
+    -̵U̵n̵ ̵m̵a̵p̵a̵ ̵v̵i̵n̵c̵u̵l̵a̵d̵o̵ ̵c̵o̵n̵ ̵G̵o̵o̵g̵l̵e̵ ̵M̵a̵p̵s̵ ̵p̵a̵r̵a̵ ̵u̵b̵i̵c̵a̵r̵  ̵c̵o̵r̵r̵e̵s̵p̵o̵n̵d̵i̵e̵n̵t̵e̵m̵e̵n̵t̵e̵ ̵a̵ ̵l̵o̵s̵ ̵m̵i̵e̵m̵b̵r̵o̵s̵ ̵t̵a̵n̵t̵o̵ ̵d̵e̵ ̵l̵a̵ ̵f̵a̵m̵i̵l̵i̵a̵ ̵c̵o̵m̵o̵ ̵d̵e̵l̵ ̵b̵a̵r̵r̵i̵o̵.
     - Un chat que facilite la comunicacion entre los miembros.
 
 ## PRUEBAS FUNCIONALES DEL APLICATIVO RONDEROS
@@ -106,15 +106,15 @@ Finalmente, si deseas borrar tu cuenta de una vez por todas podras hacerlo desde
   
 ## FUNCIONALIDAD EXTRA
 
-**Agregar como admin:**
-Si eres el lider de tu familia, podras agregar miembros nuevos; para ello te ofrecemos una cuenta de lider de la familia Ronderos para que la uses.
-  - Logeate con el correo: Pablo@gmail.com, contraseña: Pablo123.
-  - Ingresa a la pagina de Familia.
-  - Ingresa el nombre, apellido y Arbol(miembro de familia) del nuevo integrante;
-  - Si has llenado todos los recuadros correctamente, presiona el boton crear.
-  - Comprueba si se creó un nuevo usuario y buscalo dentro de los integrantes.
-  
-  (El boton crea un nuevo usuario dentro de la base de datos, esto es para aquellos integrantes que no cuenten con un celular).
+ ̶*̶*̶A̶g̶r̶e̶g̶a̶r̶ ̶c̶o̶m̶o̶ ̶a̶d̶m̶i̶n̶:̶*̶*̶
+̶S̶i̶ ̶e̶r̶e̶s̶ ̶e̶l̶ ̶l̶i̶d̶e̶r̶ ̶d̶e̶ ̶t̶u̶ ̶f̶a̶m̶i̶l̶i̶a̶,̶ ̶p̶o̶d̶r̶a̶s̶ ̶a̶g̶r̶e̶g̶a̶r̶ ̶m̶i̶e̶m̶b̶r̶o̶s̶ ̶n̶u̶e̶v̶o̶s̶;̶ ̶p̶a̶r̶a̶ ̶e̶l̶l̶o̶ ̶t̶e̶ ̶o̶f̶r̶e̶c̶e̶m̶o̶s̶ ̶u̶n̶a̶ ̶c̶u̶e̶n̶t̶a̶ ̶d̶e̶ ̶l̶i̶d̶e̶r̶ ̶d̶e̶ ̶l̶a̶ ̶f̶a̶m̶i̶l̶i̶a̶ ̶R̶o̶n̶d̶e̶r̶o̶s̶ ̶p̶a̶r̶a̶ ̶q̶u̶e̶ ̶l̶a̶ ̶u̶s̶e̶s̶.̶
+̶ ̶ ̶-̶ ̶L̶o̶g̶e̶a̶t̶e̶ ̶c̶o̶n̶ ̶e̶l̶ ̶c̶o̶r̶r̶e̶o̶:̶ ̶P̶a̶b̶l̶o̶@̶g̶m̶a̶i̶l̶.̶c̶o̶m̶,̶ ̶c̶o̶n̶t̶r̶a̶s̶e̶ñ̶a̶:̶ ̶P̶a̶b̶l̶o̶1̶2̶3̶.̶
+̶ ̶ ̶-̶ ̶I̶n̶g̶r̶e̶s̶a̶ ̶a̶ ̶l̶a̶ ̶p̶a̶g̶i̶n̶a̶ ̶d̶e̶ ̶F̶a̶m̶i̶l̶i̶a̶.̶
+̶ ̶ ̶-̶ ̶I̶n̶g̶r̶e̶s̶a̶ ̶e̶l̶ ̶n̶o̶m̶b̶r̶e̶,̶ ̶a̶p̶e̶l̶l̶i̶d̶o̶ ̶y̶ ̶A̶r̶b̶o̶l̶(̶m̶i̶e̶m̶b̶r̶o̶ ̶d̶e̶ ̶f̶a̶m̶i̶l̶i̶a̶)̶ ̶d̶e̶l̶ ̶n̶u̶e̶v̶o̶ ̶i̶n̶t̶e̶g̶r̶a̶n̶t̶e̶;̶
+̶ ̶ ̶-̶ ̶S̶i̶ ̶h̶a̶s̶ ̶l̶l̶e̶n̶a̶d̶o̶ ̶t̶o̶d̶o̶s̶ ̶l̶o̶s̶ ̶r̶e̶c̶u̶a̶d̶r̶o̶s̶ ̶c̶o̶r̶r̶e̶c̶t̶a̶m̶e̶n̶t̶e̶,̶ ̶p̶r̶e̶s̶i̶o̶n̶a̶ ̶e̶l̶ ̶b̶o̶t̶o̶n̶ ̶c̶r̶e̶a̶r̶.̶
+̶ ̶ ̶-̶ ̶C̶o̶m̶p̶r̶u̶e̶b̶a̶ ̶s̶i̶ ̶s̶e̶ ̶c̶r̶e̶ó̶ ̶u̶n̶ ̶n̶u̶e̶v̶o̶ ̶u̶s̶u̶a̶r̶i̶o̶ ̶y̶ ̶b̶u̶s̶c̶a̶l̶o̶ ̶d̶e̶n̶t̶r̶o̶ ̶d̶e̶ ̶l̶o̶s̶ ̶i̶n̶t̶e̶g̶r̶a̶n̶t̶e̶s̶.̶
+̶ ̶ ̶
+̶ ̶ ̶(̶E̶l̶ ̶b̶o̶t̶o̶n̶ ̶c̶r̶e̶a̶ ̶u̶n̶ ̶n̶u̶e̶v̶o̶ ̶u̶s̶u̶a̶r̶i̶o̶ ̶d̶e̶n̶t̶r̶o̶ ̶d̶e̶ ̶l̶a̶ ̶b̶a̶s̶e̶ ̶d̶e̶ ̶d̶a̶t̶o̶s̶,̶ ̶e̶s̶t̶o̶ ̶e̶s̶ ̶p̶a̶r̶a̶ ̶a̶q̶u̶e̶l̶l̶o̶s̶ ̶i̶n̶t̶e̶g̶r̶a̶n̶t̶e̶s̶ ̶q̶u̶e̶ ̶n̶o̶ ̶c̶u̶e̶n̶t̶e̶n̶ ̶c̶o̶n̶ ̶u̶n̶ ̶c̶e̶l̶u̶l̶a̶r̶)̶.̶
   
 
  
