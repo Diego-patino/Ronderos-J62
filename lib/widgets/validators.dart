@@ -35,7 +35,7 @@ String? validatenombre(String? nombreform){
   return 'Porfavor coloque su nombre';
 
   String pattern = 
-    r'^(?=.*?[a-zA-Z0-9&%=]+$)(?!.*?[0-9])';  //Tiene que NO tener => (simbolos)(numeros)
+    r'^[a-zA-Z]+$';  //Tiene que NO tener => (simbolos)(numeros)
     // Para simbolos es => ... (?=.*?[!@#\$&*~]) ...
     // Para Mayusculas es => ... (?=.*?[A-Z]) ...
     RegExp regex = RegExp(pattern);
@@ -50,7 +50,7 @@ String? validateapellido(String? apellidoform){
   return 'Porfavor coloque su Apellido';
 
    String pattern = 
-    r'^(?=.*?[a-zA-Z0-9&%=]+$)(?!.*?[0-9])';  //Tiene que NO tener => (simbolos)(numeros)
+    r'^[a-zA-Z]+$';  //Tiene que NO tener => (simbolos)(numeros)
     // Para simbolos es => ... (?=.*?[!@#\$&*~]) ...
     // Para Mayusculas es => ... (?=.*?[A-Z]) ...
     RegExp regex = RegExp(pattern);
@@ -72,7 +72,7 @@ String? validatearbol(String? arbolform){
   return 'Porfavor ingrese que tipo de familiar es.';
 
     String pattern = 
-    r'^(?!.*?[!@#\$&*~])(?=.*?[a-z])(?!.*?[0-9])';  //Tiene que NO tener => (simbolos)(numeros)
+    r'^[a-zA-Z]+$';  //Tiene que NO tener => (simbolos)(numeros)
     // Para simbolos es => ... (?=.*?[!@#\$&*~]) ...
     // Para Mayusculas es => ... (?=.*?[A-Z]) ...
     RegExp regex = RegExp(pattern);
@@ -94,7 +94,8 @@ String? validatefamilia(String? familiaform){
   return 'Porfavor llena el recuadro.';
 
   String pattern = 
-    r'^(?!.*?[!@#\$&*~])(?=.*?[a-z])(?!.*?[0-9])';  //Tiene que NO tener => (simbolos)(numeros)
+  
+    r'^[a-zA-Z]+$';  //Tiene que NO tener => (simbolos)(numeros)
     // Para simbolos es => ... (?=.*?[!@#\$&*~]) ...
     // Para Mayusculas es => ... (?=.*?[A-Z]) ...
     RegExp regex = RegExp(pattern);

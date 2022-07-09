@@ -277,8 +277,8 @@ class _Unirse_familiaState extends State<Unirse_familia> with TickerProviderStat
                           shadows:[
                             BoxShadow(
                               offset: Offset(0.0, 0.0),
-                              color: Colors.purpleAccent,
-                              blurRadius: 10,
+                              color: Colors.deepPurple,
+                              blurRadius: 8,
                             ),
                           ],
                           shape: StadiumBorder(),
@@ -391,6 +391,7 @@ class _Unirse_familiaState extends State<Unirse_familia> with TickerProviderStat
                                   Container(
                                     width: 250,
                                     child: DropdownButton<dynamic>(
+                                      menuMaxHeight: 300,
                                       items: currencyItems,
                                       onChanged: (urbValue) {
                                         /*final snackBar = SnackBar(
@@ -479,7 +480,7 @@ class _Unirse_familiaState extends State<Unirse_familia> with TickerProviderStat
                               Container(
                                 width: 240,
                                 child: DropdownButton<dynamic>(
-                                  
+                                  menuMaxHeight: 200,
                                   items: FamilyItems,
                                   onChanged: (famValue) {
                                     /*final snackBar = SnackBar(

@@ -32,7 +32,7 @@ class _RegistrarFamiliaState extends State<RegistrarFamilia> {
   var selectedFamilia, selectedType2;
   late GoogleMapController mycontroller;
   final Completer<GoogleMapController> controller2 = Completer();
-  Map<MarkerId, Marker> markers1 = <MarkerId, Marker>{};
+  Map<MarkerId, Marker> markers1 = <MarkerId,  Marker>{};
   late LatLng finallocation;
   static const LatLng sourcelocation = LatLng(-12.093607080095207, -77.00150082033403);
   String dropdownvalue = "";
@@ -244,12 +244,19 @@ class _RegistrarFamiliaState extends State<RegistrarFamilia> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(Icons.add_location_alt_outlined,
-                                        size: 25.0, color: Color(0xff11b719)),
-                                    SizedBox(width: 20,),
                                     Container(
-                                      width: 190,
+                                      width: 230,
                                       child: DropdownButtonFormField<dynamic>(
+                                        menuMaxHeight: 300,
+                                        iconSize: 0,
+                                        decoration: InputDecoration(
+                                          errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.redAccent, width: 3)),
+                                          focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.greenAccent, width: 3)),
+                                          prefixIcon: Icon(Icons.location_on_outlined, color: Colors.black54,),
+                                          enabledBorder: outlineInputBorder_enabled,
+                                          focusedBorder: OutlineInputBorder_focused,
+                                          contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 3),
+                                        ),
                                         items: currencyItems,
                                         onChanged: (urbValue) {
                                           /*final snackBar = SnackBar(
@@ -266,10 +273,10 @@ class _RegistrarFamiliaState extends State<RegistrarFamilia> {
                                           });
                                         },
                                         value: selectedUrbanizacion,
-                                        isExpanded: true,
+                                        isExpanded: false,
                                         hint: const Text(
-                                          "Selecciona tu urbanizacion",
-                                          style: TextStyle(color: Color(0xff11b719), fontSize: 12),
+                                          "Urbanizacion",
+                                          style: TextStyle(color: Colors.black45, fontSize: 18),
                                         ),
                                         validator: (value){
                                           if (selectedUrbanizacion==null) 
@@ -281,58 +288,62 @@ class _RegistrarFamiliaState extends State<RegistrarFamilia> {
                                   ],
                                 ),
                               );
-                                         }
-                                       }),
-                const SizedBox(height: 10,),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                  child: TextFormField(
-                  validator: validatefamilia,
-                  controller: _familiacontroller,
-                  decoration: InputDecoration(
-                    errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.redAccent, width: 3)),
-                    focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.greenAccent, width: 3)),
-                    prefixIcon: Icon(Icons.family_restroom, color: Colors.black54,),
-                    enabledBorder: outlineInputBorder_enabled,
-                    focusedBorder: OutlineInputBorder_focused,
-                    contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 3),
-                    labelText: 'Familia',
-                    labelStyle: labelstyle1,
-                                
-                  ),
-                  onChanged: (value){
-                                
-                   },
-                  ),
-                )
+                            }
+                          }),
+                        const SizedBox(height: 10,),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                          child: TextFormField(
+                            style: TextStyle(
+                              color: Colors.green
+                            ),
+                            validator: validatefamilia,
+                            controller: _familiacontroller,
+                            decoration: InputDecoration(
+                              
+                              errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.redAccent, width: 3)),
+                              focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.greenAccent, width: 3)),
+                              prefixIcon: Icon(Icons.family_restroom, color: Colors.black54,),
+                              enabledBorder: outlineInputBorder_enabled,
+                              focusedBorder: OutlineInputBorder_focused,
+                              contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 3),
+                              labelText: 'Familia',
+                              labelStyle: labelstyle1,
+                                          
+                                  ),
+                                onChanged: (value){
+                                              
+                                },
+                              ),
+                            )
                           
                           ],
                         ),
                         actions: <Widget>[
                           Align(
-                alignment: Alignment.center,
-                child: Wrap(
-                  spacing: 70,
-                  children: [
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.green
-                      ),
-                      onPressed: (){
-                        setState(() {
-                          getMarkerData();
-                        });
-                      },
-                      child: Text(
-                        'Busca a mi urbanizacion!',
-                        style: GoogleFonts.poppins(textStyle: TextStyle(
-                          color: Colors.white
-                        ),) 
-                      )),
-                  
-                  ],
-                ),
-                          )
+                          alignment: Alignment.center,
+                          child: Wrap(
+                            spacing: 70,
+                            children: [
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.green
+                                ),
+                                onPressed: (){
+                                  setState(() {
+                                    getMarkerData();
+                                  });
+                                },
+                                child: Text(
+                                  'Busca a mi urbanizacion!',
+                                  style: GoogleFonts.poppins(textStyle: TextStyle(
+                                    color: Colors.white
+                                  ),) 
+                                )),
+                            
+                            ],
+                          ),
+                                    )
                         ],
                       ),
               );
