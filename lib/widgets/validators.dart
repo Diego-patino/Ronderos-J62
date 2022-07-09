@@ -5,7 +5,7 @@ String? validateEmail(String? Correoform){
   if (Correoform == null || Correoform.isEmpty) 
     return 'Porfavor ingrese un correo';
 
-  String pattern = r'\w+@\w+\.\w+';
+  String pattern = r'^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$';
   RegExp regex = RegExp(pattern);
   if (!regex.hasMatch(Correoform)) return 'Porfavor ingrese un formato de correo valido';
 
@@ -18,14 +18,14 @@ String? validatecontra(String? contraform){
   return 'Porfavor ingrese una contraseña';
 
   String pattern = 
-    r'^(?=.*?[a-z])(?=.*?[0-9]).{6,}$';  //Tiene que tener =>(Minuscula)(Numero).{6 digitos}
+    r'^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*._-]).{8,}$';  //Tiene que tener =>(Minuscula)(Numero).{6 digitos}
     // Para simbolos es => ... (?=.*?[!@#\$&*~]) ...
     // Para Mayusculas es => ... (?=.*?[A-Z]) ...
     RegExp regex = RegExp(pattern);
     if (!regex.hasMatch(contraform))
     return '''
     La contraseña tiene que tener por lo menos:
-    6 digitos incluyendo un letras y números''';
+    8 digitos incluyendo letras, números y un simbolo''';
     
   return null;
 }
@@ -35,12 +35,20 @@ String? validatenombre(String? nombreform){
   return 'Porfavor coloque su nombre';
 
   String pattern = 
-    r'^[a-zA-Z]+$';  //Tiene que NO tener => (simbolos)(numeros)
+    r'^[a-zA-Z\s]+$';  //Tiene que NO tener => (simbolos)(numeros)
     // Para simbolos es => ... (?=.*?[!@#\$&*~]) ...
     // Para Mayusculas es => ... (?=.*?[A-Z]) ...
     RegExp regex = RegExp(pattern);
     if (!regex.hasMatch(nombreform))
-    return 'Ingresar solo letras sin espacio en el nombre';
+    return 'Ingresar solo letras en el nombre';
+
+    String pattern2 = 
+    r'^[a-zA-Z\s]{0,20}$';  //Tiene que NO tener => (simbolos)(numeros)
+    // Para simbolos es => ... (?=.*?[!@#\$&*~]) ...
+    // Para Mayusculas es => ... (?=.*?[A-Z]) ...
+    RegExp regex2 = RegExp(pattern2);
+    if (!regex2.hasMatch(nombreform))
+    return 'Tratemos de poner un nombre mas corto!';
 
   return null;
 }
@@ -50,12 +58,21 @@ String? validateapellido(String? apellidoform){
   return 'Porfavor coloque su Apellido';
 
    String pattern = 
-    r'^[a-zA-Z]+$';  //Tiene que NO tener => (simbolos)(numeros)
+    r'^[a-zA-Z\s]+$';  //Tiene que NO tener => (simbolos)(numeros)
     // Para simbolos es => ... (?=.*?[!@#\$&*~]) ...
     // Para Mayusculas es => ... (?=.*?[A-Z]) ...
     RegExp regex = RegExp(pattern);
     if (!regex.hasMatch(apellidoform))
-    return 'Ingresar solo letras sin espacio en el apellido';
+    return 'Ingresar solo letras en el apellido';
+
+     String pattern2 = 
+    r'^[a-zA-Z\s]{0,20}$';  //Tiene que NO tener => (simbolos)(numeros)
+    // Para simbolos es => ... (?=.*?[!@#\$&*~]) ...
+    // Para Mayusculas es => ... (?=.*?[A-Z]) ...
+    RegExp regex2 = RegExp(pattern2);
+    if (!regex2.hasMatch(apellidoform))
+    return '''Tratemos de poner un apellido mas corto 
+    o solo tu primer apellido!''';
 
   return null;
 }

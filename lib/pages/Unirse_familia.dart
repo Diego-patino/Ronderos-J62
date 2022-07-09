@@ -201,7 +201,6 @@ class _Unirse_familiaState extends State<Unirse_familia> with TickerProviderStat
                   
         .then((value) => print("User Updated"))
         .catchError((error) => print("Failed to update user: $error"));
-          print('Nueva contra: ${Usuario_logeado.contrasena}');
 
      } catch (e) {
        print(e);

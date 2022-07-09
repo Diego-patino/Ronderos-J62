@@ -31,7 +31,6 @@ class _ConfirmarBorrarCuentaState extends State<ConfirmarBorrarCuenta> {
             .get()
             .then((value) {
           this.Usuario_logeado = UserModel.fromMap(value.data());
-          print('aaaaaaaaaaaaaaaaaaaaaa: ${Usuario_logeado.contrasena}');
           setState(() {});
           
         });
@@ -41,11 +40,10 @@ class _ConfirmarBorrarCuentaState extends State<ConfirmarBorrarCuenta> {
             .collection("Familias")
             .doc("${Usuario_logeado.familia}")
             .collection("Miembros")
-            .doc('${Usuario_logeado.nombre}_${Usuario_logeado.apellido}_${Usuario_logeado.uid}')
+            .doc(Usuario_logeado.uid)
             .get()
             .then((value) {
           this.familiamodel = Familiamodel.fromMap(value.data());
-          print('aaaaaaaaaaaaaaaaaaaaaa: ${familiamodel.arbol}');
           setState(() {});
 
         
@@ -66,8 +64,6 @@ class _ConfirmarBorrarCuentaState extends State<ConfirmarBorrarCuenta> {
     }
 
   Future BorrarCuentaConfirmar() async{
-    print(_passwordcontroller.text);
-    print(Usuario_logeado.contrasena);
     final password = Usuario_logeado.contrasena;
     if (_formKey.currentState!.validate()) {
       if (_passwordcontroller.text == password) {
@@ -157,7 +153,7 @@ Future _BorrarCuentaFirestore() async{
     documentReference
         .delete()
         .then((value) => print("Usuario eliminado"))
-        .catchError((error) => print("Failed to delete student: $error"));
+        .catchError((error) => print("Failed : $error"));
 
         _BorrarCuentaFamilia();
     } catch (e) {
@@ -180,7 +176,7 @@ Future _BorrarCuentaFamilia() async{
         .then((value) => print("Familiar eliminado"))
         .catchError((error) => print("Failed to delete: $error"));
     } catch (e) {
-        final snackBar = SnackBar(content: Text("aaaaaaaaaa"));
+        final snackBar = SnackBar(content: Text("ERROR"));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       
       

@@ -304,7 +304,7 @@ Future _Scroll123(BuildContext context) async{
             .collection("Familias")
             .doc("${Usuario_logeado.familia}")
             .collection("Miembros")
-            .doc('${Usuario_logeado.nombre}_${Usuario_logeado.apellido}_${Usuario_logeado.uid}')
+            .doc(Usuario_logeado.uid)
             .get()
             .then((value) {
           this.familiamodel = Familiamodel.fromMap(value.data());
@@ -428,6 +428,9 @@ Future _Scroll123(BuildContext context) async{
                                   icon:Icon(Icons.edit))
                               ),
                             ): TextFormField(
+                              inputFormatters: [
+                                new LengthLimitingTextInputFormatter(22),
+                              ],
                               controller: _nombrecontroller,
                               validator: validatenombre,
                               autofocus: true,

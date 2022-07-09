@@ -103,19 +103,19 @@ Future<void> main() async {
 
         Future _backgroundHandler(RemoteMessage message) async {
           print('onBackground Handler ${message.messageId}');
-          print("HTREGEGF: ${message.data}");
+          print("DATA: ${message.data}");
           _messageStream.add(message.data['Ronderos'] ?? 'No data');
         }
 
         Future _onMessageHandler(RemoteMessage message) async {
           // print( 'onMessage Handler ${ message.messageId }');
-          print("HTREGEGF: ${message.data}");
+          print("DATA: ${message.data}");
           _messageStream.add(message.data['Ronderos'] ?? 'No data');
         }
 
         Future _onMessageOpenApp(RemoteMessage message) async {
           // print( 'onMessageOpenApp Handler ${ message.messageId }');
-          print("HTREGEGF: ${message.data}");
+          print("DATA: ${message.data}");
           _messageStream.add(message.data['Ronderos'] ?? 'No data');
         }
 
@@ -137,7 +137,7 @@ Future<void> main() async {
         routeToGo = '/second';
         navigatorKey.currentState?.pushNamed('/second');
         print(routeToGo);
-        print('GAAAAAAAA $payload');
+        print('PAYLOAD $payload');
       }
 
       await flutterLocalNotificationsPlugin.initialize(initializationSettings,
@@ -282,7 +282,7 @@ Future _GetToken() async {
 
     print("El token es: ${fcmtoken}");
   } catch (e) {
-    print("AAAAAAAAAAAAAAAAAAAAAAAAAAAA: ${e}");
+    print("ERROR ${e}");
   }
 
   } 

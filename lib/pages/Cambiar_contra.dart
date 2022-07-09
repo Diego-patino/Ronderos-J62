@@ -28,7 +28,6 @@ class _CambiarcontraState extends State<Cambiarcontra> {
             .get()
             .then((value) {
           this.Usuario_logeado = UserModel.fromMap(value.data());
-          print(Usuario_logeado.contrasena);
           setState(() {});
         });
       }
@@ -134,7 +133,6 @@ class _CambiarcontraState extends State<Cambiarcontra> {
               .signInWithEmailAndPassword(email: user.email!, password: Usuario_logeado.contrasena!)
               .then((userCredential) {
                   userCredential.user!.updatePassword(newpassword);
-                  print(Usuario_logeado.contrasena);
                   print('dale papi todo good');
               });
 
@@ -169,7 +167,6 @@ class _CambiarcontraState extends State<Cambiarcontra> {
                   
                   .then((value) => print("User Updated"))
                   .catchError((error) => print("Failed to update user: $error"));
-                  print('Nueva contra: ${Usuario_logeado.contrasena}');
 
               final snackBar = SnackBar(content: Text("Se cambio la contraseña, porfavor vuelva a logearse"));
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -186,7 +183,7 @@ class _CambiarcontraState extends State<Cambiarcontra> {
               final snackBar = SnackBar(content: Text(error.message!));
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
               
-      } print(Usuario_logeado.contrasena);
+      }
  }
 
     bool passwordConfirmed(){

@@ -36,7 +36,6 @@ class _SalirseFamiliaState extends State<SalirseFamilia> {
             .get()
             .then((value) {
           this.Usuario_logeado = UserModel.fromMap(value.data());
-          print('aaaaaaaaaaaaaaaaaaaaaa: ${Usuario_logeado.contrasena}');
           setState(() {});
           
         });
@@ -46,11 +45,11 @@ class _SalirseFamiliaState extends State<SalirseFamilia> {
             .collection("Familias")
             .doc("${Usuario_logeado.familia}")
             .collection("Miembros")
-            .doc('${Usuario_logeado.nombre}_${Usuario_logeado.apellido}_${Usuario_logeado.uid}')
+            .doc(Usuario_logeado.uid)
             .get()
             .then((value) {
           this.familiamodel = Familiamodel.fromMap(value.data());
-          print('aaaaaaaaaaaaaaaaaaaaaa: ${familiamodel.arbol}');
+          print('MIEMBRO: ${familiamodel.arbol}');
           setState(() {});
 
         

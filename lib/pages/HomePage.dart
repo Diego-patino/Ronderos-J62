@@ -86,7 +86,7 @@ class _HomePageState extends State<HomePage> {
             .collection("Familias")
             .doc(Usuario_logeado.familia!)
             .collection("Miembros")
-            .doc("${Usuario_logeado.nombre}_${Usuario_logeado.apellido}_${Usuario_logeado.uid}")
+            .doc(Usuario_logeado.uid)
             .get()
             .then((value) async{
           this.familiamodel = Familiamodel.fromMap(value.data());
@@ -109,7 +109,7 @@ class _HomePageState extends State<HomePage> {
                   })
                   
                   .then((value) => print("Se cambio el Token en el UsuariosApp"))
-                  .catchError((error) => print("Failed to update user: $error"));
+                  .catchError((error) => print("Failed: $error"));
             } catch (e) {
               print(e);
             }
@@ -123,7 +123,7 @@ class _HomePageState extends State<HomePage> {
                   })
                   
                   .then((value) => print("Se cambio el Token en la familia/Miembros"))
-                  .catchError((error) => print("Failed to update user: $error"));
+                  .catchError((error) => print("Failed : $error"));
             } catch (e) {
               print(e);
             }

@@ -130,7 +130,6 @@ class _SignInPageState extends State<SignInPage> {
             .then((uid) => {
                   Navigator.of(context).pushReplacement(
                       MaterialPageRoute(builder: (context) => HomePage123())),
-                      print(Usuario_logeado.contrasena),
                 });
       } on FirebaseAuthException catch (e){
         print(e);

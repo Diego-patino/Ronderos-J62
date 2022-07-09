@@ -280,6 +280,12 @@ class _RegisterPageState extends State<RegisterPage> {
                         padding: const EdgeInsets.symmetric(horizontal: 35.0),
                         child: TextFormField(
                           cursorColor: Colors.green,
+                          toolbarOptions: ToolbarOptions(
+                            copy: false,
+                            cut: false,
+                            paste: false,
+                            selectAll: true,
+                            ),
                           obscureText: _secureText1,
                           validator: validatecontra,
                           controller: _passwordcontroller,
@@ -317,6 +323,12 @@ class _RegisterPageState extends State<RegisterPage> {
                         padding: const EdgeInsets.symmetric(horizontal: 35.0),
                         child: TextFormField(
                           cursorColor: Colors.green,
+                          toolbarOptions: ToolbarOptions(
+                            copy: false,
+                            cut: false,
+                            paste: false,
+                            selectAll: true,
+                            ),
                           obscureText: _secureText2,
                           validator: validatecontra,
                           controller: _confirmpasswordcontroller,
