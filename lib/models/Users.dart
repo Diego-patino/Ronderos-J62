@@ -10,7 +10,7 @@ class UserModel {
   String? familia;
   String? phonekey;
   String? urbanizacion;
-  FieldValue? creadoEn;
+  DateTime? creadoEn;
   
 
   UserModel({this.uid, this.nombre, this.apellido, this.correo, this.foto, this.contrasena, this.familia, this.phonekey, this.creadoEn, this.urbanizacion});
@@ -27,7 +27,7 @@ class UserModel {
       familia: map['familia'],
       phonekey: map['phonekey'],
       urbanizacion: map['urbanizacion'],
-      creadoEn: map[Timestamp],
+      creadoEn: (map['creadoEn'] as Timestamp).toDate(),
     );
   }
 

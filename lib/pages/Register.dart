@@ -123,7 +123,7 @@ class _RegisterPageState extends State<RegisterPage> {
     userModel.familia = '';
     userModel.phonekey = fcmtoken;
     userModel.urbanizacion = '';
-    userModel.creadoEn = FieldValue.serverTimestamp();
+    userModel.creadoEn = DateTime.now();
 
     await firebaseFirestore
         .collection("UsuariosApp")

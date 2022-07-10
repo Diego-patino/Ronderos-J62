@@ -266,7 +266,7 @@ class _Unirse_familiaState extends State<Unirse_familia> with TickerProviderStat
                       child:  Text('Registra a tu familia aqui',
                       textAlign: TextAlign.center,
                       
-                      style: GoogleFonts.akayaTelivigala(textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),) ),
+                      style: GoogleFonts.akayaTelivigala(textStyle: TextStyle(fontSize: 20,),) ),
                     ),
                     const SizedBox(height: 5.0,),
                     
@@ -470,41 +470,47 @@ class _Unirse_familiaState extends State<Unirse_familia> with TickerProviderStat
                         }
                         return Align(
                           alignment: Alignment.center,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Icon(Icons.family_restroom,
-                                  size: 25.0, color: Color(0xff11b719)),
-                              SizedBox(width: 25.0),
-                              Container(
-                                width: 240,
-                                child: DropdownButton<dynamic>(
-                                  menuMaxHeight: 200,
-                                  items: FamilyItems,
-                                  onChanged: (famValue) {
-                                    /*final snackBar = SnackBar(
-                                      content: Text(
-                                        'La Urbanizacion seleccionada es:  $UrbValue',
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 9),
+                            child: Container(
+                            width: MediaQuery.of(context).size.width,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Icon(Icons.family_restroom,
+                                      size: 25.0, color: Color(0xff11b719)),
+                                  SizedBox(width: 25.0),
+                                  Container(
+                                    width: 240,
+                                    child: DropdownButton<dynamic>(
+                                      menuMaxHeight: 200,
+                                      items: FamilyItems,
+                                      onChanged: (famValue) {
+                                        /*final snackBar = SnackBar(
+                                          content: Text(
+                                            'La Urbanizacion seleccionada es:  $UrbValue',
+                                            style: TextStyle(color: Color(0xff11b719)),
+                                          ),
+                                        );
+                                        Scaffold.of(context).showSnackBar(snackBar);*/
+                                        setState(() {
+                                          selectedFamilia = famValue;
+                                          print(selectedFamilia);
+                                          
+                                        animationcontroller3.forward();
+                                        });
+                                      },
+                                      value: selectedFamilia,
+                                      isExpanded: true,
+                                      hint: const Text(
+                                        "Selecciona tu Familia",
                                         style: TextStyle(color: Color(0xff11b719)),
                                       ),
-                                    );
-                                    Scaffold.of(context).showSnackBar(snackBar);*/
-                                    setState(() {
-                                      selectedFamilia = famValue;
-                                      print(selectedFamilia);
-                                      
-                                    animationcontroller3.forward();
-                                    });
-                                  },
-                                  value: selectedFamilia,
-                                  isExpanded: true,
-                                  hint: const Text(
-                                    "Selecciona tu Familia",
-                                    style: TextStyle(color: Color(0xff11b719)),
+                                    ),
                                   ),
-                                ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
                         );
                       }

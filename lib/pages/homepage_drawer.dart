@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -182,10 +183,16 @@ class _MainDrawerState extends State<MainDrawer> {
                             ),
                              Container(
                               alignment: Alignment.center,
-                               child: Text(
-                                "${Usuario_logeado.nombre}",
-                                  style: GoogleFonts.lato(textStyle: style1
-                                )),
+                               child: Padding(
+                                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                 child: AutoSizeText(
+                                  "${Usuario_logeado.nombre}",
+                                    style: GoogleFonts.lato(textStyle: style1
+                                  ),
+                                  maxLines: 1,
+                                  maxFontSize: 30,
+                                  minFontSize: 20,),
+                               ),
                              ),
                           ],
                         )),
@@ -207,10 +214,16 @@ class _MainDrawerState extends State<MainDrawer> {
                             ),
                              Container(
                               alignment: Alignment.center,
-                               child: Text(
-                                "${Usuario_logeado.apellido}",
-                                  style: GoogleFonts.lato(textStyle: style1
-                                )),
+                               child: Padding(
+                                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                 child: AutoSizeText(
+                                  "${Usuario_logeado.apellido}",
+                                    style: GoogleFonts.lato(textStyle: style1
+                                  ),
+                                  maxLines: 1,
+                                  maxFontSize: 30,
+                                  minFontSize: 20,),
+                               ),
                              ),
                           ],
                         )),
@@ -233,11 +246,17 @@ class _MainDrawerState extends State<MainDrawer> {
                             ),
                              Container(
                               alignment: Alignment.center,
-                               child: Text(
-                                "Familia ${Usuario_logeado.familia}",
-                                  style: GoogleFonts.lato(textStyle: 
-                                    TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
-                                )),
+                               child: Padding(
+                                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                 child: AutoSizeText(
+                                  "Familia ${Usuario_logeado.familia}",
+                                  maxLines: 1,
+                                  maxFontSize: 30,
+                                  minFontSize: 25,
+                                    style: GoogleFonts.lato(textStyle: 
+                                      TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
+                                  )),
+                               ),
                              ),
                           ],
                         )),

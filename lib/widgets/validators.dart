@@ -50,6 +50,14 @@ String? validatenombre(String? nombreform){
     if (!regex2.hasMatch(nombreform))
     return 'Tratemos de poner un nombre mas corto!';
 
+    String pattern3 = 
+    r'^[a-zA-Z\s]{3,20}$';  //Tiene que NO tener => (simbolos)(numeros)
+    // Para simbolos es => ... (?=.*?[!@#\$&*~]) ...
+    // Para Mayusculas es => ... (?=.*?[A-Z]) ...
+    RegExp regex3 = RegExp(pattern3);
+    if (!regex3.hasMatch(nombreform))
+    return '¿Seguro que has introducido bien tu nombre?';
+
   return null;
 }
 
@@ -73,6 +81,14 @@ String? validateapellido(String? apellidoform){
     if (!regex2.hasMatch(apellidoform))
     return '''Tratemos de poner un apellido mas corto 
     o solo tu primer apellido!''';
+
+    String pattern3 = 
+    r'^[a-zA-Z\s]{3,20}$';  //Tiene que NO tener => (simbolos)(numeros)
+    // Para simbolos es => ... (?=.*?[!@#\$&*~]) ...
+    // Para Mayusculas es => ... (?=.*?[A-Z]) ...
+    RegExp regex3 = RegExp(pattern3);
+    if (!regex3.hasMatch(apellidoform))
+    return '¿Seguro que has introducido bien tu apellido?';
 
   return null;
 }

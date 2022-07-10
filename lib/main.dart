@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
+import 'package:ronderos/clases/Gelocation_service.dart';
 import 'package:ronderos/clases/auth_service.dart';
 import 'package:ronderos/pages/Alerta.dart';
 import 'package:ronderos/pages/AuthWrapper.dart';
@@ -230,6 +231,9 @@ class _MyHomePageState extends State<MyHomePage> {
         arguments: MessageArguments(message, true),
       );
     });*/
+
+    determinePosition();
+
     _GetToken();
     
   }
