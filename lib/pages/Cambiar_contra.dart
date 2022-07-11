@@ -128,7 +128,7 @@ class _CambiarcontraState extends State<Cambiarcontra> {
     Future Cambiarcontrasena_FirebaseAuth() async{
 
     final newpassword = _newpasswordcontroller.text;
-    try {
+          try {
               FirebaseAuth.instance
               .signInWithEmailAndPassword(email: user.email!, password: Usuario_logeado.contrasena!)
               .then((userCredential) {
@@ -167,9 +167,7 @@ class _CambiarcontraState extends State<Cambiarcontra> {
                   
                   .then((value) => print("User Updated"))
                   .catchError((error) => print("Failed to update user: $error"));
-
-              final snackBar = SnackBar(content: Text("Se cambio la contraseña, porfavor vuelva a logearse"));
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  
                   await FirebaseAuth.instance.signOut();
                     Navigator.pushAndRemoveUntil(
                       context,   

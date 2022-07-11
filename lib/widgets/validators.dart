@@ -18,14 +18,13 @@ String? validatecontra(String? contraform){
   return 'Porfavor ingrese una contraseña';
 
   String pattern = 
-    r'^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*._-]).{8,}$';  //Tiene que tener =>(Minuscula)(Numero).{6 digitos}
+    r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{6,30}$';  //Tiene que tener =>(Minuscula)(Numero).{6 digitos}
     // Para simbolos es => ... (?=.*?[!@#\$&*~]) ...
     // Para Mayusculas es => ... (?=.*?[A-Z]) ...
-    RegExp regex = RegExp(pattern);
+    RegExp regex = RegExp(pattern, unicode: true);
     if (!regex.hasMatch(contraform))
-    return '''
-    La contraseña tiene que tener por lo menos:
-    8 digitos incluyendo letras, números y un simbolo''';
+    return '''La contraseña tiene que tener 6 digitos incluyendo:
+letras mayusculas y números''';
     
   return null;
 }
@@ -35,7 +34,7 @@ String? validatenombre(String? nombreform){
   return 'Porfavor coloque su nombre';
 
   String pattern = 
-    r'^[a-zA-Z\s]+$';  //Tiene que NO tener => (simbolos)(numeros)
+    r'^[a-zA-ZÑñ\s]+$';  //Tiene que NO tener => (simbolos)(numeros)
     // Para simbolos es => ... (?=.*?[!@#\$&*~]) ...
     // Para Mayusculas es => ... (?=.*?[A-Z]) ...
     RegExp regex = RegExp(pattern);
@@ -43,7 +42,7 @@ String? validatenombre(String? nombreform){
     return 'Ingresar solo letras en el nombre';
 
     String pattern2 = 
-    r'^[a-zA-Z\s]{0,20}$';  //Tiene que NO tener => (simbolos)(numeros)
+    r'^[a-zA-ZÑñ\s]{0,20}$';  //Tiene que NO tener => (simbolos)(numeros)
     // Para simbolos es => ... (?=.*?[!@#\$&*~]) ...
     // Para Mayusculas es => ... (?=.*?[A-Z]) ...
     RegExp regex2 = RegExp(pattern2);
@@ -51,7 +50,7 @@ String? validatenombre(String? nombreform){
     return 'Tratemos de poner un nombre mas corto!';
 
     String pattern3 = 
-    r'^[a-zA-Z\s]{3,20}$';  //Tiene que NO tener => (simbolos)(numeros)
+    r'^[a-zA-ZÑñ\s]{3,20}$';  //Tiene que NO tener => (simbolos)(numeros)
     // Para simbolos es => ... (?=.*?[!@#\$&*~]) ...
     // Para Mayusculas es => ... (?=.*?[A-Z]) ...
     RegExp regex3 = RegExp(pattern3);
@@ -66,7 +65,7 @@ String? validateapellido(String? apellidoform){
   return 'Porfavor coloque su Apellido';
 
    String pattern = 
-    r'^[a-zA-Z\s]+$';  //Tiene que NO tener => (simbolos)(numeros)
+    r'^[a-zA-ZÑñ\s]+$';  //Tiene que NO tener => (simbolos)(numeros)
     // Para simbolos es => ... (?=.*?[!@#\$&*~]) ...
     // Para Mayusculas es => ... (?=.*?[A-Z]) ...
     RegExp regex = RegExp(pattern);
@@ -74,7 +73,7 @@ String? validateapellido(String? apellidoform){
     return 'Ingresar solo letras en el apellido';
 
      String pattern2 = 
-    r'^[a-zA-Z\s]{0,20}$';  //Tiene que NO tener => (simbolos)(numeros)
+    r'^[a-zA-ZÑñ\s]{0,20}$';  //Tiene que NO tener => (simbolos)(numeros)
     // Para simbolos es => ... (?=.*?[!@#\$&*~]) ...
     // Para Mayusculas es => ... (?=.*?[A-Z]) ...
     RegExp regex2 = RegExp(pattern2);
@@ -83,7 +82,7 @@ String? validateapellido(String? apellidoform){
     o solo tu primer apellido!''';
 
     String pattern3 = 
-    r'^[a-zA-Z\s]{3,20}$';  //Tiene que NO tener => (simbolos)(numeros)
+    r'^[a-zA-ZÑñ\s]{3,20}$';  //Tiene que NO tener => (simbolos)(numeros)
     // Para simbolos es => ... (?=.*?[!@#\$&*~]) ...
     // Para Mayusculas es => ... (?=.*?[A-Z]) ...
     RegExp regex3 = RegExp(pattern3);
@@ -105,7 +104,7 @@ String? validatearbol(String? arbolform){
   return 'Porfavor ingrese que tipo de familiar es.';
 
     String pattern = 
-    r'^[a-zA-Z]+$';  //Tiene que NO tener => (simbolos)(numeros)
+    r'^[a-zA-ZÑñ]+$';  //Tiene que NO tener => (simbolos)(numeros)
     // Para simbolos es => ... (?=.*?[!@#\$&*~]) ...
     // Para Mayusculas es => ... (?=.*?[A-Z]) ...
     RegExp regex = RegExp(pattern);
@@ -128,7 +127,7 @@ String? validatefamilia(String? familiaform){
 
   String pattern = 
   
-    r'^[a-zA-Z]+$';  //Tiene que NO tener => (simbolos)(numeros)
+    r'^[a-zA-ZÑñ]+$';  //Tiene que NO tener => (simbolos)(numeros)
     // Para simbolos es => ... (?=.*?[!@#\$&*~]) ...
     // Para Mayusculas es => ... (?=.*?[A-Z]) ...
     RegExp regex = RegExp(pattern);

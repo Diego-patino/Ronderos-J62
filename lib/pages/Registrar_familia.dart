@@ -206,6 +206,8 @@ class _RegistrarFamiliaState extends State<RegistrarFamilia> {
     });
     
     if (_formKey.currentState!.validate()) {
+      
+      getfamiliaposition();
       FirebaseFirestore.instance.collection("Urbanizaciones").doc(selectedUrbanizacion).collection("Familias").get().then((mymockDoc){
         if (mymockDoc.docs.isNotEmpty) {
           print("Comenzamos");
@@ -235,7 +237,7 @@ class _RegistrarFamiliaState extends State<RegistrarFamilia> {
           visible = false;
           mycontroller.animateCamera( 
             CameraUpdate.newCameraPosition(
-            CameraPosition(target: LatLng(ubiFamilia.localization!.latitude, ubiFamilia.localization!.longitude), zoom: 17) 
+            CameraPosition(target: LatLng(ubiFamilia.localization!.latitude, ubiFamilia.localization!.longitude), zoom: 18) 
               //17 is new zoom level
             )
           );
@@ -390,7 +392,6 @@ class _RegistrarFamiliaState extends State<RegistrarFamilia> {
                                     ),
                                     onPressed: (){
                                       setState(() {
-                                        getfamiliaposition();
                                         getMarkerData();
                                       });
                                     },

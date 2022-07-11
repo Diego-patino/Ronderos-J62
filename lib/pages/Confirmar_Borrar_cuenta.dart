@@ -128,9 +128,14 @@ class _ConfirmarBorrarCuentaState extends State<ConfirmarBorrarCuenta> {
           FirebaseAuth.instance.signOut();
             Navigator.pushAndRemoveUntil(
               context,   
-              MaterialPageRoute(builder: (BuildContext context) => MyHomePage(title: "",)), 
+              MaterialPageRoute(builder: (BuildContext context) => SignInPage()), 
               ModalRoute.withName('/')
+              
             );
+
+            
+
+            borrarcuentatoast();
         } );
       });
 
@@ -140,15 +145,13 @@ class _ConfirmarBorrarCuentaState extends State<ConfirmarBorrarCuenta> {
       print(e);
     }
 
-      borrarcuentatoast();
-
   }
 
 Future _BorrarCuentaFirestore() async{
   try {
       
     DocumentReference documentReference =
-        FirebaseFirestore.instance.collection("UsuariosApp").doc('${Usuario_logeado.uid}');
+        FirebaseFirestore.instance.collection("UsuariosApp").doc(Usuario_logeado.uid);
 
     documentReference
         .delete()
@@ -169,7 +172,7 @@ Future _BorrarCuentaFamilia() async{
   try {
       
     DocumentReference documentReference =
-        FirebaseFirestore.instance .collection("Urbanizaciones").doc(Usuario_logeado.urbanizacion).collection("Familias").doc("${Usuario_logeado.familia}").collection("Miembros").doc(Usuario_logeado.uid);
+        FirebaseFirestore.instance .collection("Urbanizaciones").doc(Usuario_logeado.urbanizacion).collection("Familias").doc(Usuario_logeado.familia).collection("Miembros").doc(Usuario_logeado.uid);
 
     documentReference
         .delete()

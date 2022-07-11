@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -318,8 +319,12 @@ class _SalirseFamiliaState extends State<SalirseFamilia> {
                                       ),
                                       Container(
                                         alignment: Alignment.center,
-                                        child: Text(
+                                        width: MediaQuery.of(context).size.width*0.6,
+                                        child: AutoSizeText(
                                           "${documentSnapshot["nombre"]} ${documentSnapshot["apellido"]}",
+                                          maxFontSize: 20,
+                                          minFontSize: 10,
+                                          maxLines: 1,
                                             style: GoogleFonts.lato(textStyle: TextStyle(fontSize: 20, color: Colors.white),
                                           )),
                                       ),

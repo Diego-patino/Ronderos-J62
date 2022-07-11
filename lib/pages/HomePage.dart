@@ -219,6 +219,7 @@ class _HomePageState extends State<HomePage> {
     bottomNavigationBar:  Padding(
       padding: const EdgeInsets.all(12.0),
       child: GNav(
+        mainAxisAlignment: MainAxisAlignment.center,
         hoverColor: Colors.black12,
         gap: 8,
         curve: Curves.ease,

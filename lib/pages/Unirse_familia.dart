@@ -266,18 +266,19 @@ class _Unirse_familiaState extends State<Unirse_familia> with TickerProviderStat
                       child:  Text('Registra a tu familia aqui',
                       textAlign: TextAlign.center,
                       
-                      style: GoogleFonts.akayaTelivigala(textStyle: TextStyle(fontSize: 20,),) ),
+                      style: GoogleFonts.comfortaa(textStyle: TextStyle(fontSize: 18,),) ),
                     ),
                     const SizedBox(height: 5.0,),
                     
                       Container(
                           height: 40,
+                          width: MediaQuery.of(context).size.width*0.6,
                         decoration: const ShapeDecoration(
                           shadows:[
                             BoxShadow(
                               offset: Offset(0.0, 0.0),
                               color: Colors.deepPurple,
-                              blurRadius: 8,
+                              blurRadius: 5,
                             ),
                           ],
                           shape: StadiumBorder(),
@@ -321,22 +322,25 @@ class _Unirse_familiaState extends State<Unirse_familia> with TickerProviderStat
                       style: GoogleFonts.pacifico(textStyle: TextStyle(fontSize: 24)) ),
                     ),
                     isForwardAnimation?Container():
-                    RaisedButton(
-                          onPressed:() {
-                              animationcontroller.forward();
-                            
-                            },
-                          color: Colors.green,
-                          padding: const EdgeInsets.symmetric(horizontal: 65),
-                          elevation: 2,
-                          child: const Text(
-                            "COMENZAR",
-                            style: TextStyle(
-                                fontSize: 15,
-                                letterSpacing: 2.2,
-                                color: Colors.white),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: RaisedButton(
+                            onPressed:() {
+                                animationcontroller.forward();
+                              
+                              },
+                            color: Colors.green,
+                            padding: const EdgeInsets.symmetric(horizontal: 65),
+                            elevation: 2,
+                            child: const Text(
+                              "COMENZAR",
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  letterSpacing: 2.2,
+                                  color: Colors.white),
+                            ),
                           ),
-                        ),
+                    ),
 
                   const SizedBox(height: 45.0,),
 
