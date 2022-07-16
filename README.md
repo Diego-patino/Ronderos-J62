@@ -1,3 +1,52 @@
+# NUEVAS FUNCIONALIDADES
+
+**Registrarse mas facilmente a familias ya existentes:**
+Ahora podras registrarte a cualquier familia disponible en la nueva opcion de urbanizaciones, para ello tienes que:
+  - Ingresar a la segunda pestaña del HomePage.
+  - Presion en "Aqui"
+  - Dale en comenzar y sigue los pasos;
+  - Selecciona una urbanizacion.
+  - Selecciona una familia ya existente.
+  - Dinos que miembro eres.
+  - Presiona en "ADOPTAME!"
+  
+  (El boton te registrara como nuevo miembro en una de las familias ya existentes sin tener que escribir el nombre de la familia).
+  
+**Vizualisar las otras urbanizaciones:**
+Quieres ver a las otras urbanizaciones? Puedes verla ahora! (Recomendamos para una mejor experiencia seleccionar la urbanizacion Calle 13):
+  - Ingresar a la segunda pestaña del HomePage.
+  - Presion en "Aqui"
+  - Presiona en "Registrar"
+  - Se te abrira el mapa de google y sigue los pasos que te indican.
+  - Presiona en el boton "i" en la parte superior derecha de la pantalla.
+  - Ingresa la urbanizacion que quieras vizualizar (De preferencia Calle 13).
+  - Ingresa el nombre de tu familia.
+  - Presiona en el boton "Busca mi urbanizacion!"
+  
+  (El boton te permitirar vizualisar a todas las familias y te enviara a la ubicacion de la urbanizacion seleccionada).
+
+**Registrar mi familia en una urbanizacion:**
+Quieres registrar a tu familia? Solo sigue los mismos pasos para vizualisar una urbanizacion y sigue desde aqui:
+  . . .
+  - Presiona en el boton "Busca mi urbanizacion!"
+  - Presiona la ubicacion de tu hogar en el mapa.
+  - Presiona el boton de "agregar" en la parte inferior de la pantalla.
+  - Confirma el formulario con el boton "Oh si agregalo!"
+  
+  (El boton te registrara a tu familia en nuestra base de datos para que puedas unirte despues).
+
+ **Expulsar miembros de tu comunidad:**
+Algun miembro que se haya colado? No te preocupes, si eres un usuario Admin en tu familia, podras controlar quien se queda y quien se va:
+  . . .
+  - Ingresa a la pestaña de familias
+  - Presiona en los detalles de tu familiar
+  - Vizualiza el boton rojo y presionalo
+  - Acepta el formulario
+  
+  (El boton eliminiará al miembro y actualizará sus datos tanto en tu familia como en los Usuarios).
+
+
+
 # RONDEROS
 
 Aqui en Ronderos nos encargamos de ofrecer un app de facil control sobre las familias y los miembros registrados (tanto manuales como automaticos) vinculado con la base de datos de Firebase, mas a futuro ofreceremos:
@@ -106,42 +155,3 @@ Finalmente, si deseas borrar tu cuenta de una vez por todas podras hacerlo desde
 ## Cambios realizados en funcionalidades pasadas
 
 **Mejoramos los flitros de los textos que el usuario tenga que ingresar para evitar complicaciones con nuestra base datos.**
-  
-## NUEVAS FUNCIONALIDADES
-
-**Registrarse mas facilmente a familias ya existentes:**
-Ahora podras registrarte a cualquier familia disponible en la nueva opcion de urbanizaciones, para ello tienes que:
-  - Ingresar a la segunda pestaña del HomePage.
-  - Presion en "Aqui"
-  - Dale en comenzar y sigue los pasos;
-  - Selecciona una urbanizacion.
-  - Selecciona una familia ya existente.
-  - Dinos que miembro eres.
-  - Presiona en "ADOPTAME!"
-  
-  (El boton te registrara como nuevo miembro en una de las familias ya existentes sin tener que escribir el nombre de la familia).
-  
-**Vizualisar las otras urbanizaciones:**
-Quieres ver a las otras urbanizaciones? Puedes verla ahora! (Recomendamos para una mejor experiencia seleccionar la urbanizacion Calle 13):
-  - Ingresar a la segunda pestaña del HomePage.
-  - Presion en "Aqui"
-  - Presiona en "Registrar"
-  - Se te abrira el mapa de google y sigue los pasos que te indican.
-  - Presiona en el boton "i" en la parte superior derecha de la pantalla.
-  - Ingresa la urbanizacion que quieras vizualizar (De preferencia Calle 13).
-  - Ingresa el nombre de tu familia.
-  - Presiona en el boton "Busca mi urbanizacion!"
-  
-  (El boton te permitirar vizualisar a todas las familias y te enviara a la ubicacion de la urbanizacion seleccionada).
-
-**Registrar mi familia en una urbanizacion:**
-Quieres registrar a tu familia? Solo sigue los mismos pasos para vizualisar una urbanizacion y sigue desde aqui:
-  . . .
-  - Presiona en el boton "Busca mi urbanizacion!"
-  - Presiona la ubicacion de tu hogar en el mapa.
-  - Presiona el boton de "agregar" en la parte inferior de la pantalla.
-  - Confirma el formulario con el boton "Oh si agregalo!"
-  
-  (El boton te registrara a tu familia en nuestra base de datos para que puedas unirte despues).
-
- 
