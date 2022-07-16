@@ -26,7 +26,7 @@ Quieres ver a las otras urbanizaciones? Puedes verla ahora! (Recomendamos para u
   (El boton te permitirar vizualisar a todas las familias y te enviara a la ubicacion de la urbanizacion seleccionada).
 
 **Registrar mi familia en una urbanizacion:**
-Quieres registrar a tu familia? Solo sigue los mismos pasos para vizualisar una urbanizacion y sigue desde aqui:
+Quieres registrar a tu familia? Solo sigue los mismos pasos para vizualisar una urbanizacion y sigue desde aqui
   . . .
   - Presiona en el boton "Busca mi urbanizacion!"
   - Presiona la ubicacion de tu hogar en el mapa.
@@ -36,7 +36,9 @@ Quieres registrar a tu familia? Solo sigue los mismos pasos para vizualisar una 
   (El boton te registrara a tu familia en nuestra base de datos para que puedas unirte despues).
 
  **Expulsar miembros de tu comunidad:**
-Algun miembro que se haya colado? No te preocupes, si eres un usuario Admin en tu familia, podras controlar quien se queda y quien se va:
+Algun miembro que se haya colado? No te preocupes, si eres un usuario Admin en tu familia, podras controlar quien se queda y quien se va (Para ello te brindamos una cuenta de admin en la familia Sanchez):
+
+  - Logeate con el correo pedrito@gmail.com y la contraseña Pedro123
   . . .
   - Ingresa a la pestaña de familias
   - Presiona en los detalles de tu familiar
