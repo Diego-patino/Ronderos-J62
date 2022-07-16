@@ -10,10 +10,10 @@ import 'package:ronderos/clases/auth_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:ronderos/models/Familia.dart';
+import 'package:ronderos/pages/AvisoAlerta.dart';
 import 'package:ronderos/pages/HomepageScreens/HP_Administrar_familia.dart';
 import 'package:ronderos/pages/HomepageScreens/HP_Mapa.dart';
 import 'package:ronderos/pages/HomepageScreens/HP_chat.dart';
-import 'package:ronderos/pages/HomepageScreens/HP_test.dart';
 import 'package:ronderos/pages/Unirse_familia.dart';
 import 'package:ronderos/pages/homepage_drawer.dart';
 import 'package:ronderos/pages/Edicion_usuario.dart';
@@ -177,16 +177,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: InkWell(
-          onTap: () {
-                       /*  Navigator.push(
-                             context,
-                             MaterialPageRoute(
-                                 builder: (context) =>
-                                  imagenprueba())); */
-                                },
-          splashColor: Colors.black26,
-          child: Text("RONDEROS", style: GoogleFonts.bungeeShade(textStyle: TextStyle(color: Colors.black), fontSize: 26))),
+        title: Text("RONDEROS", style: GoogleFonts.bungeeShade(textStyle: TextStyle(color: Colors.black), fontSize: 26)),
         actions: [
         Builder(
           builder: (context){
@@ -209,9 +200,7 @@ class _HomePageState extends State<HomePage> {
           });
         },
         children: [
-          Bienvenido(),
           Administrar_familia(),
-          ChatRonderos(),
           MapaRonderos(),
         ],
       ),
@@ -235,17 +224,9 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.transparent,
         tabs: [
           GButton(
-            icon: Icons.home,
-            iconColor: Colors.black54,
-            text: "Principal",),
-          GButton(
             icon: Icons.family_restroom_rounded,
             iconColor: Colors.black54,
             text: "Familia",),
-          GButton(
-            icon: Icons.chat_bubble_outline_rounded,
-            iconColor: Colors.black54,
-            text: "Mensajes", ),
           GButton(
             icon: Icons.map_rounded,
             iconColor: Colors.black54,
@@ -253,12 +234,14 @@ class _HomePageState extends State<HomePage> {
         ]),
     ),  
       floatingActionButton: Container(
-        width: 70,
-        height: 70,
+        width: 80,
+        height: 80,
         child: FloatingActionButton(
-          onPressed: (){}, 
-          child: Icon(Icons.local_police, size: 45,),
-            backgroundColor: Colors.green, 
+          onPressed: (){
+             showDialog(context: context, builder: (_)=> AvisoAlerta());
+          }, 
+          child: Icon(Icons.warning_amber_rounded, size: 50,),
+            backgroundColor: Colors.red, 
             elevation: 6, ),
       ),  
     );

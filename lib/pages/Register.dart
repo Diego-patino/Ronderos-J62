@@ -119,7 +119,7 @@ class _RegisterPageState extends State<RegisterPage> {
     userModel.nombre = _nombrecontroller.text;
     userModel.apellido = _apellidocontroller.text;
     userModel.contrasena = _passwordcontroller.text;
-    userModel.foto = 'https://media.discordapp.net/attachments/856312697112756247/986066114364706836/unknown.png';
+    userModel.foto = 'https://media.discordapp.net/attachments/856312697112756247/997728312526905354/unknown.png';
     userModel.familia = '';
     userModel.phonekey = fcmtoken;
     userModel.urbanizacion = '';
@@ -290,7 +290,8 @@ class _RegisterPageState extends State<RegisterPage> {
                           validator: validatecontra,
                           controller: _passwordcontroller,
                           keyboardType: TextInputType.name,
-                          decoration: InputDecoration(suffixIcon: IconButton(
+                          decoration: InputDecoration(
+                            suffixIcon: IconButton(
                                   onPressed: (){
                                     setState(() {
                                       _secureText1 = !_secureText1;
@@ -376,7 +377,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                 
                       ),
-                
+                  
                 
                     ) ,
                 

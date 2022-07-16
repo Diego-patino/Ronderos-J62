@@ -11,9 +11,11 @@ import 'package:ronderos/models/Familia.dart';
 import 'package:ronderos/pages/HomePage.dart';
 import 'package:ronderos/pages/homepage_drawer.dart';
 import 'package:ronderos/pages/Edicion_usuario.dart';
+import 'package:ronderos/widgets/Detallesfamiliar.dart';
 import 'package:ronderos/widgets/Huerfano.dart';
 import 'package:ronderos/widgets/validators.dart';
 import 'dart:ffi';
+import 'package:intl/intl.dart';
 
 import '../../models/Users.dart';
 
@@ -78,45 +80,45 @@ class _Administrar_familiaState extends State<Administrar_familia> {
   }
 
   
-  Future _createData() async {
-    print("Comenzando");
-        print(_nombrecontroller.text);
-        print(_apellidocontroller.text);
+  // Future _createData() async {
+  //   print("Comenzando");
+  //       print(_nombrecontroller.text);
+  //       print(_apellidocontroller.text);
 
-    if (_formKey.currentState!.validate()) {
-      try {
-        FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+  //   if (_formKey.currentState!.validate()) {
+  //     try {
+  //       FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
-    print(familiamodel.admin);
-        // writing all the values
-          familiamodel.nombre = _nombrecontroller.text;
-          familiamodel.apellido = _apellidocontroller.text;
-          familiamodel.arbol = _arbolcontroller.text;
-          familiamodel.familia = Usuario_logeado.familia;
-          familiamodel.foto = 'https://media.discordapp.net/attachments/856312697112756247/986066114364706836/unknown.png';
-          familiamodel.uid = "";
-          familiamodel.admin = false;
-          await firebaseFirestore
-              .collection('${Usuario_logeado.familia}')
-              .doc("${_nombrecontroller.text} ${_apellidocontroller.text}")
-              .set(familiamodel.toMap());
+  //   print(familiamodel.admin);
+  //       // writing all the values
+  //         familiamodel.nombre = _nombrecontroller.text;
+  //         familiamodel.apellido = _apellidocontroller.text;
+  //         familiamodel.arbol = _arbolcontroller.text;
+  //         familiamodel.familia = Usuario_logeado.familia;
+  //         familiamodel.foto = 'https://media.discordapp.net/attachments/856312697112756247/986066114364706836/unknown.png';
+  //         familiamodel.uid = "";
+  //         familiamodel.admin = false;
+  //         await firebaseFirestore
+  //             .collection('${Usuario_logeado.familia}')
+  //             .doc("${_nombrecontroller.text} ${_apellidocontroller.text}")
+  //             .set(familiamodel.toMap());
             
-          final snackBar = SnackBar(content: Text("Familiar agregado"));
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  //         final snackBar = SnackBar(content: Text("Familiar agregado"));
+  //         ScaffoldMessenger.of(context).showSnackBar(snackBar);
           
-        } catch (e) {
-            print(e);
-            final snackBar = SnackBar(content: Text("Llena toda la informacion del familiar que quieres agregar"));
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          }
-    } else {
-      final snackBar = SnackBar(content: Text("Llena toda la informacion del familiar que quieres agregar"));
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  //       } catch (e) {
+  //           print(e);
+  //           final snackBar = SnackBar(content: Text("Llena toda la informacion del familiar que quieres agregar"));
+  //           ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  //         }
+  //   } else {
+  //     final snackBar = SnackBar(content: Text("Llena toda la informacion del familiar que quieres agregar"));
+  //     ScaffoldMessenger.of(context).showSnackBar(snackBar);
       
-    }
+  //   }
      
         
-  }
+  // }
 
   /*DeleteData() {
     print("Eliminar");
@@ -165,69 +167,69 @@ class _Administrar_familiaState extends State<Administrar_familia> {
                   children: [
                     Text("Familia ${Usuario_logeado.familia}", style: GoogleFonts.kodchasan(textStyle: TextStyle(fontSize: 30, fontWeight: FontWeight.bold))),                    
 
-                    familiamodel.admin == true ?
-                    Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
-                          child: TextFormField(
-                            validator: validatenombre,
-                            controller: _nombrecontroller,
-                            decoration: const InputDecoration(
-                              labelText: "Nombre",
-                              fillColor: Colors.white,
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.blue, width: 2.0),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
-                          child: TextFormField(
-                            validator: validateapellido,
-                            controller: _apellidocontroller,
-                            decoration: const InputDecoration(
-                              labelText: "Apellido",
-                              fillColor: Colors.white,
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.blue, width: 2.0),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
-                          child: TextFormField(
-                            validator: validatearbol,
-                            controller: _arbolcontroller,
-                            decoration: const InputDecoration(
-                              labelText: "Arbol",
-                              fillColor: Colors.white,
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.blue, width: 2.0),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            RaisedButton(
-                              padding: const EdgeInsets.symmetric(horizontal: 60),
-                              onPressed: () {
-                                _createData();
-                              },
-                              child: const Text("Crear", style: 
-                                  TextStyle(color: Colors.white),),
-                                  color: Colors.green,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(16)),
-                            ),
-                          ],
-                        ),
-                      ]
-                    ): SizedBox(height: 0,),
+                    // familiamodel.admin == true ?
+                    // Column(
+                    //   children: [
+                    //     Padding(
+                    //       padding: const EdgeInsets.only(bottom: 8.0),
+                    //       child: TextFormField(
+                    //         validator: validatenombre,
+                    //         controller: _nombrecontroller,
+                    //         decoration: const InputDecoration(
+                    //           labelText: "Nombre",
+                    //           fillColor: Colors.white,
+                    //           focusedBorder: OutlineInputBorder(
+                    //             borderSide: BorderSide(color: Colors.blue, width: 2.0),
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     Padding(
+                    //       padding: const EdgeInsets.only(bottom: 8.0),
+                    //       child: TextFormField(
+                    //         validator: validateapellido,
+                    //         controller: _apellidocontroller,
+                    //         decoration: const InputDecoration(
+                    //           labelText: "Apellido",
+                    //           fillColor: Colors.white,
+                    //           focusedBorder: OutlineInputBorder(
+                    //             borderSide: BorderSide(color: Colors.blue, width: 2.0),
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     Padding(
+                    //       padding: const EdgeInsets.only(bottom: 8.0),
+                    //       child: TextFormField(
+                    //         validator: validatearbol,
+                    //         controller: _arbolcontroller,
+                    //         decoration: const InputDecoration(
+                    //           labelText: "Arbol",
+                    //           fillColor: Colors.white,
+                    //           focusedBorder: OutlineInputBorder(
+                    //             borderSide: BorderSide(color: Colors.blue, width: 2.0),
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     Row(
+                    //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    //       children: [
+                    //         RaisedButton(
+                    //           padding: const EdgeInsets.symmetric(horizontal: 60),
+                    //           onPressed: () {
+                    //             _createData();
+                    //           },
+                    //           child: const Text("Crear", style: 
+                    //               TextStyle(color: Colors.white),),
+                    //               color: Colors.green,
+                    //               shape: RoundedRectangleBorder(
+                    //                   borderRadius: BorderRadius.circular(16)),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ]
+                    // ): SizedBox(height: 0,),
 
                     SingleChildScrollView(
                       physics: BouncingScrollPhysics(),
@@ -251,6 +253,18 @@ class _Administrar_familiaState extends State<Administrar_familia> {
                                             
                                   DocumentSnapshot documentSnapshot =
                                     snapshot.data!.docs[index];
+                                  
+                                  final docID = documentSnapshot.id;
+                                  final nombre = documentSnapshot["nombre"];
+                                  final apellido = documentSnapshot["apellido"];
+                                  final foto = documentSnapshot["foto"];
+                                  final arbol = documentSnapshot["arbol"];
+                                  final urbanizacion = documentSnapshot["urbanizacion"];
+                                  final Timestamp timestamp = documentSnapshot['agregadoEl'] as Timestamp;
+                                  final DateTime dateTime = timestamp.toDate();
+                                  final fecha = DateFormat('d/M/y').format(dateTime);
+                                  final familia = documentSnapshot['familia'];
+
                                     //print(type);
                                   return Column(
                                     children: [
@@ -263,7 +277,18 @@ class _Administrar_familiaState extends State<Administrar_familia> {
                                             horizontal: 4,
                                           ),
                                           child: InkWell(
-                                            onTap: (){},
+                                            onTap: (){
+                                                showDialog(context: context, builder: (_)=> 
+                                                DetallesFamiliar(
+                                                  documentId: docID,
+                                                  agregadoEl: fecha,
+                                                  apellido: apellido,
+                                                  arbol: arbol,
+                                                  foto: foto,
+                                                  nombre: nombre,
+                                                  urbanizacion: urbanizacion,
+                                                  familia: familia,));
+                                            },
                                             child: Stack(
                                               children: [
                                                 Container(
@@ -277,7 +302,7 @@ class _Administrar_familiaState extends State<Administrar_familia> {
                                                       children: [
                                                         SizedBox(height: 4.0,),
                                                         
-                                                        Text("${documentSnapshot["nombre"]} ${documentSnapshot["apellido"]}",
+                                                        Text("$nombre $apellido",
                                                         style: GoogleFonts.poppins(
                                                           textStyle: TextStyle(
                                                             color: Colors.white,
@@ -286,7 +311,7 @@ class _Administrar_familiaState extends State<Administrar_familia> {
                                                           ),
                                                         ),
                                           
-                                                        Text(documentSnapshot["arbol"],
+                                                        Text(arbol,
                                                         style: GoogleFonts.poppins(
                                                           textStyle: TextStyle(
                                                             color: Colors.white, 
@@ -320,7 +345,7 @@ class _Administrar_familiaState extends State<Administrar_familia> {
                                                     child: CircleAvatar(
                                                       radius: 90,
                                                       backgroundImage: NetworkImage(
-                                                          "${documentSnapshot["foto"]}",
+                                                          "$foto",
                                                         ) 
                                                     ),
                                                   ),

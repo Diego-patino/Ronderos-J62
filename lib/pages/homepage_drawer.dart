@@ -111,7 +111,6 @@ class _MainDrawerState extends State<MainDrawer> {
 
     UserModel Usuario_logeado = UserModel();
     Familiamodel familiamodel = Familiamodel();
-    User? user1 = FirebaseAuth.instance.currentUser!;
     final user= FirebaseAuth.instance.currentUser!;
     final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
     final style1 = TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white);

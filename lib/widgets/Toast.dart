@@ -72,3 +72,27 @@ void confirmarFamiliaToast() => Fluttertoast.showToast(
   fontSize: 15
   
 );
+
+void confirmarborrarfamiliar() => Fluttertoast.showToast(
+  msg: "Familiar botado a la calle con exito!",
+  
+  toastLength: Toast.LENGTH_SHORT,
+  gravity: ToastGravity.BOTTOM,
+  timeInSecForIosWeb: 2,
+  backgroundColor: Colors.green,
+  textColor: Colors.white,
+  fontSize: 15
+  
+);
+
+void familiacreadatoast() => Fluttertoast.showToast(
+  msg: "Ahora regresa e ingresa a tu nueva familia!",
+  
+  toastLength: Toast.LENGTH_SHORT,
+  gravity: ToastGravity.BOTTOM,
+  timeInSecForIosWeb: 2,
+  backgroundColor: Colors.green,
+  textColor: Colors.white,
+  fontSize: 15
+  
+);
