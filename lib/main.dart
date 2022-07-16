@@ -12,6 +12,7 @@ import 'package:ronderos/pages/Alerta.dart';
 import 'package:ronderos/pages/AuthWrapper.dart';
 import 'package:ronderos/pages/ErrorRoute.dart';
 import 'package:ronderos/pages/HomePage.dart';
+import 'package:ronderos/pages/ReportarDelito.dart';
 import 'package:ronderos/pages/SignIn.dart';
 import 'package:ronderos/pages/Register.dart';
 
@@ -260,7 +261,7 @@ class _MyHomePageState extends State<MyHomePage> {
           switch (settings.name) {
             case '/second':
               return MaterialPageRoute(
-                builder: (_) => const Alerta(),
+                builder: (_) =>   reportarDelito(),
               );
               break;
             case '/':
